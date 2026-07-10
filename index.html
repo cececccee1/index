@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>自學者的作品集</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/earlyaccess/cwtexkai.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #130f0b;
+      --panel: #1d1710;
+      --panel-light: #2a2116;
+      --border: #4a3b26;
+      --vermilion: #c23b2c;
+      --gold: #c9a15a;
+      --jade: #4a6b58;
+      --text: #f1e9d6;
+      --muted: #a08e6c;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--ink);
+      color: var(--text);
+      font-family: "cwTeXKai", "Noto Sans TC", serif;
+      line-height: 1.7;
+    }
+
+    /* ============ 頂部導覽 ============ */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(19, 15, 11, 0.92);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .logo .seal {
+      width: 28px;
+      height: 28px;
+      background: var(--vermilion);
+      border: 1.5px solid var(--gold);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      transform: rotate(-6deg);
+    }
+    nav {
+      display: flex;
+      gap: 4px;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 15px;
+      padding: 8px 16px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    nav button:hover { color: var(--text); }
+    nav button.active {
+      color: var(--vermilion);
+      border-bottom-color: var(--vermilion);
+      font-weight: 700;
+    }
+
+    /* ============ 分頁內容 ============ */
+    main { max-width: 960px; margin: 0 auto; padding: 56px 24px 80px; }
+    .page { display: none; }
+    .page.active { display: block; animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .eyebrow {
+      color: var(--gold);
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      margin-bottom: 10px;
+    }
+    h1 { font-size: clamp(30px, 5vw, 44px); font-weight: 700; margin-bottom: 16px; }
+    h2 { font-size: 24px; font-weight: 700; margin-bottom: 20px; }
+    p.lead { color: var(--muted); font-size: 16px; max-width: 560px; margin-bottom: 32px; }
+
+    /* 分隔線雲紋裝飾 */
+    .divider { position: relative; height: 1px; background: var(--border); margin: 40px 0; }
+    .divider::after {
+      content: "❖";
+      position: absolute; left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--ink); color: var(--gold);
+      padding: 0 14px; font-size: 13px;
+    }
+
+    /* ============ 首頁 ============ */
+    .hero-seal {
+      width: 84px; height: 84px;
+      background: var(--vermilion);
+      border: 3px solid var(--gold);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      transform: rotate(-4deg);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      margin-bottom: 28px;
+    }
+    .hero-seal span {
+      writing-mode: vertical-rl;
+      font-size: 30px; font-weight: 700; color: var(--text);
+    }
+    .stat-row { display: flex; gap: 32px; flex-wrap: wrap; margin-top: 8px; }
+    .stat-item .num { font-size: 28px; color: var(--vermilion); font-weight: 700; }
+    .stat-item .label { font-size: 13px; color: var(--muted); }
+
+    /* ============ 作品頁：卡片 ============ */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 24px;
+      position: relative;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+    .card:hover { transform: translateY(-4px); border-color: var(--gold); }
+    .card .tape {
+      position: absolute; top: -9px; left: 24px;
+      width: 46px; height: 18px;
+      background: var(--gold); opacity: 0.85;
+      transform: rotate(-3deg); border-radius: 2px;
+    }
+    .card .type-badge {
+      display: inline-block; font-size: 12px; color: var(--gold);
+      border: 1px solid var(--gold); border-radius: 999px;
+      padding: 2px 10px; margin-bottom: 14px;
+    }
+    .card h3 { font-size: 18px; margin-bottom: 6px; }
+    .card .date { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+    .card p { font-size: 14px; color: var(--text); opacity: 0.85; margin-bottom: 16px; }
+    .card a.link-btn {
+      display: inline-block; font-size: 13px; color: var(--vermilion);
+      border: 1px solid var(--vermilion); border-radius: 4px;
+      padding: 6px 14px; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .card a.link-btn:hover { background: rgba(194,59,44,0.15); }
+    .card .no-link { font-size: 13px; color: var(--muted); font-style: italic; }
+
+    /* ============ 關於我頁 ============ */
+    .about-grid { display: flex; gap: 40px; flex-wrap: wrap; }
+    .about-text { flex: 1 1 320px; }
+    .skill-list { flex: 1 1 240px; }
+    .skill-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+    .skill-item .skill-name { color: var(--text); }
+    .skill-item .skill-tag { color: var(--gold); font-size: 12px; }
+
+    /* ============ 聯絡頁 ============ */
+    .contact-list { display: flex; flex-direction: column; gap: 16px; max-width: 420px; }
+    .contact-item {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 4px; padding: 16px 18px;
+    }
+    .contact-item .icon { font-size: 20px; }
+    .contact-item a, .contact-item span.value { color: var(--text); text-decoration: none; font-size: 14px; }
+    .contact-item a:hover { color: var(--vermilion); }
+    .contact-item .contact-label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 2px; }
+
+    footer {
+      text-align: center; padding: 28px 24px; color: var(--muted);
+      font-size: 12px; border-top: 1px solid var(--border);
+    }
+
+    /* ============================================================
+       響應式：平板（≤768px）
+       ============================================================ */
+    @media (max-width: 768px) {
+      main { padding: 40px 20px 64px; }
+      h1 { font-size: 30px; }
+      .card-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+    }
+
+    /* ============================================================
+       響應式：手機（≤640px）
+       ============================================================ */
+    @media (max-width: 640px) {
+      .nav-wrap { flex-direction: column; gap: 10px; padding: 12px 16px; }
+      .logo { font-size: 16px; }
+      nav { gap: 0; width: 100%; justify-content: space-between; }
+      nav button { padding: 6px 8px; font-size: 13px; flex: 1; text-align: center; }
+
+      main { padding: 32px 16px 56px; }
+      h1 { font-size: 24px; line-height: 1.5; }
+      h2 { font-size: 20px; }
+      p.lead { font-size: 14px; }
+
+      .hero-seal { width: 64px; height: 64px; margin-bottom: 20px; }
+      .hero-seal span { font-size: 22px; }
+
+      .stat-row { gap: 20px; }
+      .stat-item .num { font-size: 22px; }
+
+      .card-grid { grid-template-columns: 1fr; gap: 16px; }
+      .card { padding: 20px; }
+
+      .about-grid { flex-direction: column; gap: 24px; }
+
+      .contact-list { max-width: 100%; }
+      .contact-item { padding: 14px; }
+
+      .divider { margin: 28px 0; }
+    }
+
+    /* ============================================================
+       響應式：極小螢幕（≤380px，舊款/小尺寸手機）
+       ============================================================ */
+    @media (max-width: 380px) {
+      .logo { font-size: 14px; }
+      nav button { font-size: 12px; padding: 6px 4px; }
+      h1 { font-size: 21px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-wrap">
+      <div class="logo"><span class="seal">學</span> 自學者的作品集</div>
+      <nav>
+        <button class="nav-btn active" data-page="home">首頁</button>
+        <button class="nav-btn" data-page="work">作品</button>
+        <button class="nav-btn" data-page="about">關於我</button>
+        <button class="nav-btn" data-page="contact">聯絡</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- 首頁 -->
+    <section class="page active" id="home">
+      <div class="hero-seal"><span>自學</span></div>
+      <div class="eyebrow">SELF-TAUGHT · 持續累積</div>
+      <h1>把每一次投入的時間，<br>都變成看得見的成果</h1>
+      <p class="lead">
+        這裡記錄我的自學歷程與練習作品——從資料分析、介面設計到公開表達，
+        一步一步累積出來的東西，歡迎點開「作品」看看。
+      </p>
+      <div class="stat-row">
+        <div class="stat-item"><div class="num">5+</div><div class="label">自學科目</div></div>
+        <div class="stat-item"><div class="num">3</div><div class="label">已完成作品</div></div>
+        <div class="stat-item"><div class="num">持續中</div><div class="label">每週學習紀錄</div></div>
+      </div>
+    </section>
+
+    <!-- 作品 -->
+    <section class="page" id="work">
+      <div class="eyebrow">WORKS</div>
+      <h2>作品集</h2>
+      <div class="card-grid">
+
+        <div class="card">
+          <div class="tape"></div>
+          <span class="type-badge">專案</span>
+          <h3>電商銷售儀表板</h3>
+          <div class="date">2026 · Python / Pandas / Matplotlib</div>
+          <p>分析模擬電商銷售資料，找出營收趨勢、熱銷品類與地區表現，產出圖表與分析摘要。</p>
+          <span class="no-link">連結準備中</span>
+        </div>
+
+        <div class="card">
+          <div class="tape"></div>
+          <span class="type-badge">專案</span>
+          <h3>自學歷程 Dashboard</h3>
+          <div class="date">2026 · Streamlit / Python</div>
+          <p>用來追蹤自己學習進度、日誌反思與作品集的互動式儀表板，古風介面、楷體字型，資料即時彙整。</p>
+          <span class="no-link">部署中，稍後補上連結</span>
+        </div>
+
+        <div class="card">
+          <div class="tape"></div>
+          <span class="type-badge">作品</span>
+          <h3>個人作品集網站原型</h3>
+          <div class="date">2026 · Figma</div>
+          <p>以 Figma 設計的個人作品集網站高保真原型，包含首頁、作品、聯絡頁三個主要頁面。</p>
+          <span class="no-link">連結準備中</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 關於我 -->
+    <section class="page" id="about">
+      <div class="eyebrow">ABOUT</div>
+      <h2>關於我</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p style="margin-bottom: 16px;">
+            我是一個正在自學路上的人，相信持續、微小的累積，
+            比一時的衝刺更能走得長遠。這個網站記錄我學習的過程與練習出來的作品，
+            也是給未來自己的一份對照——回頭看看走了多遠。
+          </p>
+          <p style="color: var(--muted); font-size: 14px;">
+            ＊這段文字可以改成您自己的真實介紹，點兩下編輯 HTML 裡的內容即可。
+          </p>
+        </div>
+        <div class="skill-list">
+          <div class="skill-item"><span class="skill-name">Python / 資料分析</span><span class="skill-tag">進行中</span></div>
+          <div class="skill-item"><span class="skill-name">英文口說</span><span class="skill-tag">進行中</span></div>
+          <div class="skill-item"><span class="skill-name">UI/UX 設計</span><span class="skill-tag">進行中</span></div>
+          <div class="skill-item"><span class="skill-name">財務規劃</span><span class="skill-tag">進行中</span></div>
+          <div class="skill-item"><span class="skill-name">公開演講</span><span class="skill-tag">進行中</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 聯絡 -->
+    <section class="page" id="contact">
+      <div class="eyebrow">CONTACT</div>
+      <h2>聯絡我</h2>
+      <div class="contact-list">
+        <div class="contact-item">
+          <span class="icon">✉️</span>
+          <div><span class="contact-label">Email</span><span class="value">your-email@example.com</span></div>
+        </div>
+        <div class="contact-item">
+          <span class="icon">🖥️</span>
+          <div><span class="contact-label">GitHub</span><a href="https://github.com/cececccee1" target="_blank">github.com/cececccee1</a></div>
+        </div>
+      </div>
+      <p style="margin-top: 24px; color: var(--muted); font-size: 13px;">
+        ＊Email 記得換成您真實的信箱地址。
+      </p>
+    </section>
+
+  </main>
+
+  <footer>自學者的作品集 · 持續更新中</footer>
+
+  <script>
+    const buttons = document.querySelectorAll('.nav-btn');
+    const pages = document.querySelectorAll('.page');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        pages.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.page).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  </script>
+
+</body>
+</html>
