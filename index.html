@@ -279,7 +279,7 @@
       <h3>週次導覽</h3>
       <div class="week-list">
         <div class="week-list-item" data-goto="week1"><span class="week-num">第一週</span><span class="week-status">✅ 任務01～05</span></div>
-        <div class="week-list-item" data-goto="week2"><span class="week-num">第二週</span><span class="week-status">內容準備中</span></div>
+        <div class="week-list-item" data-goto="week2"><span class="week-num">第二週</span><span class="week-status">✅ 任務06</span></div>
         <div class="week-list-item" data-goto="week3"><span class="week-num">第三週</span><span class="week-status">內容準備中</span></div>
         <div class="week-list-item" data-goto="week4"><span class="week-num">第四週</span><span class="week-status">內容準備中</span></div>
         <div class="week-list-item" data-goto="week5"><span class="week-num">第五週</span><span class="week-status">內容準備中</span></div>
@@ -884,9 +884,148 @@ rfm["RFM_score"] = rfm["R_score"].astype(str) + rfm["F_score"].astype(str) + rfm
 
     <!-- 第二週～第八週：佔位頁 -->
     <section class="page" id="week2">
-      <div class="eyebrow">WEEK 02</div>
-      <h2>第二週</h2>
-      <div class="placeholder-box"><div class="icon">🗓️</div><div class="title">內容尚未上傳</div><div>敬請期待，內容準備中</div></div>
+      <div class="eyebrow">WEEK 02 · TASK 06</div>
+      <h2>第二週｜任務06：倉庫整理師</h2>
+      <p class="task-goal">儲位重排ABC＋服務藍圖洞察　　適用：Week2・Day6　　預估填寫時間：60分鐘（14:45-15:45）</p>
+
+      <h3>Section 1｜情境設定（5 min）</h3>
+      <p class="task-goal" style="max-width: 100%;">
+        情境文字：虛擬企業A：中型3PL物流商，主倉桃園，服務跨境電商客戶。<br>
+        － 倉庫規格：5列×10排＝50個儲位<br>
+        － SKU數：100個<br>
+        － 9月份出貨明細：SKU_出貨明細_202509.csv<br>
+        － 現況：儲位按字母順序排列（SKU001在1-1）<br><br>
+        你的任務：用ABC分類＋服務藍圖洞察，重新規劃儲位。
+      </p>
+
+      <div class="divider"></div>
+
+      <h3>Section 2｜觀念回顧（填空，8 min）</h3>
+      <h3 style="font-size: 15px;">2.1 ABC分類門檻</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>類別</th><th>累計出貨佔比</th><th>SKU比例（預期）</th><th>儲位策略</th></tr>
+          <tr><td>A</td><td>80%以下</td><td>約20%</td><td>黃金區、最近、低層、補貨頻繁</td></tr>
+          <tr><td>B</td><td>80%~95%</td><td>約30%</td><td>中央區、中高層</td></tr>
+          <tr><td>C</td><td>95%以上</td><td>約50%</td><td>外圍／高層／末端</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">2.2 EIQ-PCB名詞填空</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>字母</th><th>意義</th><th>衡量什麼</th></tr>
+          <tr><td>E</td><td>E(Entry訂單)</td><td>訂單筆數</td></tr>
+          <tr><td>I</td><td>I(Item品項)</td><td>不重複SKU數（商品廣度）</td></tr>
+          <tr><td>Q</td><td>Q(Quantity數量)</td><td>數量</td></tr>
+          <tr><td>P</td><td>棧板(Pallet)</td><td>棧板揀</td></tr>
+          <tr><td>C</td><td>箱(Carton)</td><td>整箱揀</td></tr>
+          <tr><td>B</td><td>盒(Box)</td><td>散貨揀</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">2.3 反直覺回憶（連連看）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>反直覺說法</th><th>為什麼（答案）</th></tr>
+          <tr><td>1. 熱銷品不該都放最近</td><td>B. 看IK（被點頻率）而不是IQ（總量）</td></tr>
+          <tr><td>2. ABC不是品項佔比</td><td>A. 出貨量佔比，不是品項數佔比</td></tr>
+          <tr><td>3. 儲位是服務，不是工程</td><td>C. 揀貨員的彎腰／安全／心理負荷也是成本</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 3｜Pandas實作（25 min）</h3>
+      <h3 style="font-size: 15px;">3.1 程式檢核點觀察</h3>
+      <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 24px; font-family: 'cwTeXKai', monospace;">import pandas as pd
+
+# 步驟1：讀資料
+df = pd.read_csv("SKU_出貨明細_202509.csv", parse_dates=["訂單日期"])
+print(df.shape)   # 預期：約6,000列×5欄
+
+# 步驟2：聚合到SKU層
+sku = (df.groupby("SKU")
+        .agg(總出貨量=("數量", "sum"), 出貨筆數=("訂單編號", "nunique"))
+        .reset_index()
+        .sort_values("總出貨量", ascending=False))
+print(sku.head(10))
+
+# 步驟3：累計佔比＋ABC分類
+sku["累計佔比"] = sku["總出貨量"].cumsum() / sku["總出貨量"].sum()
+sku["類別"] = pd.cut(
+    sku["累計佔比"],
+    bins=[0, 0.80, 0.95, 1.0],
+    labels=["A", "B", "C"]
+)
+print(sku["類別"].value_counts())</pre>
+
+      <h3 style="font-size: 15px;">3.2 結果填表</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>類別</th><th>SKU數</th><th>出貨量總和</th><th>佔總出貨%</th></tr>
+          <tr><td>A</td><td>27</td><td>46,246</td><td>79.7%</td></tr>
+          <tr><td>B</td><td>35</td><td>8,833</td><td>15.2%</td></tr>
+          <tr><td>C</td><td>38</td><td>2,931</td><td>5.1%</td></tr>
+          <tr><td><b>合計</b></td><td><b>100</b></td><td>－</td><td><b>100%</b></td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 4｜儲位重排（10 min）</h3>
+      <p class="task-goal">4.1 重排策略宣告：☑ 動態熱區（A在中央黃金區／B在外圍中層／C在末端）</p>
+
+      <h3 style="font-size: 15px;">4.2 儲位分配視覺化</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>類別</th><th>重排前</th><th>重排後</th></tr>
+          <tr><td>A</td><td>可能分散在各區，甚至離出口較遠</td><td>集中於靠近出口的黃金區，方便快速揀貨</td></tr>
+          <tr><td>B</td><td>與其他商品混放</td><td>放置於外圍中層區域</td></tr>
+          <tr><td>C</td><td>與熱門商品佔用相同位置</td><td>放置於末端或較遠儲位</td></tr>
+        </table>
+      </div>
+      <p style="color: var(--jade); font-size: 13px; margin-bottom: 20px;">✅ 4.3 預估改善：預估改善揀貨距離省 45.7%</p>
+
+      <div class="divider"></div>
+
+      <h3>Section 5｜服務洞察（7 min）</h3>
+      <h3 style="font-size: 15px;">5.1 失效點（Pain Point）痛點描述</h3>
+      <p class="task-goal" style="max-width: 100%;">
+        揀貨員每天彎腰蹲下約200次拿取熱銷小量品項，因A類品項散落在各個高低儲位，長期恐造成腰部職業傷害，也拖慢揀貨速度。
+      </p>
+
+      <h3 style="font-size: 15px;">5.2 ABC重排如何直接改善這個痛點？</h3>
+      <p class="task-goal" style="max-width: 100%;">
+        重排後A類27個SKU全部集中在儲位C、D列（腰部90-150公分黃金高度）且靠近出口，揀貨員不再需要蹲低或墊腳取貨，單趟揀貨的彎腰動作預估減少約5成，且動線縮短45.7%。
+      </p>
+
+      <h3 style="font-size: 15px;">5.3 一段話總結：儲位＝服務介面</h3>
+      <p style="color: var(--muted); font-size: 13px; margin-bottom: 8px;">提示：呼應今天金句「儲位不是工程問題，是服務承諾的兌現現場」</p>
+      <p class="task-goal" style="max-width: 100%; margin-bottom: 32px;">
+        儲位安排看似只是倉庫內部效率問題，實際上直接決定客戶「24小時到貨」承諾能否兌現。揀貨員找到SKU的速度，從客戶角度是服務體驗，從營運角度是揀貨工時；儲位規劃錯誤，最終會轉化成客戶不滿與員工職業傷害的雙重成本。
+      </p>
+
+      <div class="divider"></div>
+
+      <h3>Section 6｜反直覺收口三問（5 min）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>問題</th><th>我的回答</th></tr>
+          <tr>
+            <td>如果今天的倉是「自動化AGV倉」，你的ABC分類還重要嗎？為什麼？</td>
+            <td>重要，但角色會改變。在AGV（自動導引車）倉庫中，商品搬運主要由AGV完成，人員走動已不是主要成本，因此ABC分類不再只是縮短揀貨距離，而是用來優化AGV的行駛路線、補貨順序、儲位利用率等。</td>
+          </tr>
+          <tr>
+            <td>如果今天賣的是「季節性服飾」，你的ABC分類有什麼陷阱？</td>
+            <td>ABC分類會受到時間影響，不能長期固定。例如冬季外套在冬天可能是A類商品，但到了夏天可能變成C類。如果一直沿用舊的ABC分類，可能會讓熱門商品放錯位置，降低揀貨效率。因此季節性商品需要定期重新分析與調整分類。</td>
+          </tr>
+          <tr>
+            <td>如果老闆說「下週要降30%倉儲面積」，你會先動A/B/C哪一類？為什麼？</td>
+            <td>我會先調整C類商品。因為C類商品出貨量最低、周轉率較低，較適合集中存放、提高儲位密度，甚至評估移至備用倉或降低庫存。A類商品仍應保留在黃金儲位，以維持揀貨效率與服務品質，避免影響出貨速度。</td>
+          </tr>
+        </table>
+      </div>
     </section>
 
     <section class="page" id="week3">
