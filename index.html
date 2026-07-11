@@ -201,6 +201,9 @@
     .placeholder-box .icon { font-size: 32px; margin-bottom: 12px; }
     .placeholder-box .title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
 
+    .check-list { list-style: none; margin-bottom: 20px; }
+    .check-list li { color: var(--text); font-size: 14px; margin-bottom: 6px; }
+
     footer {
       text-align: center; padding: 28px 24px; color: var(--muted);
       font-size: 12px; border-top: 1px solid var(--border);
@@ -279,7 +282,7 @@
       <h3>週次導覽</h3>
       <div class="week-list">
         <div class="week-list-item" data-goto="week1"><span class="week-num">第一週</span><span class="week-status">✅ 任務01～05</span></div>
-        <div class="week-list-item" data-goto="week2"><span class="week-num">第二週</span><span class="week-status">✅ 任務06～08</span></div>
+        <div class="week-list-item" data-goto="week2"><span class="week-num">第二週</span><span class="week-status">✅ 任務06～09</span></div>
         <div class="week-list-item" data-goto="week3"><span class="week-num">第三週</span><span class="week-status">內容準備中</span></div>
         <div class="week-list-item" data-goto="week4"><span class="week-num">第四週</span><span class="week-status">內容準備中</span></div>
         <div class="week-list-item" data-goto="week5"><span class="week-num">第五週</span><span class="week-status">內容準備中</span></div>
@@ -882,7 +885,7 @@ rfm["RFM_score"] = rfm["R_score"].astype(str) + rfm["F_score"].astype(str) + rfm
       </p>
     </section>
 
-    <!-- 第二週～第八週：佔位頁 -->
+    <!-- 第二週：任務06～09 -->
     <section class="page" id="week2">
       <div class="eyebrow">WEEK 02 · TASK 06</div>
       <h2>第二週｜任務06：倉庫整理師</h2>
@@ -1356,6 +1359,162 @@ print(積壓.head(5))</pre>
       <h3>Section 6｜GenAI sub-task 連動（2 min）</h3>
       <p class="task-goal">上午GenAI報告中，你抽到的新品＝（尚未填寫）</p>
       <p class="task-goal">回答：這份報告對你今天的任務08有沒有幫助？如何幫助？（尚未填寫）</p>
+
+      <div class="divider"></div>
+
+      <!-- 任務09 -->
+      <div class="eyebrow">TASK 09</div>
+      <h2>任務09｜決策簡報（SCQA＋金字塔＋風險三情境・個人作答，兩路徑擇一）</h2>
+      <p class="task-goal">
+        適用：Week2・Day9，預估填寫時間110分鐘（14:00-15:50，含15分鐘Showtime）<br>
+        繳交方式：/Day9/任務09_決策簡報/，建議檔名 D9_任務09_決策簡報_你的姓名
+      </p>
+
+      <h3>Section 1｜觀念回顧（填空，5 min）</h3>
+      <h3 style="font-size: 15px;">1.1 SCQA四字訣</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>字母</th><th>完整字</th><th>說明</th></tr>
+          <tr><td>S</td><td>Situation(現況)</td><td>當前情況（共識）</td></tr>
+          <tr><td>C</td><td>Complication(衝突)</td><td>變化/問題（衝突）</td></tr>
+          <tr><td>Q</td><td>Question(問題)</td><td>引出的核心問題</td></tr>
+          <tr><td>A</td><td>Answer(回答)</td><td>你的建議</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">1.2 金字塔原則三條原則</h3>
+      <ul class="check-list">
+        <li>☑ 主結論在頂端</li>
+        <li>☑ 三條支撐互斥（MECE）窮盡</li>
+        <li>☑ 數據／案例／證據放底層</li>
+      </ul>
+
+      <h3 style="font-size: 15px;">1.3 反直覺三點（自寫）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>問題</th><th>我的答案</th></tr>
+          <tr><td>為什麼結論要先講？</td><td>因為老闆時間有限，先講結論才能立刻判斷要不要繼續聽下去，業界匯報是結論先行，跟學界論文寫法相反</td></tr>
+          <tr><td>為什麼圖表愈多愈不專業？</td><td>圖越多代表你自己也還沒消化出重點，老闆會覺得你連自己都沒把握</td></tr>
+          <tr><td>為什麼沒有風險評估老闆不買單？</td><td>老闆怕的不是失敗方案，是沒被告知風險的方案，三情境寫齊反而讓老闆覺得你想清楚了</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 2｜SCQA開場稿（15 min）</h3>
+      <p class="task-goal">寫成「老闆60秒能進入狀況」的開場。</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>字母</th><th>你的句子（每段≤30字）</th></tr>
+          <tr><td>S（共識）</td><td>9月整體準時率79.6%，低於90%警戒線</td></tr>
+          <tr><td>C（衝突）</td><td>但R-03路線單獨看只有27.2%，拖累最嚴重</td></tr>
+          <tr><td>Q（問題）</td><td>該換司機、調路線，還是調時窗設定？</td></tr>
+          <tr><td>A（建議）</td><td>建議重新規劃R-03路線排程</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 3｜主結論句（關鍵，10 min）</h3>
+      <p class="task-goal">一句話講完該做什麼，要有動詞、要有量化。</p>
+      <p style="color: var(--jade); font-size: 14px; margin-bottom: 16px;">
+        <b>主結論（50字內）：</b>「重新規劃R-03路線排程，1個月內觀察OTD能否回升至80%以上，預估月效益+8萬」
+      </p>
+      <p style="color: var(--text); font-size: 14px; margin-bottom: 6px;"><b>自我檢核：</b></p>
+      <ul class="check-list">
+        <li>☑ 第一個字是動詞（調整／重排／換約／強化…）</li>
+        <li>☑ 含具體量化（%／月／萬元）</li>
+        <li>☑ 30秒內能讓老闆做yes/no決定</li>
+      </ul>
+
+      <div class="divider"></div>
+
+      <h3>Section 4｜三條MECE支撐（20 min）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>#</th><th>支撐句（≤30字）</th><th>證據（數字/圖表）</th></tr>
+          <tr><td>1</td><td>問題真實存在</td><td>整體嚴格OTD僅79.6%，低於90%警戒線</td></tr>
+          <tr><td>2</td><td>主因可定位</td><td>R-03的OTD僅27.2%，控制變量分析證實是路線問題非司機</td></tr>
+          <tr><td>3</td><td>解法可行</td><td>暫緩指派新司機至R-03，優先檢視距離／路況／時窗設定</td></tr>
+        </table>
+      </div>
+      <p style="color: var(--text); font-size: 14px; margin-bottom: 6px;"><b>MECE自我檢查：</b></p>
+      <ul class="check-list">
+        <li>☑ 三條互斥（沒有任何一條是另一條的子集）</li>
+        <li>☑ 三條窮盡（共同能撐住主結論）</li>
+      </ul>
+
+      <div class="divider"></div>
+
+      <h3>Section 5｜一張關鍵圖（15 min）</h3>
+      <p class="task-goal">不是三張，是一張。</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>項目</th><th>內容</th></tr>
+          <tr><td>選擇的圖表類型</td><td>箱型圖</td></tr>
+          <tr><td>為什麼是這張（50字內）</td><td>一次顯示中位數＋散布度，R-03整盒顯著低於95%目標線，其他路線基本貼線，比9條折線圖更省一頁，結論一眼看出。</td></tr>
+          <tr><td>截圖貼附位置（文字註記）</td><td>D6_D7_D8_D9整合版Tab4「關鍵圖」截圖，或D9單獨版故事B的箱型圖</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 6｜風險三情境（關鍵，15 min）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>情境</th><th>預期結果</th><th>月效益（具體數字）</th><th>對應行動</th></tr>
+          <tr><td>樂觀</td><td>R-03路線OTD回升至80%以上</td><td>+8萬</td><td>推進加速</td></tr>
+          <tr><td>悲觀</td><td>路線問題非短期可解，僅小幅改善</td><td>+3萬</td><td>啟動Plan B</td></tr>
+          <tr><td>不作為</td><td>OTD持續低落，客訴增加</td><td>-5萬/月</td><td>（對照組）</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 7｜Streamlit路徑 OR PPT路徑（20 min）</h3>
+      <p class="task-goal">選擇路徑（擇一）：<b style="color: var(--text);">Streamlit</b></p>
+
+      <h3 style="font-size: 15px;">路徑A：Streamlit</h3>
+      <ul class="check-list">
+        <li>☑ 主頁有 st.success 結論句　　☑ 三個 st.metric 卡片</li>
+        <li>☑ 一張 st.plotly_chart 主圖　　☑ st.expander 摺疊三條支撐</li>
+        <li>☑ 風險三情境表</li>
+      </ul>
+      <p style="color: var(--muted); font-size: 13px; margin-bottom: 24px;">執行截圖貼附位置：D6_D7_D8_D9_整合版.py執行後Tab4選「故事B」的畫面截圖</p>
+
+      <h3 style="font-size: 15px;">路徑B：PPT（Claude Cowork）</h3>
+      <ul class="check-list">
+        <li>☐ 標題列＋主結論　　☐ 三metric卡片</li>
+        <li>☐ 一張關鍵圖　　☐ 三條支撐</li>
+        <li>☐ 風險三情境　　☐ 主色#003366，字體層級分明</li>
+      </ul>
+      <p class="task-goal">PPT檔名：（未使用此路徑）</p>
+
+      <div class="divider"></div>
+
+      <h3>Section 8｜90秒Showtime腳本（5 min）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>時段</th><th>內容</th></tr>
+          <tr><td>0:00-0:30</td><td>SCQA開場</td></tr>
+          <tr><td>0:30-1:00</td><td>三條支撐</td></tr>
+          <tr><td>1:00-1:30</td><td>風險三情境＋結語</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">逐字稿（可寫綱要）</h3>
+      <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 32px; font-family: 'cwTeXKai', monospace; white-space: pre-wrap;">0:00-0:30 SCQA開場
+「9月整體準時率79.6%，已經低於90%警戒線。但R-03這條路線單獨看只有27.2%，
+是全公司拖累最嚴重的一條。我們該換司機、調路線，還是重新檢視時窗設定？
+我建議重新規劃R-03路線排程。」
+
+0:30-1:00 三條支撐
+「第一，問題真的存在……第二，我知道問題在哪……是路線本身的問題，不是司機。
+第三，我知道怎麼解決——先別派新司機去，優先檢查距離、路況、時窗設定。」
+
+1:00-1:30 風險三情境＋結語
+「如果順利，每月多賺8萬；就算效果普通，還是能多賺3萬；
+如果什麼都不做，每月倒虧5萬。給我一個月觀察期，不達標我就回滾。」</pre>
     </section>
 
     <section class="page" id="week3">
