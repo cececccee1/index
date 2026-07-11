@@ -278,7 +278,7 @@
 
       <h3>週次導覽</h3>
       <div class="week-list">
-        <div class="week-list-item" data-goto="week1"><span class="week-num">第一週</span><span class="week-status">✅ 任務01～04</span></div>
+        <div class="week-list-item" data-goto="week1"><span class="week-num">第一週</span><span class="week-status">✅ 任務01～05</span></div>
         <div class="week-list-item" data-goto="week2"><span class="week-num">第二週</span><span class="week-status">內容準備中</span></div>
         <div class="week-list-item" data-goto="week3"><span class="week-num">第三週</span><span class="week-status">內容準備中</span></div>
         <div class="week-list-item" data-goto="week4"><span class="week-num">第四週</span><span class="week-status">內容準備中</span></div>
@@ -679,6 +679,207 @@
 
       <h3 style="font-size: 15px;">4.3 啟動驗收</h3>
       <p class="task-goal">streamlit run dashboard.py　　☑ 瀏覽器自動開 http://localhost:8501　　☑ 30秒內能看完（用碼表算）　　☑ 紅字警示醒目</p>
+
+      <div class="divider"></div>
+
+      <!-- 任務05 -->
+      <div class="eyebrow">TASK 05</div>
+      <h2>任務05｜VIP篩選器（RFM八分群＋業務行動書）</h2>
+      <p class="task-goal">適用：Week1・Day4／2026起用　　預估填寫時間：100分鐘（含45分鐘分群辯論會）</p>
+
+      <h3>Section 1｜觀念回顧（填空，5 min）</h3>
+      <h3 style="font-size: 15px;">1.1 RFM三維各代表什麼</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>字</th><th>完整字</th><th>算法</th><th>物流意義</th></tr>
+          <tr><td>R</td><td>Recency</td><td>今天日期－最後一次消費日期</td><td>距離最近一次下單的時間</td></tr>
+          <tr><td>F</td><td>Frequency</td><td>統計期間內的消費次數</td><td>一段期間內下單次數</td></tr>
+          <tr><td>M</td><td>Monetary</td><td>統計期間內的總消費金額</td><td>一段期間內累積訂單金額</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">1.2 反直覺三點（自寫）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>問題</th><th>我的答案</th></tr>
+          <tr><td>80/20不是鐵律——為什麼？</td><td>少數重要客戶通常會貢獻大部分的價值</td></tr>
+          <tr><td>At Risk比VIP更該投資資源——為什麼？</td><td>以前是重要客戶，但最近很久沒下單，有流失風險</td></tr>
+          <tr><td>Big Spenders≠VIP——為什麼？</td><td>高消費客戶，不一定是VIP</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">1.3 八分群速查</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>分群</th><th>R</th><th>F</th><th>M</th><th>策略</th></tr>
+          <tr><td>VIP(Champions)</td><td>高</td><td>高</td><td>高</td><td>🔒鎖－指派專屬客服、優先排車、定期業務拜訪</td></tr>
+          <tr><td>Loyal</td><td>中高</td><td>高</td><td>中</td><td>🌱養－推薦升級方案、捆綁服務</td></tr>
+          <tr><td>Big Spenders</td><td>高</td><td>低</td><td>高</td><td>⛏挖－從單次合作升到長期合約</td></tr>
+          <tr><td>New／Promising</td><td>高</td><td>低</td><td>低</td><td>🧲引－首購優惠、流程引導</td></tr>
+          <tr><td>Potential Loyalists</td><td>高</td><td>中</td><td>中</td><td>🌱扶－主動詢問需求、客製化</td></tr>
+          <tr><td>At Risk</td><td>低</td><td>中高</td><td>高</td><td>🚨救－業務經理親自拜訪、客製化回流方案</td></tr>
+          <tr><td>Hibernating</td><td>低</td><td>低</td><td>中</td><td>⏰喚－針對節慶期主動聯絡</td></tr>
+          <tr><td>Lost</td><td>低</td><td>低</td><td>低</td><td>👋放－不主動投資資源，EDM即可</td></tr>
+        </table>
+      </div>
+      <p style="color: var(--muted); font-size: 13px; margin-bottom: 20px;">8個策略：鎖／養／挖／引／扶／救／喚／放</p>
+
+      <div class="divider"></div>
+
+      <h3>Section 2｜資料準備＋觀察期決定（10 min）</h3>
+      <p class="task-goal">資料來源：從D2清洗後的 A_物流_訂單配送_CLEAN.csv 算RFM</p>
+
+      <h3 style="font-size: 15px;">2.2 觀察期切點（主觀但要可辯護）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>切點</th><th>我的選擇</th><th>為什麼？</th></tr>
+          <tr><td>觀察期起始日</td><td>2025-01-01</td><td>因為這份CSV本身就是完整的訂單紀錄，資料涵蓋的範圍就是完整的觀察窗口</td></tr>
+          <tr><td>觀察期結束日（today）</td><td>2026-07-01</td><td>如果直接拿max(order_date)當today，最新訂單的客戶R值會被算成0，造成偏誤</td></tr>
+          <tr><td>期長（月）</td><td>181天≈5.9個月</td><td>以today=pd.Timestamp('2026-07-01')為基準日，計算所有客戶的R值</td></tr>
+        </table>
+      </div>
+      <p style="color: var(--muted); font-size: 13px; margin-bottom: 12px;">提示：期太短（&lt;3個月）R/F不穩；期太長（&gt;12個月）會被舊行為主導。物流B2B常用6個月</p>
+      <p style="color: var(--jade); font-size: 13px; margin-bottom: 20px;">✅ 客戶數＝8位（預期8位）；訂單數＝793筆（在觀察期內）</p>
+
+      <div class="divider"></div>
+
+      <h3>Section 3｜RFM計算（15 min・主交付物①）</h3>
+      <h3 style="font-size: 15px;">3.1 三維計算邏輯</h3>
+      <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 24px; font-family: 'cwTeXKai', monospace;">import pandas as pd
+df = pd.read_csv("A_物流_訂單配送_CLEAN.csv", parse_dates=["order_date"])
+today = pd.Timestamp("2026-07-01")
+rfm = df.groupby("customer_id").agg(
+    R=("order_date", lambda s: (today - s.max()).days),
+    F=("order_id", "count"),
+    M=("freight_twd", "sum"),
+).reset_index()</pre>
+
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>customer_id</th><th>customer_name</th><th>R</th><th>F</th><th>M</th></tr>
+          <tr><td>C001</td><td>7-11零售連鎖</td><td>1</td><td>88</td><td>199084.4</td></tr>
+          <tr><td>C002</td><td>momo購物網</td><td>1</td><td>103</td><td>232622.3</td></tr>
+          <tr><td>C003</td><td>水產鮮活B2B</td><td>1</td><td>108</td><td>245576.3</td></tr>
+          <tr><td>C004</td><td>家樂福全聯</td><td>1</td><td>82</td><td>171144.1</td></tr>
+          <tr><td>C005</td><td>蝦皮購物</td><td>1</td><td>95</td><td>199303.3</td></tr>
+          <tr><td>C006</td><td>全聯福利中心</td><td>2</td><td>93</td><td>215567.8</td></tr>
+          <tr><td>C007</td><td>統一生鮮</td><td>1</td><td>115</td><td>270698.4</td></tr>
+          <tr><td>C008</td><td>PChome 24h</td><td>1</td><td>109</td><td>222216.5</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">3.2 5等分＋RFM_score</h3>
+      <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 16px; font-family: 'cwTeXKai', monospace;">rfm["R_score"] = pd.qcut(rfm["R"], 5, labels=[5, 4, 3, 2, 1]).astype(int)
+rfm["F_score"] = pd.qcut(rfm["F"].rank(method="first"), 5, labels=[1, 2, 3, 4, 5]).astype(int)
+rfm["M_score"] = pd.qcut(rfm["M"], 5, labels=[1, 2, 3, 4, 5]).astype(int)
+rfm["RFM_score"] = rfm["R_score"].astype(str) + rfm["F_score"].astype(str) + rfm["M_score"].astype(str)</pre>
+      <p style="color: var(--gold); font-size: 13px; margin-bottom: 20px;">⚠ F用rank(method='first')是因為F容易有重複值（qcut會崩），這個處理要寫進設計說明</p>
+
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>customer_id</th><th>R_score</th><th>F_score</th><th>M_score</th><th>RFM_score</th><th>落到哪一群？</th></tr>
+          <tr><td>C001</td><td>5</td><td>1</td><td>1</td><td>511</td><td>一般客戶</td></tr>
+          <tr><td>C002</td><td>5</td><td>3</td><td>4</td><td>534</td><td>重要價值客戶</td></tr>
+          <tr><td>C003</td><td>4</td><td>4</td><td>5</td><td>445</td><td>重要價值客戶</td></tr>
+          <tr><td>C004</td><td>3</td><td>1</td><td>1</td><td>311</td><td>需喚醒客戶</td></tr>
+          <tr><td>C005</td><td>3</td><td>3</td><td>2</td><td>332</td><td>一般客戶</td></tr>
+          <tr><td>C006</td><td>1</td><td>2</td><td>3</td><td>123</td><td>一般客戶</td></tr>
+          <tr><td>C007</td><td>2</td><td>5</td><td>5</td><td>255</td><td>重要價值客戶</td></tr>
+          <tr><td>C008</td><td>1</td><td>5</td><td>3</td><td>153</td><td>穩定客戶</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 4｜分群覆蓋＋Excel名單（20 min・主交付物②）</h3>
+      <h3 style="font-size: 15px;">4.1 分群統計（必含≥5群覆蓋）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>分群</th><th>客戶數</th><th>客戶ID</th></tr>
+          <tr><td>VIP(Champions)</td><td>1</td><td>C003</td></tr>
+          <tr><td>Loyal</td><td>0</td><td>－</td></tr>
+          <tr><td>Big Spenders</td><td>1</td><td>C002</td></tr>
+          <tr><td>New／Promising</td><td>1</td><td>C001</td></tr>
+          <tr><td>Potential Loyalists</td><td>1</td><td>C005</td></tr>
+          <tr><td>At Risk</td><td>2</td><td>C007、C008</td></tr>
+          <tr><td>Hibernating</td><td>1</td><td>C004</td></tr>
+          <tr><td>Lost</td><td>1</td><td>C006</td></tr>
+        </table>
+      </div>
+      <p style="color: var(--jade); font-size: 13px; margin-bottom: 20px;">✅ 自我檢核：≥5群覆蓋（&lt;5會扣分）</p>
+
+      <h3 style="font-size: 15px;">4.2 Excel客戶分層名單（主交付物②）</h3>
+      <p class="task-goal">將Section 3.2的內容，寫進 客戶分層名單.xlsx，欄位設計：customer_id／name／R／F／M／RFM_score／分群／建議行動</p>
+      <p class="task-goal">加分項（Excel進階）：✅條件格式：R/F/M用顏色梯度　✅pivot：分群×平均M　✅行動優先級標色：🔴At Risk／🟢VIP</p>
+
+      <div class="divider"></div>
+
+      <h3>Section 5｜業務行動書（20 min・主交付物③）</h3>
+      <p class="task-goal">★ 每群≥1項具體行動；Top20%與At Risk各≥3項</p>
+
+      <h3 style="font-size: 15px;">5.1 Top20%（VIP／Big Spenders）—— 鎖</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>客戶</th><th>具體行動（動詞+量化）</th><th>預期效益／月</th><th>投入成本</th></tr>
+          <tr><td>C003（水產鮮活B2B）</td><td>簽訂6個月鎖價合約，目標M成長≥10%</td><td>月增NT$4,162（高）</td><td>低</td></tr>
+          <tr><td>C002（momo購物網）</td><td>推出滿額贈禮，拉高客單價15%</td><td>月增NT$5,914（高）</td><td>中</td></tr>
+          <tr><td>C003+C002（合併）</td><td>每月促成2項交叉銷售</td><td>月增NT$6,000～10,000（中）</td><td>低</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">5.2 At Risk —— 救（★最該投資的群）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>客戶</th><th>具體行動</th><th>預期效益／月</th><th>投入成本</th></tr>
+          <tr><td>C007・統一生鮮</td><td>48小時內致電了解原因，提供單筆訂單折扣</td><td>月增NT$3,670（中）</td><td>低</td></tr>
+          <tr><td>C007・統一生鮮</td><td>主動推送3款互補品項報價單</td><td>月增NT$2,500（中）</td><td>低</td></tr>
+          <tr><td>C007+C008（合併）</td><td>每週監控R值，連續14天無訂單自動觸發提醒</td><td>保住月均NT$83,545營收基礎（高）</td><td>低</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">5.3 其他群（每群至少1行）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>分群</th><th>具體行動</th></tr>
+          <tr><td>Loyal</td><td>建立F值連續2個月≥4分自動觸發忠誠會員卡機制</td></tr>
+          <tr><td>Big Spenders</td><td>提供季度採購報告，找出1項高毛利加購品項</td></tr>
+          <tr><td>New／Promising</td><td>7日內發送新客歡迎禮，第二筆訂單10%折扣</td></tr>
+          <tr><td>Potential Loyalists</td><td>加入訂閱式自動補貨方案</td></tr>
+          <tr><td>Hibernating</td><td>每月1次EDM/簡訊喚醒活動</td></tr>
+          <tr><td>Lost</td><td>每季1次最低成本喚回簡訊</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 6｜反直覺洞察（10 min）</h3>
+      <p class="task-goal">★ 評分Rubric「反直覺洞察」滿分需要3+個</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>#</th><th>反直覺發現</th><th>為什麼反直覺？</th><th>對誰最有用？</th></tr>
+          <tr>
+            <td>1</td>
+            <td>訂單間隔約1天，R_score全靠rank()硬切排名撐出來，數值差異其實很小</td>
+            <td>直覺上「最近有沒有買」應該是最直接、最敏感的指標，但當客戶下單頻率都很高、間隔天數接近時，R值的鑑別力反而下降</td>
+            <td>資料分析／報表設計人員——提醒未來若持續用同一套切分邏輯，需注意R值鑑別力的侷限</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>C007（訂單115次、金額NT$270,698，兩項全場最高）卻只拿到RFM_score=255而非555</td>
+            <td>一般人用「金額大＝重要客戶＝安全」的線性思維，忽略了R值（最近下單時間）同樣重要，C007其實R已經拉警報</td>
+            <td>業務主管／客戶關係經理——只看金額排名會誤判為安全客戶</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>8大分群裡，理論上「Loyal（F_score高）」應該最多，但實際上分佈不均，甚至出現0人</td>
+            <td>直覺認為越「中庸」的標籤人數應該越多，但F分群受限於樣本數少（僅8位客戶），反而容易出現分佈極端</td>
+            <td>行銷企劃人員——不能直接套用「Loyal客戶要做會員經營」的通則，因為根本沒有Loyal客戶</td>
+          </tr>
+        </table>
+      </div>
+      <p style="margin-top: 16px; color: var(--muted); font-size: 14px; margin-bottom: 32px;">
+        範例：C003水產鮮活的M在Top3，但R已經90天沒下單……（高金額但即將流失，業務拜訪優先）
+      </p>
     </section>
 
     <!-- 第二週～第八週：佔位頁 -->
