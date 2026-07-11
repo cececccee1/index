@@ -12,15 +12,16 @@
 
   <style>
     :root {
-      --ink: #130f0b;
-      --panel: #1d1710;
-      --panel-light: #2a2116;
-      --border: #4a3b26;
-      --vermilion: #c23b2c;
-      --gold: #c9a15a;
-      --jade: #4a6b58;
-      --text: #f1e9d6;
-      --muted: #a08e6c;
+      --ink: #08080c;
+      --panel: #15151e;
+      --panel-light: #1f1f2b;
+      --border: #383850;
+      --vermilion: #c7cbec;
+      --gold: #9aa0c4;
+      --jade: #86c9a8;
+      --slate: #7a8bb0;
+      --text: #eceefa;
+      --muted: #8c8ca8;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -109,7 +110,7 @@
 
     .divider { position: relative; height: 1px; background: var(--border); margin: 40px 0; }
     .divider::after {
-      content: "❖";
+      content: "✦";
       position: absolute; left: 50%; top: 50%;
       transform: translate(-50%, -50%);
       background: var(--ink); color: var(--gold);
@@ -248,9 +249,9 @@
       display: inline-block;
       padding: 10px 28px;
       background: var(--panel-light);
-      border: 1px solid var(--jade);
+      border: 1px solid var(--slate);
       border-radius: 6px;
-      color: var(--jade);
+      color: var(--slate);
       font-family: inherit;
       font-size: 14px;
       font-weight: 700;
@@ -259,7 +260,7 @@
       transition: background 0.2s, color 0.2s;
     }
     .back-home-btn:hover {
-      background: var(--jade);
+      background: var(--slate);
       color: var(--text);
     }
     .back-prev-btn {
@@ -1718,7 +1719,7 @@ print(積壓.head(5))</pre>
         data: {
           datasets: [{
             data: [value, 100 - value],
-            backgroundColor: ['#c23b2c', '#2a2116'],
+            backgroundColor: ['#c7cbec', '#1f1f2b'],
             borderWidth: 0,
           }],
         },
