@@ -279,7 +279,7 @@
       <h3>週次導覽</h3>
       <div class="week-list">
         <div class="week-list-item" data-goto="week1"><span class="week-num">第一週</span><span class="week-status">✅ 任務01～05</span></div>
-        <div class="week-list-item" data-goto="week2"><span class="week-num">第二週</span><span class="week-status">✅ 任務06～07</span></div>
+        <div class="week-list-item" data-goto="week2"><span class="week-num">第二週</span><span class="week-status">✅ 任務06～08</span></div>
         <div class="week-list-item" data-goto="week3"><span class="week-num">第三週</span><span class="week-status">內容準備中</span></div>
         <div class="week-list-item" data-goto="week4"><span class="week-num">第四週</span><span class="week-status">內容準備中</span></div>
         <div class="week-list-item" data-goto="week5"><span class="week-num">第五週</span><span class="week-status">內容準備中</span></div>
@@ -1195,6 +1195,167 @@ folium.LayerControl().add_to(m)</pre>
           <tr><td>如果老闆說「OTD&lt;95%扣司機獎金」，可能引發什麼Goodhart's Law反效果？</td><td>司機可能會虛報到達時間、或拒接困難路線的訂單，指標被操弄反而失真</td></tr>
         </table>
       </div>
+
+      <div class="divider"></div>
+
+      <!-- 任務08 -->
+      <div class="eyebrow">TASK 08</div>
+      <h2>任務08｜供應鏈串接（三表Merge＋主因標籤・個人作答）</h2>
+      <p class="task-goal">
+        適用：Week2・Day8，預估填寫時間50分鐘（15:00-15:50）<br>
+        繳交方式：請依據指定方式繳交（/Day8/任務08_供應鏈串接/）<br>
+        建議檔名：D8_任務08_供應鏈串接_你的姓名（可打包zip或單檔）
+      </p>
+
+      <h3>Section 1｜情境（3 min）</h3>
+      <p class="task-goal" style="max-width: 100%;">
+        虛擬企業C（食品批發商）的老闆抱怨：「最近C類庫存暴增30%，但業務說沒問題、倉儲說沒問題、採購也說沒問題。幫我抓出問題在誰。」<br><br>
+        三表資料：<br>
+        － purchase.csv（採購單號、SKU、供應商、訂購量、預計到貨）<br>
+        － receipt.csv（採購單號、SKU、實際到貨、實際數量、品質旗標）<br>
+        － sales.csv（銷售單號、SKU、客戶、出貨量、出貨日）<br><br>
+        你的任務：用Pandas Merge串起三表，找出Top5庫存積壓SKU，並標出主因。
+      </p>
+
+      <div class="divider"></div>
+
+      <h3>Section 2｜觀念回顧（填空，5 min）</h3>
+      <h3 style="font-size: 15px;">2.1 長鞭效應四大放大來源</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>#</th><th>來源</th><th>為什麼放大</th></tr>
+          <tr><td>1</td><td>安全庫存效應(Safety Stock Amplification)</td><td>看到大單就調高安全庫存</td></tr>
+          <tr><td>2</td><td>批量訂購(Order Batching／EOQ)</td><td>訂滿經濟批量才下單</td></tr>
+          <tr><td>3</td><td>促銷與清庫存循環(Promotion Cycling)</td><td>促銷囤貨、平期清庫存</td></tr>
+          <tr><td>4</td><td>短缺博弈(Shortage Gaming)</td><td>怕拿不到就先報大量</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">2.2 前置期三段拆解</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>段別</th><th>縮寫</th><th>內容</th><th>可控？</th></tr>
+          <tr><td>訂單前置</td><td>OLT</td><td>內部從需求確認到下單</td><td>可控</td></tr>
+          <tr><td>供應商前置</td><td>SLT</td><td>供應商收單到出貨</td><td>半控</td></tr>
+          <tr><td>物流前置</td><td>DLT</td><td>出貨到入庫</td><td>半控</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">2.3 Pandas Merge四式—商業意義</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>寫法</th><th>商業意義（用一句話）</th></tr>
+          <tr><td>inner</td><td>只留A與B都有的資料（交集），用於嚴格分析，會漏看單邊獨有的異常</td></tr>
+          <tr><td>left</td><td>保留A表全部，B對不到的填NaN，是「以A為主視角」的分析（例如看訂了但還沒到貨的採購單）</td></tr>
+          <tr><td>right</td><td>保留B表全部，鏡像left，業界較少用（通常改成調換左右表位置、用left達成同樣效果）</td></tr>
+          <tr><td>outer</td><td>保留兩表全部資料，沒對到的都留著填NaN，用來看「哪裡缺漏」，適合稽核用途</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">2.4 反直覺三點（連連看配對答案）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>配對</th><th>說法</th></tr>
+          <tr><td>B</td><td>真正成本：安全庫存×倉儲成本×資金利率</td></tr>
+          <tr><td>A</td><td>看到C類庫存上升先看採購紀錄</td></tr>
+          <tr><td>C</td><td>你選哪個how反映你選哪個視角</td></tr>
+        </table>
+      </div>
+      <p style="color: var(--muted); font-size: 13px; margin-bottom: 20px;">原題：A. 庫存積壓很少是賣不好，常常是買得太兇　B. 供應商「便宜」常常用LT換來　C. Merge不是技術題，是商業假設題</p>
+
+      <div class="divider"></div>
+
+      <h3>Section 3｜三表Merge實作（15 min）</h3>
+      <h3 style="font-size: 15px;">3.1 Step 1：採購↔進貨（對LT）</h3>
+      <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 16px; font-family: 'cwTeXKai', monospace;">import pandas as pd
+p = pd.read_csv("purchase.csv", encoding="utf-8-sig", parse_dates=["下單日", "預計到貨"])
+r = pd.read_csv("receipt.csv",  encoding="utf-8-sig", parse_dates=["實際到貨"])
+# 你選的how = "left"
+pr = p.merge(r, on=["採購單號", "SKU"], how="left")
+# LT三層
+pr["實際LT"]   = (pr["實際到貨"] - pr["下單日"]).dt.days
+pr["計畫LT"]   = (pr["預計到貨"] - pr["下單日"]).dt.days
+pr["LT延遲日"] = pr["實際LT"] - pr["計畫LT"]
+print(pr.head())</pre>
+      <p class="task-goal" style="max-width: 100%;">
+        你選的how＝"left"<br>
+        理由：以採購單為主視角，保留「訂了但還沒到貨」的採購單，才能看出斷貨追責的早期警訊
+      </p>
+      <p style="color: var(--jade); font-size: 13px; margin-bottom: 20px;">✅ 觀察：Merge後筆數＝102（原p＝102筆／原r＝73筆）</p>
+
+      <h3 style="font-size: 15px;">3.2 Step 2：加銷售</h3>
+      <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 24px; font-family: 'cwTeXKai', monospace;">s = pd.read_csv("sales.csv", encoding="utf-8-sig", parse_dates=["出貨日"])
+sku_sales = s.groupby("SKU")["出貨量"].sum().reset_index()
+sku_sales.columns = ["SKU", "九月銷量"]
+full = pr.merge(sku_sales, on="SKU", how="left")
+full["九月銷量"] = full["九月銷量"].fillna(0)
+full["庫存積壓量"] = full["實際數量"] - full["九月銷量"]</pre>
+
+      <h3 style="font-size: 15px;">3.3 Step 3：Top5積壓SKU</h3>
+      <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 16px; font-family: 'cwTeXKai', monospace;">積壓 = full[full["庫存積壓量"] > 0].sort_values("庫存積壓量", ascending=False)
+print(積壓.head(5))</pre>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>排名</th><th>SKU</th><th>供應商</th><th>進貨量</th><th>9月銷量</th><th>積壓量</th><th>實際LT</th></tr>
+          <tr><td>1</td><td>S-1015</td><td>SUP-02</td><td>941</td><td>77</td><td>864</td><td>11天</td></tr>
+          <tr><td>2</td><td>S-1023</td><td>SUP-03</td><td>438</td><td>135</td><td>303</td><td>28天</td></tr>
+          <tr><td>3</td><td>S-1031</td><td>SUP-04</td><td>201</td><td>37</td><td>164</td><td>16天</td></tr>
+          <tr><td>4</td><td>S-1002</td><td>SUP-02</td><td>580</td><td>418</td><td>162</td><td>12天</td></tr>
+          <tr><td>5</td><td>S-1012</td><td>SUP-02</td><td>278</td><td>131</td><td>147</td><td>14天</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 4｜主因標籤（15 min）</h3>
+      <p class="task-goal">這是本任務最關鍵欄位，佔35分。</p>
+      <h3 style="font-size: 15px;">4.1 主因四種候選</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>標籤</th><th>判定線索（程式實際）</th></tr>
+          <tr><td>採購過量</td><td>實際進貨量&gt;前三月平均月銷×倍率閾值（預設2.0）且庫存積壓量&gt;100</td></tr>
+          <tr><td>LT過長</td><td>供應商LT變異（σ/μ）&gt;0.30</td></tr>
+          <tr><td>銷售下滑</td><td>周轉率（九月銷量÷實際進貨量）&lt;0.20</td></tr>
+          <tr><td>品質瑕疵</td><td>不良次數≥1且不良率（不良次數÷實際進貨量）≥5%</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">4.2 為Top5 SKU各標主因</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>SKU</th><th>主因標籤</th><th>證據（具體數字）</th></tr>
+          <tr><td>S-1015</td><td>採購過量／銷售下滑</td><td>進貨941件是前三月均銷91.7件的10.3倍（遠超2倍門檻）</td></tr>
+          <tr><td>S-1023</td><td>採購過量／銷售下滑</td><td>進貨438件是前三月均銷136.7件的3.2倍（超過2倍門檻）</td></tr>
+          <tr><td>S-1031</td><td>銷售下滑</td><td>進貨201件其實只是前三月均銷290件的0.7倍（未達採購過量門檻）</td></tr>
+          <tr><td>S-1002</td><td>一般庫存</td><td>進貨580件是前三月均銷439.7件的1.3倍（未達2倍門檻）</td></tr>
+          <tr><td>S-1012</td><td>採購過量</td><td>進貨278件是前三月均銷132件的2.1倍（略超2倍門檻）</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">4.3 主因分布</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>主因</th><th>SKU數</th></tr>
+          <tr><td>採購過量</td><td>3（S-1015、S-1023、S-1012）</td></tr>
+          <tr><td>銷售下滑</td><td>2（S-1015、S-1031）</td></tr>
+          <tr><td>LT過長</td><td>1（S-1023）</td></tr>
+          <tr><td>品質瑕疵（含退貨）</td><td>0</td></tr>
+        </table>
+      </div>
+      <p style="color: var(--jade); font-size: 13px; margin-bottom: 20px;">✅ 結論：5個SKU中最常見主因是「採購過量」（3支SKU都有這個標籤：S-1015、S-1023、S-1012）</p>
+
+      <div class="divider"></div>
+
+      <h3>Section 5｜一句話結論（10 min）</h3>
+      <p class="task-goal" style="max-width: 100%; margin-bottom: 32px;">
+        主因是採購過量，5支Top積壓SKU中3支進貨量遠超前三月平均銷量（S-1015達10.3倍）。我建議下月暫停這幾支SKU新採購，並要求業務重新核對9月銷售預測，同時對LT變異過高的供應商啟動改善計畫。
+      </p>
+
+      <div class="divider"></div>
+
+      <h3>Section 6｜GenAI sub-task 連動（2 min）</h3>
+      <p class="task-goal">上午GenAI報告中，你抽到的新品＝（尚未填寫）</p>
+      <p class="task-goal">回答：這份報告對你今天的任務08有沒有幫助？如何幫助？（尚未填寫）</p>
     </section>
 
     <section class="page" id="week3">
