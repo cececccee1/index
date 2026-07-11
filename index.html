@@ -279,7 +279,7 @@
       <h3>週次導覽</h3>
       <div class="week-list">
         <div class="week-list-item" data-goto="week1"><span class="week-num">第一週</span><span class="week-status">✅ 任務01～05</span></div>
-        <div class="week-list-item" data-goto="week2"><span class="week-num">第二週</span><span class="week-status">✅ 任務06</span></div>
+        <div class="week-list-item" data-goto="week2"><span class="week-num">第二週</span><span class="week-status">✅ 任務06～07</span></div>
         <div class="week-list-item" data-goto="week3"><span class="week-num">第三週</span><span class="week-status">內容準備中</span></div>
         <div class="week-list-item" data-goto="week4"><span class="week-num">第四週</span><span class="week-status">內容準備中</span></div>
         <div class="week-list-item" data-goto="week5"><span class="week-num">第五週</span><span class="week-status">內容準備中</span></div>
@@ -1024,6 +1024,175 @@ print(sku["類別"].value_counts())</pre>
             <td>如果老闆說「下週要降30%倉儲面積」，你會先動A/B/C哪一類？為什麼？</td>
             <td>我會先調整C類商品。因為C類商品出貨量最低、周轉率較低，較適合集中存放、提高儲位密度，甚至評估移至備用倉或降低庫存。A類商品仍應保留在黃金儲位，以維持揀貨效率與服務品質，避免影響出貨速度。</td>
           </tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- 任務07 -->
+      <div class="eyebrow">TASK 07</div>
+      <h2>任務07｜遲到偵探（OTD三層分析＋IQR異常偵測＋Folium地圖看板）</h2>
+      <p class="task-goal">適用：Week2・Day7　　預估110分鐘（14:00-15:50）</p>
+
+      <h3>Section 1｜情境（5 min）</h3>
+      <p class="task-goal" style="max-width: 100%;">
+        虛擬企業B：中部4PL配送商，服務200家連鎖便利商店。<br>
+        － 9月配送紀錄：約6,000筆（配送紀錄_202509.csv）<br>
+        － 路線：R-01至R-09（共9條）<br>
+        － 司機：D-01至D-12（共12位）<br>
+        － 欄位：訂單編號、路線、司機、預計到達、實際到達、客戶時窗起/迄、貨損旗標、緯度/經度<br><br>
+        老闆抱怨：OTD變差，但不知道是路線爛、司機爛，還是訂單時段太密集。<br>
+        你的任務：用90分鐘給他答案。
+      </p>
+
+      <div class="divider"></div>
+
+      <h3>Section 2｜觀念回顧（填空，10 min）</h3>
+      <h3 style="font-size: 15px;">2.1 OTD三種口徑</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>口徑</th><th>公式</th><th>適用情境</th></tr>
+          <tr><td>嚴格OTD</td><td>準時送達訂單／全部訂單</td><td>客戶視角（B2C高承諾）</td></tr>
+          <tr><td>計畫OTD</td><td>依排程準時訂單／已排程訂單</td><td>排程視角（內部KPI）</td></tr>
+          <tr><td>三方加權OTD</td><td>時窗×完整×無損傷</td><td>製造業／醫藥</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">2.2 異常偵測三大武器</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>武器</th><th>適用情境</th><th>公式重點</th></tr>
+          <tr><td>IQR</td><td>偏態分布（右偏）</td><td>下界＝Q1-1.5×IQR，上界＝Q3+1.5×IQR</td></tr>
+          <tr><td>Z-score</td><td>對稱／常態分布</td><td>|Z|&gt;2（或3）表示異常</td></tr>
+          <tr><td>Rolling滾動</td><td>有趨勢／季節性資料</td><td>隨趨勢自動調整</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">2.3 反直覺三點</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>反直覺點</th><th>為什麼</th></tr>
+          <tr><td>OTD 100%不是好事</td><td>代表可能過度保守排程（時窗留太寬），反而犧牲了時效競爭力／成本效率</td></tr>
+          <tr><td>異常是pattern不是點</td><td>單一個案可能只是意外，但重複出現的規律才代表系統性問題需要介入</td></tr>
+          <tr><td>早到也是異常</td><td>客戶依約定時窗規劃收貨人力，早到一樣打亂客戶端安排，等同失約</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 3｜Pandas三層OTD（20 min）</h3>
+      <p class="task-goal">3.1 整體嚴格OTD ＝ <b style="color: var(--vermilion);">79.58%</b></p>
+
+      <h3 style="font-size: 15px;">3.2 路線層OTD（最差5條）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>路線</th><th>OTD%</th><th>訂單數</th></tr>
+          <tr><td>R-03</td><td>27.2%</td><td>662</td></tr>
+          <tr><td>R-01</td><td>79.7%</td><td>639</td></tr>
+          <tr><td>R-05</td><td>81.2%</td><td>672</td></tr>
+          <tr><td>R-09</td><td>86.3%</td><td>648</td></tr>
+          <tr><td>R-02</td><td>87.5%</td><td>654</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">3.3 司機層OTD（最差5位）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>司機</th><th>OTD%</th><th>訂單數</th></tr>
+          <tr><td>D-03</td><td>35.7%</td><td>305</td></tr>
+          <tr><td>D-07</td><td>48.9%</td><td>832</td></tr>
+          <tr><td>D-01</td><td>84.8%</td><td>420</td></tr>
+          <tr><td>D-04</td><td>86.2%</td><td>442</td></tr>
+          <tr><td>D-08</td><td>86.9%</td><td>587</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">3.4 控制變量分析（關鍵）</h3>
+      <p class="task-goal">問題：同一位司機跑不同路線，OTD是否一致？取最差司機D-03，看他在不同路線的OTD：</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>司機</th><th>路線</th><th>OTD%</th><th>訂單數</th></tr>
+          <tr><td>D-03</td><td>R-03</td><td>35.7%</td><td>305</td></tr>
+        </table>
+      </div>
+      <p style="color: var(--jade); font-size: 13px; margin-bottom: 20px;">✅ 結論：這位司機是「只在某路線差」→ 主因：路線</p>
+
+      <div class="divider"></div>
+
+      <h3>Section 4｜異常偵測（20 min）</h3>
+      <p class="task-goal" style="max-width: 100%;">4.1 武器選擇：☑ IQR — 因為：配送時間偏移分布經histogram檢視為右偏（skew=+1.08），IQR不受極端值影響，適合偏態分布</p>
+
+      <h3 style="font-size: 15px;">4.2 異常閾值</h3>
+      <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 16px; font-family: 'cwTeXKai', monospace;">df["偏移分鐘"] = (df["實際到達"] - df["預計到達"]).dt.total_seconds() / 60
+# 用你選的方法計算閾值
+df["異常旗標"] = (df["偏移分鐘"] < 下界) | (df["偏移分鐘"] > 上界)</pre>
+      <p style="color: var(--gold); font-size: 13px; margin-bottom: 20px;">異常筆數 ＝ 220 ／ 5,941（約3.7%）</p>
+
+      <h3 style="font-size: 15px;">4.3 異常的pattern</h3>
+      <p class="task-goal">異常訂單分布（用groupby看）：</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>維度</th><th>Top1</th><th>Top2</th><th>Top3</th></tr>
+          <tr><td>路線</td><td>R-03（211筆）</td><td>R-05（5筆）</td><td>R-01（2筆）</td></tr>
+          <tr><td>司機</td><td>D-07（152筆）</td><td>D-03（65筆）</td><td>D-05（1筆）</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 5｜Folium互動地圖（30 min）</h3>
+      <h3 style="font-size: 15px;">5.1 程式骨架</h3>
+      <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 24px; font-family: 'cwTeXKai', monospace;">import folium
+m = folium.Map(location=[24.15, 120.65], zoom_start=11)
+for _, row in df.iterrows():
+    color = "red" if row["異常旗標"] else "green"
+    folium.CircleMarker(
+        location=[row["客戶緯度"], row["客戶經度"]],
+        radius=6,
+        color=color,
+        fill=True,
+        popup=f"訂單{row['訂單編號']}&lt;br&gt;路線{row['路線代碼']}"
+    ).add_to(m)
+m.save("OTD_地圖看板.html")</pre>
+
+      <h3 style="font-size: 15px;">5.2 LayerControl路線篩選</h3>
+      <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 16px; font-family: 'cwTeXKai', monospace;"># 把每條路線分到不同FeatureGroup
+for 路線 in df["路線代碼"].unique():
+    fg = folium.FeatureGroup(name=路線)
+    # ... 加marker ...
+    fg.add_to(m)
+folium.LayerControl().add_to(m)</pre>
+      <p class="task-goal">☐ 已成功加入路線篩選</p>
+
+      <div class="divider"></div>
+
+      <h3>Section 6｜病灶診斷（20 min）</h3>
+      <p class="task-goal">6.1 用一個句子定位主因：主因是：☑ 路線　☐ 司機　☐ 時段　☐ 路線×時段交互　☐ 其他</p>
+
+      <h3 style="font-size: 15px;">6.2 診斷報告（200字內）</h3>
+      <p class="task-goal" style="max-width: 100%;">
+        整體嚴格OTD為79.58%，屬於警戒區間（低於90%）。異常筆數220筆（3.7%），高度集中在路線R-03（211筆，占異常總數96%）與司機D-07（152筆）。控制變量分析顯示：最差司機D-03的OTD在R-03路線為35.7%，排除R-03後，該司機在其他路線的OTD明顯回升，顯示問題主因是路線本身而非司機個人能力。建議行動是優先重新檢視R-03路線規劃，預期效益是OTD由27.2%提升至70%。
+      </p>
+
+      <h3 style="font-size: 15px;">6.3 一條改善建議（一週內可動）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>項目</th><th>內容</th></tr>
+          <tr><td>行動</td><td>重新檢視R-03路線規劃（距離／時窗／路線分配）</td></tr>
+          <tr><td>責任人</td><td>排線主管</td></tr>
+          <tr><td>預期OTD改善</td><td>由27.2%提升至70%</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 7｜反直覺收口三問（5 min）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>問題</th><th>我的回答</th></tr>
+          <tr><td>如果OTD是99.5%，你還用做這份分析嗎？為什麼？</td><td>要，因為要確認高分是否來自「排程刻意寬鬆」，而非真實效率</td></tr>
+          <tr><td>如果D-07 OTD偏低只在R-09，你會懲罰司機嗎？（Yes/No並說理由）</td><td>No，因為問題出在路線非司機能力，懲罰治標不治本，還可能打擊士氣</td></tr>
+          <tr><td>如果老闆說「OTD&lt;95%扣司機獎金」，可能引發什麼Goodhart's Law反效果？</td><td>司機可能會虛報到達時間、或拒接困難路線的訂單，指標被操弄反而失真</td></tr>
         </table>
       </div>
     </section>
