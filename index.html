@@ -204,6 +204,31 @@
     .check-list { list-style: none; margin-bottom: 20px; }
     .check-list li { color: var(--text); font-size: 14px; margin-bottom: 6px; }
 
+    .back-home-wrap {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .back-home-btn {
+      display: inline-block;
+      padding: 10px 28px;
+      background: var(--panel-light);
+      border: 1px solid var(--jade);
+      border-radius: 6px;
+      color: var(--jade);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .back-home-btn:hover {
+      background: var(--jade);
+      color: var(--text);
+    }
+
     footer {
       text-align: center; padding: 28px 24px; color: var(--muted);
       font-size: 12px; border-top: 1px solid var(--border);
@@ -883,6 +908,9 @@ rfm["RFM_score"] = rfm["R_score"].astype(str) + rfm["F_score"].astype(str) + rfm
       <p style="margin-top: 16px; color: var(--muted); font-size: 14px; margin-bottom: 32px;">
         範例：C003水產鮮活的M在Top3，但R已經90天沒下單……（高金額但即將流失，業務拜訪優先）
       </p>
+      <div class="back-home-wrap">
+        <button class="back-home-btn" onclick="gotoPage('home')">🏠 返回首頁</button>
+      </div>
     </section>
 
     <!-- 第二週：任務06～09 -->
@@ -1515,42 +1543,63 @@ print(積壓.head(5))</pre>
 1:00-1:30 風險三情境＋結語
 「如果順利，每月多賺8萬；就算效果普通，還是能多賺3萬；
 如果什麼都不做，每月倒虧5萬。給我一個月觀察期，不達標我就回滾。」</pre>
+      <div class="back-home-wrap">
+        <button class="back-home-btn" onclick="gotoPage('home')">🏠 返回首頁</button>
+      </div>
     </section>
 
     <section class="page" id="week3">
       <div class="eyebrow">WEEK 03</div>
       <h2>第三週</h2>
       <div class="placeholder-box"><div class="icon">🗓️</div><div class="title">內容尚未上傳</div><div>敬請期待，內容準備中</div></div>
+      <div class="back-home-wrap">
+        <button class="back-home-btn" onclick="gotoPage('home')">🏠 返回首頁</button>
+      </div>
     </section>
 
     <section class="page" id="week4">
       <div class="eyebrow">WEEK 04</div>
       <h2>第四週</h2>
       <div class="placeholder-box"><div class="icon">🗓️</div><div class="title">內容尚未上傳</div><div>敬請期待，內容準備中</div></div>
+      <div class="back-home-wrap">
+        <button class="back-home-btn" onclick="gotoPage('home')">🏠 返回首頁</button>
+      </div>
     </section>
 
     <section class="page" id="week5">
       <div class="eyebrow">WEEK 05</div>
       <h2>第五週</h2>
       <div class="placeholder-box"><div class="icon">🗓️</div><div class="title">內容尚未上傳</div><div>敬請期待，內容準備中</div></div>
+      <div class="back-home-wrap">
+        <button class="back-home-btn" onclick="gotoPage('home')">🏠 返回首頁</button>
+      </div>
     </section>
 
     <section class="page" id="week6">
       <div class="eyebrow">WEEK 06</div>
       <h2>第六週</h2>
       <div class="placeholder-box"><div class="icon">🗓️</div><div class="title">內容尚未上傳</div><div>敬請期待，內容準備中</div></div>
+      <div class="back-home-wrap">
+        <button class="back-home-btn" onclick="gotoPage('home')">🏠 返回首頁</button>
+      </div>
     </section>
 
     <section class="page" id="week7">
       <div class="eyebrow">WEEK 07</div>
       <h2>第七週</h2>
       <div class="placeholder-box"><div class="icon">🗓️</div><div class="title">內容尚未上傳</div><div>敬請期待，內容準備中</div></div>
+      <div class="back-home-wrap">
+        <button class="back-home-btn" onclick="gotoPage('home')">🏠 返回首頁</button>
+      </div>
     </section>
 
     <section class="page" id="week8">
       <div class="eyebrow">WEEK 08</div>
       <h2>第八週</h2>
       <div class="placeholder-box"><div class="icon">🗓️</div><div class="title">內容尚未上傳</div><div>敬請期待，內容準備中</div></div>
+      <div class="back-home-wrap">
+        <button class="back-home-btn" onclick="gotoPage('home')">🏠 返回首頁</button>
+      </div>
     </section>
 
   </main>
