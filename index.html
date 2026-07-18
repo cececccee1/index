@@ -349,7 +349,7 @@
       </p>
       <div class="stat-row">
         <div class="stat-item"><div class="num">8</div><div class="label">週學習週期</div></div>
-        <div class="stat-item"><div class="num">2</div><div class="label">已完成週次</div></div>
+        <div class="stat-item"><div class="num">3</div><div class="label">已完成週次</div></div>
         <div class="stat-item"><div class="num">持續中</div><div class="label">每週更新</div></div>
       </div>
 
@@ -359,7 +359,7 @@
       <div class="week-list">
         <div class="week-list-item" data-goto="week1"><span class="week-num">第一週</span><span class="week-status">✅ 任務01～05</span></div>
         <div class="week-list-item" data-goto="week2"><span class="week-num">第二週</span><span class="week-status">✅ 任務06～09</span></div>
-        <div class="week-list-item" data-goto="week3"><span class="week-num">第三週</span><span class="week-status">內容準備中</span></div>
+        <div class="week-list-item" data-goto="week3"><span class="week-num">第三週</span><span class="week-status">✅ 任務10～13</span></div>
         <div class="week-list-item" data-goto="week4"><span class="week-num">第四週</span><span class="week-status">內容準備中</span></div>
         <div class="week-list-item" data-goto="week5"><span class="week-num">第五週</span><span class="week-status">內容準備中</span></div>
         <div class="week-list-item" data-goto="week6"><span class="week-num">第六週</span><span class="week-status">內容準備中</span></div>
@@ -1613,9 +1613,774 @@ print(積壓.head(5))</pre>
     </section>
 
     <section class="page" id="week3">
-      <div class="eyebrow">WEEK 03</div>
-      <h2>第三週</h2>
-      <div class="placeholder-box"><div class="icon">🗓️</div><div class="title">內容尚未上傳</div><div>敬請期待，內容準備中</div></div>
+      <div class="eyebrow">WEEK 03 · TASK 10</div>
+      <h2>第三週｜任務10：算命師 I</h2>
+      <p class="task-goal">
+        客戶流失預測：決策樹＋Top 10高風險名單<br>
+        適用：Week 3・Day 11，預估填寫時間75分鐘（14:30-15:45，含5分鐘Showtime）<br>
+        工具選擇（可雙跑）：☐ Orange 3（視覺化驗證）　☑ scikit-learn（Notebook）
+      </p>
+      <p class="task-goal" style="max-width: 100%;">
+        流失定義切點（30/60/90天）：60天<br>
+        為什麼：物流客戶下單週期通常比零售長，30天沒下單不代表真的流失（可能只是還沒到下次補貨週期），容易產生「假流失」誤判
+      </p>
+
+      <div class="divider"></div>
+
+      <h3>Section 1｜觀念回顧（5分鐘）</h3>
+      <h3 style="font-size: 15px;">1.1 ML三大類速記</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>類別</th><th>帶答案？</th><th>典型問題</th></tr>
+          <tr><td>監督式</td><td>☑是 ☐否</td><td>客戶會不會走？銷量多少？</td></tr>
+          <tr><td>非監督式</td><td>☐是 ☑否</td><td>客戶可分幾群？哪些品一起買？</td></tr>
+          <tr><td>強化式</td><td>☐是 ☑否</td><td>排程怎麼最省油？</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">1.2 監督式分兩支</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>分支</th><th>類型</th><th>例題</th></tr>
+          <tr><td>分類：y是</td><td>離散（離散/連續）</td><td>戶會不會流失（0/1）</td></tr>
+          <tr><td>回歸：y是</td><td>連續</td><td>下個月銷量多少（數值）</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">1.3 反直覺三點（自寫）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>問題</th><th>我的答案</th></tr>
+          <tr><td>90% Accuracy不一定是好模型，為什麼？</td><td>流失率只有10%左右時，模型「永遠猜留客」也能有90% Accuracy，但一個流失客戶都沒抓到（Recall=0%）</td></tr>
+          <tr><td>Threshold不一定是0.5，為什麼？</td><td>模型輸出的是機率，切在哪裡由業務成本決定（挽留便宜就降低門檻多抓一點，誤殺成本高就提高門檻）</td></tr>
+          <tr><td>max_depth越大不一定越準，為什麼？</td><td>樹太深會把訓練資料的雜訊也背起來（過擬合），Train準確率會很高，但Test（沒看過的資料）反而掉下去</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 2｜資料探索（5分鐘）</h3>
+      <h3 style="font-size: 15px;">2.1 客戶與標籤分布</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>項目</th><th>數值</th></tr>
+          <tr><td>客戶總數</td><td>1000</td></tr>
+          <tr><td>流失客戶數（y=1）</td><td>107</td></tr>
+          <tr><td>流失率</td><td>10.7%</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">2.2 流失率落在哪個區間？</h3>
+      <p class="task-goal">☐ ＜5%（極不平衡→後面用stratify＋看Recall）　☑ 5-15%（常見物流流失→用stratify）　☐ ＞15%（可疑→切點再檢查）</p>
+
+      <h3 style="font-size: 15px;">2.3 觀察窗 vs 預測窗</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>段</th><th>起始日期</th><th>結束日期</th><th>用途</th></tr>
+          <tr><td>觀察窗</td><td>Day -60</td><td>Day 0（今天）</td><td>算X特徵</td></tr>
+          <tr><td>預測窗</td><td>Day 0</td><td>Day +30</td><td>判y流失</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 3｜特徵工程清單（10分鐘）</h3>
+      <p class="task-goal">至少5個特徵，承D4 RFM三軸＋新增。</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>#</th><th>特徵名</th><th>計算方式（1句）</th><th>業務直覺</th></tr>
+          <tr><td>1</td><td>Recency</td><td>最近一次下單距今幾天</td><td>越大越可能走</td></tr>
+          <tr><td>2</td><td>Frequency</td><td>60天內下單次數</td><td>越小越可能走</td></tr>
+          <tr><td>3</td><td>Monetary</td><td>60天內總金額</td><td>越小可能越要走</td></tr>
+          <tr><td>4</td><td>AvgOrder</td><td>Monetary÷Frequency</td><td>客單價越低，對服務黏著度越低，越可能走</td></tr>
+          <tr><td>5</td><td>ComplaintCnt（投訴次數）</td><td>60天內投訴筆數</td><td>投訴越多，信任越低，越可能走</td></tr>
+          <tr><td>6(選)</td><td>Segment_D4</td><td>承D4八分群類別</td><td>不同分群流失傾向不同（例如「沉睡型」風險最高）</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 4｜Train / Validation / Test切分（5分鐘）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>切片</th><th>比例</th><th>列數</th><th>是否stratify？</th></tr>
+          <tr><td>Train</td><td>70%</td><td>700</td><td>Yes</td></tr>
+          <tr><td>Validation</td><td>15%</td><td>150</td><td>Yes</td></tr>
+          <tr><td>Test</td><td>15%</td><td>150</td><td>Yes</td></tr>
+        </table>
+      </div>
+      <p class="task-goal">☑ random_state設了（填寫）42　　☑ stratify=y開了（因為流失不平衡）　　☑ Test還沒被偷看（只在最後評估用一次）</p>
+
+      <div class="divider"></div>
+
+      <h3>Section 5｜決策樹建模（10分鐘）</h3>
+      <h3 style="font-size: 15px;">5.1 hyperparameter設定</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>參數</th><th>值</th><th>理由</th></tr>
+          <tr><td>max_depth</td><td>4</td><td>樹太深會過擬合，從4開始跑，先求可解釋、再視情況調深</td></tr>
+          <tr><td>min_samples_split</td><td>20</td><td>節點樣本數不足20就不再往下切，避免切出只服務少數特例的節點</td></tr>
+          <tr><td>min_samples_leaf</td><td>10</td><td>每個葉節點至少10筆樣本，避免長出只包1-2筆資料的過細分支</td></tr>
+          <tr><td>class_weight</td><td>☐None ☑balanced</td><td>流失率僅~10.7%，屬少數類別，balanced讓模型不會因多數類別（留客）而忽略流失客</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">5.2 特徵重要度Top5</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>Rank</th><th>特徵</th><th>importance</th></tr>
+          <tr><td>1</td><td>Recency</td><td>42%</td></tr>
+          <tr><td>2</td><td>Frequency</td><td>21%</td></tr>
+          <tr><td>3</td><td>AvgOrder</td><td>13%</td></tr>
+          <tr><td>4</td><td>投訴次數</td><td>10%</td></tr>
+          <tr><td>5</td><td>分群:At-Risk</td><td>8%</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">5.3 一條決策路徑解讀（挑Top1高風險客）</h3>
+      <p class="task-goal">寫成「If A and B and C → 流失機率X%」一行。</p>
+      <p style="color: var(--jade); font-size: 14px; margin-bottom: 20px;">If Recency &gt; 30 AND Frequency &lt; 3 → 流失機率92%</p>
+
+      <div class="divider"></div>
+
+      <h3>Section 6｜評估指標（10分鐘）</h3>
+      <h3 style="font-size: 15px;">6.1 混淆矩陣（Test）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th></th><th>預測：留(0)</th><th>預測：走(1)</th></tr>
+          <tr><td>實際：留(0)</td><td>TN = 850</td><td>FP = 30</td></tr>
+          <tr><td>實際：走(1)</td><td>FN = 40</td><td>TP = 80</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">6.2 四指標</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>指標</th><th>公式</th><th>數值</th></tr>
+          <tr><td>Accuracy</td><td>(TP+TN)/全部</td><td>93%</td></tr>
+          <tr><td>Precision</td><td>TP/(TP+FP)</td><td>73%</td></tr>
+          <tr><td>Recall ★</td><td>TP/(TP+FN)</td><td>67%</td></tr>
+          <tr><td>F1</td><td>2PR/(P+R)</td><td>70%</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">6.3 Threshold調整（0.30 / 0.50 / 0.70）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>Threshold</th><th>Precision</th><th>Recall</th><th>F1</th></tr>
+          <tr><td>0.30</td><td>較低</td><td>較高（抓更多風險客，誤殺也多）</td><td>中</td></tr>
+          <tr><td>0.50</td><td>中</td><td>中</td><td>中</td></tr>
+          <tr><td>0.70</td><td>較高</td><td>較低（更精準，但漏掉一些）</td><td>中</td></tr>
+        </table>
+      </div>
+      <p style="color: var(--jade); font-size: 13px; margin-bottom: 20px;">✅ 最終Threshold選 0.30-0.40，因為：流失預測的FN（漏抓）成本通常是FP（誤判）的3-5倍，寧可多打幾通挽留電話，也不要漏接真正要走的客戶。</p>
+
+      <div class="divider"></div>
+
+      <h3>Section 7｜Top 10高風險名單（15分鐘）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>Rank</th><th>客戶ID</th><th>流失機率</th><th>Recency</th><th>Frequency</th><th>Monetary</th><th>主因</th><th>建議動作</th></tr>
+          <tr><td>1</td><td>C0479</td><td>93.6%</td><td>163</td><td>2</td><td>9,537</td><td>長時間沒下單＋頻率低</td><td>VIP電話挽留＋折扣</td></tr>
+          <tr><td>2</td><td>C0180</td><td>93.6%</td><td>149</td><td>1</td><td>24,459</td><td>長時間沒下單＋頻率低</td><td>VIP電話挽留＋折扣</td></tr>
+          <tr><td>3</td><td>C0848</td><td>93.6%</td><td>138</td><td>2</td><td>13,547</td><td>長時間沒下單＋頻率低</td><td>VIP電話挽留＋折扣</td></tr>
+          <tr><td>4</td><td>C0221</td><td>93.6%</td><td>133</td><td>1</td><td>18,942</td><td>長時間沒下單＋頻率低</td><td>VIP電話挽留＋折扣</td></tr>
+          <tr><td>5</td><td>C0379</td><td>93.6%</td><td>128</td><td>3</td><td>18,225</td><td>近期下單變稀</td><td>推送優惠通知</td></tr>
+          <tr><td>6</td><td>C0235</td><td>93.6%</td><td>126</td><td>2</td><td>10,427</td><td>長時間沒下單＋頻率低</td><td>VIP電話挽留＋折扣</td></tr>
+          <tr><td>7</td><td>C0253</td><td>93.6%</td><td>125</td><td>0</td><td>8,815</td><td>長時間沒下單＋頻率低</td><td>VIP電話挽留＋折扣</td></tr>
+          <tr><td>8</td><td>C0285</td><td>93.6%</td><td>125</td><td>2</td><td>17,587</td><td>長時間沒下單＋頻率低</td><td>VIP電話挽留＋折扣</td></tr>
+          <tr><td>9</td><td>C0562</td><td>93.6%</td><td>123</td><td>2</td><td>25,848</td><td>長時間沒下單＋頻率低</td><td>VIP電話挽留＋折扣</td></tr>
+          <tr><td>10</td><td>C0606</td><td>93.6%</td><td>115</td><td>2</td><td>21,393</td><td>長時間沒下單＋頻率低</td><td>VIP電話挽留＋折扣</td></tr>
+        </table>
+      </div>
+      <p style="color: var(--muted); font-size: 13px; margin-bottom: 20px;">建議動作可選：電話挽留／升級服務／折扣券／拜訪／其他</p>
+
+      <div class="divider"></div>
+
+      <h3>Section 8｜業務翻譯3句（5分鐘）</h3>
+      <p class="task-goal">寫成「給客戶經理看的Slack訊息」— 3句以內，可直接copy-paste用。</p>
+      <p class="task-goal" style="max-width: 100%; margin-bottom: 32px;">
+        1. 本次模型找出10位高風險流失客戶，流失機率皆約為93.6%。<br>
+        2. 高風險客戶多屬於Sleeping客群，主要原因是長時間未下單且購買頻率偏低。<br>
+        3. 建議優先進行電話挽留、提供優惠方案或主動關懷，以降低客戶流失風險。
+      </p>
+
+      <div class="divider"></div>
+
+      <h3>Section 9｜反直覺三問驗證（5分鐘）</h3>
+      <p class="task-goal">回到Section 1.3，用你今天的數字驗證：</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>問題</th><th>驗證內容</th></tr>
+          <tr><td>90% Accuracy陷阱？</td><td>你的Acc = 75.3%，Recall = 75.9%。如果只看Acc，會不會誤判模型很好？ ✓</td></tr>
+          <tr><td>Threshold不是0.5？</td><td>你選了 0.05，因為業務判斷是：因為可以兼顧Precision與Recall，在抓到流失客戶與降低誤判之間取得平衡。</td></tr>
+          <tr><td>max_depth越大越好？</td><td>你max_depth = 4；若再加深，Test Recall會 ☐升 ☐降 ☑持平</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 10｜60秒Showtime腳本（5分鐘）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>時段</th><th>內容</th></tr>
+          <tr><td>0:00-0:20</td><td>Recall／Precision／F1＋為什麼選這套切點</td></tr>
+          <tr><td>0:20-0:40</td><td>Top1高風險客戶決策路徑（if/and/and）</td></tr>
+          <tr><td>0:40-1:00</td><td>給客戶經理的建議動作</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">逐字稿</h3>
+      <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 32px; font-family: 'cwTeXKai', monospace; white-space: pre-wrap;">大家好，我們今天利用決策樹建立客戶流失預測模型，目的是找出下個月最可能停止下單的客。
+
+本次模型的Accuracy為75.3%，Recall為75.9%，代表模型能找出約四分之三的流失客戶，因此評估時不能只看Accuracy，更要重視Recall，避免漏掉真正會流失的重要客戶。
+
+模型分析結果顯示，高風險客戶大多屬於Sleeping客群，主要特徵是Recency很高（很久沒下單），以及Frequency很低（購買次數少），因此被判定具有較高流失風險。</pre>
+
+      <div class="divider"></div>
+
+      <!-- 任務11 -->
+      <div class="eyebrow">TASK 11</div>
+      <h2>任務11：算命師 II</h2>
+      <p class="task-goal">
+        Top 5 SKU月銷量預測・Prophet + Baseline + 採購建議書<br>
+        預測對象：☑ Top 5 SKU　☐ Top 1 SKU（深做）　☐ 自選<br>
+        預測週期：☑ 月度　☐ 週度<br>
+        模型主選：☑ Prophet　☐ Linear Regression　☐ ARIMA
+      </p>
+
+      <h3>Section 1｜觀念回顧（5分鐘）</h3>
+      <h3 style="font-size: 15px;">1.1 時序資料三成分</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>成分</th><th>直觀</th><th>Prophet自動處理？</th></tr>
+          <tr><td>Trend</td><td>整體向上/向下</td><td>是</td></tr>
+          <tr><td>Seasonality</td><td>反覆出現的模式</td><td>是</td></tr>
+          <tr><td>Holiday</td><td>一次性事件</td><td>否</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">1.2 反直覺三點（自寫）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>問題</th><th>我的答案</th></tr>
+          <tr><td>時序資料絕對不能random shuffle — 為什麼？</td><td>隨機切會讓Train集裡混入「未來」的資料，模型等於用還沒發生的事去學習，Test分數因此虛高（data leakage）。上線後模型只能看到真正的過去，表現會直接崩掉。</td></tr>
+          <tr><td>Baseline first — 為什麼？</td><td>Prophet需要訓練、封裝、部署、版本控管，維護成本遠高於一行程式碼的Baseline。若Prophet沒有明顯贏過Baseline（門檻抓2個百分點），複雜模型就沒有上線價值。</td></tr>
+          <tr><td>點預測 vs 區間預測 — 為什麼採購要區間？</td><td>給一個數字（例：「下月賣880」）等於賭博，主管會質疑、容易被打槍；給區間（例：「800~960」）等於把不確定性一起交付，主管知道風險邊界，敢備貨也知道上下限。</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 2｜資料切分（10分鐘）</h3>
+      <p class="task-goal">⚠ 用時間順序切，不准train_test_split隨機切！</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>切片</th><th>起始日期</th><th>結束日期</th><th>月數</th></tr>
+          <tr><td>Train</td><td>2023-01-01</td><td>2025-06-01</td><td>30</td></tr>
+          <tr><td>Test</td><td>2025-07-01</td><td>2025-12-01</td><td>6</td></tr>
+        </table>
+      </div>
+      <p class="task-goal">自我檢核：☑ 用df.sort_values("ds")排好時間　　☑ Test都在Train之後，沒交叉　　☑ Test月數≥3</p>
+
+      <div class="divider"></div>
+
+      <h3>Section 3｜Baseline一定先做（15分鐘）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>Baseline</th><th>公式(1行)</th><th>Test MAPE</th></tr>
+          <tr><td>B1上月一樣</td><td>y_pred = y[-1]</td><td>B1_last</td></tr>
+          <tr><td>B2過去3月平均</td><td>y_pred = y[-3:].mean()</td><td>B2_3mavg</td></tr>
+          <tr><td>B3去年同月</td><td>找lag-12</td><td>B3_lag12</td></tr>
+          <tr><td>B4線性外推</td><td>polyfit(range(6), y[-6:], 1)</td><td>B4_linear</td></tr>
+        </table>
+      </div>
+      <p style="color: var(--jade); font-size: 13px; margin-bottom: 20px;">✅ 最佳Baseline：B3_lag12　MAPE = 14.5%</p>
+
+      <div class="divider"></div>
+
+      <h3>Section 4｜Prophet建模（15分鐘）</h3>
+      <h3 style="font-size: 15px;">4.1 hyperparameter</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>參數</th><th>值</th><th>理由</th></tr>
+          <tr><td>yearly_seasonality</td><td>☑True ☐False ☐auto</td><td>銷量有年度週期性(旺季/淡季)</td></tr>
+          <tr><td>weekly_seasonality</td><td>☐True ☑False ☐auto</td><td>月度資料，無週內波動可言</td></tr>
+          <tr><td>interval_width</td><td>0.80（預設0.80）</td><td>80%信賴區間，用於採購上下限估算</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">4.2 加Holiday（可選）</h3>
+      <p class="task-goal">☑ 加雙十一（2024-11-11, 2025-11-11, 2026-11-11）　　☐ 加中秋　　☐ 加春節　　☐ 沒加（理由：－）</p>
+
+      <h3 style="font-size: 15px;">4.3 plot_components三句業務翻譯</h3>
+      <p class="task-goal">跑model.plot_components(forecast)後讀圖。</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>成分</th><th>業務翻譯</th></tr>
+          <tr><td>Trend</td><td>這支SKU整體上升，年增率約13.5%</td></tr>
+          <tr><td>Seasonality</td><td>Q4是高峰，比平均高65%</td></tr>
+          <tr><td>Holiday</td><td>雙十一當月銷量比平常暴增235%</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 5｜評估指標（10分鐘）</h3>
+      <h3 style="font-size: 15px;">5.1 三指標</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>指標</th><th>Prophet</th><th>最佳Baseline</th></tr>
+          <tr><td>RMSE</td><td>120.63</td><td>375.79</td></tr>
+          <tr><td>MAE</td><td>89.72</td><td>313.83</td></tr>
+          <tr><td>MAPE ★</td><td>4.5%</td><td>14.54%</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">5.2 上線決策</h3>
+      <p class="task-goal">☑ Prophet MAPE顯著低（差距≥2pp）→用Prophet　　☐ Prophet MAPE接近Baseline（差距&lt;2pp）→用Baseline　　☐ Prophet MAPE高於Baseline→檢查資料/換模型</p>
+      <p style="color: var(--jade); font-size: 13px; margin-bottom: 20px;">
+        ✅ 最終決定：Prophet<br>
+        因為：diff_pp達10.06pp，遠超過2pp的顯著性門檻，代表Prophet確實學到了Baseline抓不到的規律——結合4.3的觀察，SKU_001有明顯的年度成長趨勢與雙十一節慶暴增效應，這些都是Baseline無法捕捉的規律。
+      </p>
+
+      <div class="divider"></div>
+
+      <h3>Section 6｜Top 5 SKU預測表（20分鐘・主交付物）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>Rank</th><th>SKU ID</th><th>上月實績</th><th>yhat點估</th><th>yhat_lower</th><th>yhat_upper</th><th>MAPE</th><th>採購建議</th></tr>
+          <tr><td>1</td><td>SKU_001</td><td>1856</td><td>1480</td><td>1307</td><td>1648</td><td>4.5%</td><td>備貨1480±17</td></tr>
+          <tr><td>2</td><td>SKU_003</td><td>788</td><td>620</td><td>577</td><td>657</td><td>9.4%</td><td>備貨620±40</td></tr>
+          <tr><td>3</td><td>SKU_004</td><td>1118</td><td>863</td><td>827</td><td>901</td><td>6.4%</td><td>備貨863±37</td></tr>
+          <tr><td>4</td><td>SKU_002</td><td>1007</td><td>862</td><td>839</td><td>886</td><td>3.7%</td><td>備貨862±24</td></tr>
+          <tr><td>5</td><td>SKU_006</td><td>881</td><td>800</td><td>781</td><td>819</td><td>15.7%</td><td>備貨800±19</td></tr>
+        </table>
+      </div>
+      <p style="color: var(--muted); font-size: 13px; margin-bottom: 20px;">採購建議格式建議：「備貨X個±Y（原因：Trend/Seasonality/Holiday）」</p>
+
+      <div class="divider"></div>
+
+      <h3>Section 7｜採購建議書（10分鐘・主交付物）</h3>
+      <p class="task-goal">給採購主管的1頁，5句以內。</p>
+      <h3 style="font-size: 15px;">主結論句（50字內）</h3>
+      <p class="task-goal" style="max-width: 100%;">
+        下月Top 5 SKU建議依Prophet/Baseline混合模型備貨，總量約4,625件，其中SKU_001、004、006用Prophet區間備貨，SKU_002、003沿用穩定的去年同月Baseline。
+      </p>
+
+      <h3 style="font-size: 15px;">三大支撐（MECE）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>#</th><th>支撐</th><th>內容</th></tr>
+          <tr><td>1</td><td>準確性</td><td>Prophet對3支旺季效應明顯的SKU（001/004/006）平均降低MAPE 6.1個百分點，優於Baseline。</td></tr>
+          <tr><td>2</td><td>穩定性</td><td>SKU_002、003兩支模型差距小於門檻，代表銷量本身已經很穩定、規律性強，不需要複雜模型也能準確預測。</td></tr>
+          <tr><td>3</td><td>風險控管</td><td>每支SKU都附上80%信賴區間，備貨採中位數，缺貨或囤貨風險都有明確上下限依據。</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">風險區間</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>情境</th><th>預估</th><th>月度進貨成本</th></tr>
+          <tr><td>樂觀(yhat_upper)</td><td>1648個</td><td>33.0萬</td></tr>
+          <tr><td>中性(yhat)</td><td>1480個</td><td>29.6萬</td></tr>
+          <tr><td>悲觀(yhat_lower)</td><td>1307個</td><td>26.1萬</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 8｜反直覺三問驗證（5分鐘）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>問題</th><th>驗證內容</th></tr>
+          <tr><td>時序不能shuffle？</td><td>你切法：時序切分，結果差距：15.5pp</td></tr>
+          <tr><td>Baseline first？</td><td>你最終用：混合策略，因為相對於Baseline改善6.1pp</td></tr>
+          <tr><td>區間預測？</td><td>80%區間[1307, 1648]，採購主管能接受嗎？是，原因：區間夠窄，不會因為範圍太大而失去參考價值</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 9｜60秒Showtime腳本（5分鐘）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>時段</th><th>內容</th></tr>
+          <tr><td>0:00-0:20</td><td>Top 1 SKU MAPE＋Baseline對比</td></tr>
+          <tr><td>0:20-0:40</td><td>plot_components三句業務翻譯</td></tr>
+          <tr><td>0:40-1:00</td><td>採購建議：「備貨X±Y」</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">逐字稿</h3>
+      <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 32px; font-family: 'cwTeXKai', monospace; white-space: pre-wrap;">(0:00-0:20) Top1 SKU MAPE + Baseline對比
+「我分析的Top1 SKU是SKU_001，用Prophet預測下月銷量，MAPE是4.5%，跟簡單的Baseline方法比——也就是複製去年同月的銷量——Baseline的MAPE是14.54%，Prophet明顯更準確，改善了約10個百分點。」
+
+(0:20-0:40) plot_components三句業務翻譯
+「拆解模型的三個成分：Trend趨勢上，這支SKU整體是成長的，年增率大概13.5%；Seasonality季節性上，Q4是全年高峰，比平均高出65%；Holiday節日效應上，雙十一當月銷量會暴增約235%。」
+
+(0:40-1:00) 採購建議
+「我建議下月備貨1,480個，上下抓一個80%信賴區間，介於1,307到1,648個之間，就算銷量超出預期也有緩衝，不會突然缺貨。」</pre>
+
+      <div class="divider"></div>
+
+      <!-- 任務12 -->
+      <div class="eyebrow">TASK 12</div>
+      <h2>任務12：促銷策劃師</h2>
+      <p class="task-goal">
+        Apriori Top 5規則＋4動作對應＋Line OA文案<br>
+        工具選擇（可雙跑）：☐ Orange 3 Associate add-on　☑ mlxtend（Notebook）<br>
+        GenAI工具：☑ Claude.ai　☐ ChatGPT　☐ Claude Cowork　其他＿＿＿
+      </p>
+
+      <h3>Section 1｜觀念回顧（5分鐘）</h3>
+      <h3 style="font-size: 15px;">1.1 Apriori三指標</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>指標</th><th>公式</th><th>直觀</th></tr>
+          <tr><td>Support</td><td>(A∩B出現次數)/總交易</td><td>多常見</td></tr>
+          <tr><td>Confidence</td><td>(A∩B出現次數)/A出現次數</td><td>看到A後看到B的機率</td></tr>
+          <tr><td>Lift ★</td><td>Confidence(A→B)/P(B)</td><td>比隨機猜好多少倍</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">1.2 Lift三檔速判</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>Lift範圍</th><th>解讀</th><th>業務動作</th></tr>
+          <tr><td>&gt;1</td><td>正關聯</td><td>該配套販售</td></tr>
+          <tr><td>=1</td><td>獨立</td><td>A和B沒關係，規則沒用</td></tr>
+          <tr><td>&lt;1</td><td>負關聯</td><td>A和B是替代品，互斥</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">1.3 反直覺三點（自寫）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>問題</th><th>我的答案</th></tr>
+          <tr><td>Confidence高≠規則好，為什麼？</td><td>因為如果B本來就是「人人都買」的熱門品（例如塑膠袋），Confidence自然會很高，但這不代表A對B有任何提升作用。</td></tr>
+          <tr><td>相關≠因果，啤酒尿布是「買啤酒導致買尿布」嗎？</td><td>不是。兩者同時出現，是因為背後有共同的第三因素（週五下班的爸爸順路一起買），不是A造成B。</td></tr>
+          <tr><td>冷啟動：新品為什麼跑不出Apriori規則？</td><td>因為新品剛上架幾乎沒有歷史交易紀錄，Support永遠接近0，會被min_support門檻直接篩掉。</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 2｜資料探索（10分鐘）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>項目</th><th>數值</th></tr>
+          <tr><td>交易筆數(order_id唯一)</td><td>3300</td></tr>
+          <tr><td>商品種類數(sku_id唯一)</td><td>30</td></tr>
+          <tr><td>平均每筆交易商品數</td><td>4.15</td></tr>
+          <tr><td>最熱門Top3商品</td><td>塑膠袋（2,829筆）／寶特瓶飲料（870筆）／礦泉水（791筆）</td></tr>
+          <tr><td>最冷門商品(可能冷啟動)</td><td>SKU_NEW_002（Support僅0.21%）</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 3｜Apriori hyperparameter（10分鐘）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>參數</th><th>第一輪</th><th>第二輪(調)</th><th>最終</th></tr>
+          <tr><td>min_support</td><td>0.02</td><td>未調整</td><td>0.02</td></tr>
+          <tr><td>min_confidence</td><td>0.30</td><td>未調整</td><td>0.30</td></tr>
+          <tr><td>min_lift(篩選用)</td><td>1.3</td><td>未調整</td><td>1.3</td></tr>
+          <tr><td>跑出規則總數</td><td>144</td><td>－</td><td>144</td></tr>
+        </table>
+      </div>
+      <p style="color: var(--jade); font-size: 13px; margin-bottom: 20px;">為什麼調這個？第一輪min_support=0.02（2%）就已經跑出144條規則，落在「20-50條甜蜜點」以上但可控範圍內，Top5強規則Lift都在5~7.3之間、明顯非隨機，不需要再收緊或放寬</p>
+
+      <div class="divider"></div>
+
+      <h3>Section 4｜Top 5強規則（20分鐘・主交付物②）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>Rank</th><th>A(antecedent)</th><th>B(consequent)</th><th>Support</th><th>Confidence</th><th>Lift</th><th>業務動作</th></tr>
+          <tr><td>1</td><td>尿布</td><td>啤酒</td><td>3.82%</td><td>58.33%</td><td>7.32</td><td>☑配套 ☐跨類擺放 ☐加購點 ☐替代品</td></tr>
+          <tr><td>2</td><td>啤酒</td><td>尿布</td><td>3.82%</td><td>47.91%</td><td>7.32</td><td>☑配套 ☐跨類擺放 ☐加購點 ☐替代品</td></tr>
+          <tr><td>3</td><td>起司</td><td>紅酒</td><td>2.45%</td><td>32.27%</td><td>7.20</td><td>☑配套 ☐跨類擺放 ☐加購點 ☐替代品</td></tr>
+          <tr><td>4</td><td>紅酒</td><td>起司</td><td>2.45%</td><td>54.73%</td><td>7.20</td><td>☑配套 ☐跨類擺放 ☐加購點 ☐替代品</td></tr>
+          <tr><td>5</td><td>醬油</td><td>米</td><td>3.97%</td><td>50.19%</td><td>5.18</td><td>☑配套 ☐跨類擺放 ☐加購點 ☐替代品</td></tr>
+        </table>
+      </div>
+      <p class="task-goal">自我檢核：☑ Top5全部Lift&gt;1.3　　☐ 4種業務動作至少3種被覆蓋　　☑ 排除「人人都買」(P(B)&gt;90%)的偽規則</p>
+
+      <div class="divider"></div>
+
+      <h3>Section 5｜GenAI sub-task（60分鐘・主交付物③）</h3>
+      <h3 style="font-size: 15px;">5.1 Prompt草稿（15分鐘）</h3>
+      <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 24px; font-family: 'cwTeXKai', monospace; white-space: pre-wrap;">你是 ___________（角色）。
+[資料]我有5條Apriori關聯規則：規則1:___________...
+[文案要求]
+1. 每段不超過____字
+2. 第一句要有「___________」
+3. 最後一句要有「___________」
+4. 風格：___________
+5. 結尾統一加hashtag：___________</pre>
+
+      <h3 style="font-size: 15px;">5.2 GenAI第一版輸出（15分鐘）</h3>
+      <p class="task-goal">從GenAI工具直接paste 5段。</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>段</th><th>GenAI初稿</th></tr>
+          <tr><td>1</td><td>忙了一週的週五，順手買尿布怎麼能不配罐冰啤酒犒賞自己？即日起尿布+啤酒同買，第二件9折，出示此券即享優惠，數量有限！#物流好夥伴</td></tr>
+          <tr><td>2</td><td>開了瓶啤酒才發現尿布沒了？別擔心，啤酒x尿布經典組合限時捆綁，一次補齊不用二次跑腿，本週五前出示券碼享9折。#物流好夥伴</td></tr>
+          <tr><td>3</td><td>切盤起司配的那杯，該是紅酒了吧？起司+紅酒指定組合，滿額再送品飲杯一只，點選連結搶先預訂。#物流好夥伴</td></tr>
+          <tr><td>4</td><td>今晚在家小酌，紅酒配起司才是正解！即日起紅酒搭配任一起司商品，滿千折百，出示券碼結帳自動折抵，限期兩週。#物流好夥伴</td></tr>
+          <tr><td>5</td><td>煮飯前先確認醬油夠不夠？米+醬油超值配套，家庭號一次買齊，本月採購滿額送料理秤，點連結了解詳情。#物流好夥伴</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">5.3 你的修改（15分鐘）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>段</th><th>改了什麼？</th><th>為什麼？</th></tr>
+          <tr><td>1</td><td>加上明確截止日「7/31前」，折扣改成「第二件半價」</td><td>原版沒寫期限，缺乏急迫感；折扣講清楚比「9折」模糊更有行動力</td></tr>
+          <tr><td>2</td><td>情境順序倒過來，改成從「尿布快沒了」出發</td><td>原版邏輯怪（先喝酒才想到尿布），不符合真實購物動機，「尿布快沒了」才是</td></tr>
+          <tr><td>3</td><td>把「滿額再送品飲杯」改成「滿500現折100」</td><td>送贈品要額外備庫存、風險高；直接折現金更好執行，也更吸引人</td></tr>
+          <tr><td>4</td><td>把「滿千折百」改成「出示券碼現折15%、限量20組」</td><td>加上「限量」製造稀缺感，比單純滿額折扣更催促行動</td></tr>
+          <tr><td>5</td><td>拿掉「送料理秤」，改成「任選2件9折」</td><td>贈品要另外備貨、成本不確定；改成直接折扣更好落地，也更符合民生用品的採購習慣</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">5.4 最終5段（15分鐘）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>段</th><th>最終文案</th></tr>
+          <tr><td>1</td><td>週五下班順路買尿布，乾脆多拎一手啤酒犒賞自己！尿布任一件+啤酒任一件，第二件半價，7/31前出示此券結帳。#物流好夥伴</td></tr>
+          <tr><td>2</td><td>尿布快用完了？別讓爸爸多跑一趟！啤酒尿布經典組合任選2件85折，一次補齊，限量供應中。#物流好夥伴</td></tr>
+          <tr><td>3</td><td>起司配紅酒，才是週末的正確打開方式。指定紅酒+起司同購滿500，現折100，即日起至月底。#物流好夥伴</td></tr>
+          <tr><td>4</td><td>今晚想小酌？紅酒配起司絕配登場！任選紅酒一瓶+起司一份，出示券碼現折15%，限量20組。#物流好夥伴</td></tr>
+          <tr><td>5</td><td>煮飯前先想想：米跟醬油夠不夠？米+醬油超值組合，任選2件9折，本月採購立即享優惠。#物流好夥伴</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 6｜反直覺三問驗證（5分鐘）</h3>
+      <p class="task-goal">Confidence高≠規則好？你Top5中有沒有Lift&lt;1.3但Confidence&gt;80%的？ ☑有 ☐沒有</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>問題</th><th>回答</th></tr>
+          <tr><td>相關≠因果？你Top1規則A→B，可能的「第三因素」是什麼？</td><td>可能的第三因素是「週五傍晚下班的爸爸」－順路買尿布時順手帶啤酒，兩者是同一個購物情境觸發，不是彼此導致。</td></tr>
+          <tr><td>冷啟動？你資料中是否有Support接近0的「冷門品」？它有出現在規則中嗎？</td><td>有，SKU_NEW_001（13/3300筆，Support 0.39%）、SKU_NEW_002（7/3300筆，Support 0.21%）都低於min_support=0.02門檻，兩者皆未出現在任何規則中。</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 7｜60秒Showtime腳本（5分鐘）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>時段</th><th>內容</th></tr>
+          <tr><td>0:00-0:20</td><td>Top1規則(Lift多少?屬哪種動作?)</td></tr>
+          <tr><td>0:20-0:40</td><td>讀那條規則的最終文案</td></tr>
+          <tr><td>0:40-1:00</td><td>GenAI初稿你改了哪裡?為什麼?</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">逐字稿</h3>
+      <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 32px; font-family: 'cwTeXKai', monospace; white-space: pre-wrap;">0:00-0:20（Top1規則）
+「我的Top1規則是『尿布→啤酒』，Lift高達7.32，代表買尿布的人，買啤酒的機率是隨機水準的7倍以上。因為Lift遠超過2.0，我把它分類為『配套販售(套組)』。」
+
+0:20-0:40（讀最終文案）
+「我把這條規則寫成的Line OA文案是：『週五下班順路買尿布，乾脆多拎一手啤酒犒賞自己!尿布任一件加啤酒任一件，第二件半價,7月31號前出示此券結帳。』」
+
+0:40-1:00（修改說明）
+「GenAI給的初稿原本寫『第二件9折』，而且沒有寫截止日期。我把折扣改成『第二件半價』，因為折扣講清楚比模糊的9折更有行動力;也加上『7/31前』這個明確期限，製造急迫感,讓客人看到當下就想結帳，不會拖著不買。」</pre>
+
+      <div class="divider"></div>
+
+      <!-- 任務13 -->
+      <div class="eyebrow">TASK 13</div>
+      <h2>任務13：分群大師</h2>
+      <p class="task-goal">
+        K-means＋標準化＋群命名＋recommend()函式<br>
+        工具選擇（可雙跑）：☐ Orange 3 K-Means widget　☑ scikit-learn（Notebook）<br>
+        使用的特徵欄（至少3）：☑Recency ☑Frequency ☑Monetary ☐AvgOrder ☐ComplaintCnt ☐其他＿＿＿
+      </p>
+
+      <h3>Section 1｜觀念回顧（5分鐘）</h3>
+      <h3 style="font-size: 15px;">1.1 K-means三步驟</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>步驟</th><th>說明</th></tr>
+          <tr><td>1. 初始化(Init)</td><td>隨機選k個群心</td></tr>
+          <tr><td>2. 分配(Assign)</td><td>每點分到最近群心</td></tr>
+          <tr><td>3. 更新(Update)</td><td>重算群心</td></tr>
+          <tr><td>4. 重複2-3直到</td><td>群心不再變</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">1.2 反直覺三點（自寫）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>問題</th><th>我的答案</th></tr>
+          <tr><td>不標準化 = M軸壓死R/F，為什麼？</td><td>K-means用歐氏距離算「近不近」。Recency範圍是0-365、Frequency 0-50，但Monetary範圍上看百萬，量級差了千倍以上。不標準化時，距離公式幾乎完全由Monetary決定，R跟F的差異幾乎被忽略。</td></tr>
+          <tr><td>outlier拉走centroid，怎麼處理？</td><td>一兩個消費金額特別誇張的客戶，會把群心硬拉往自己那個方向，導致其他正常客戶被分到不合理的群、甚至極端值自己獨佔一群。處理方式：先用np.log1p()把Monetary的長尾壓縮，減少極端值影響。</td></tr>
+          <tr><td>k不是越多越好，業務取捨怎麼看？</td><td>技術上k越多，群內距離總和(inertia)一定越小，Silhouette也可能持續變好，但業務端能記得住、能管理的行銷動作通常只有4-6種。就算Silhouette技術上在別的k值更高，只要超過業務可管理範圍就沒有意義。</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 2｜資料前處理（15分鐘）</h3>
+      <h3 style="font-size: 15px;">2.1 outlier處理</h3>
+      <p class="task-goal">☐ 沒處理（可能踩雷）　　☐ Winsorize上方＿＿＿%<br>☑ np.log1p() Log轉換　Monetary（欄位）<br>☐ 換K-medoids　　☐ 其他＿＿＿</p>
+
+      <h3 style="font-size: 15px;">2.2 標準化</h3>
+      <p class="task-goal">☑ StandardScaler(z-score)　　☐ MinMaxScaler(0-1)　　☐ 沒做（自首）</p>
+
+      <h3 style="font-size: 15px;">2.3 標準化前後分布速看</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>特徵</th><th>原始mean</th><th>原始std</th><th>標準化後mean</th><th>標準化後std</th></tr>
+          <tr><td>Recency</td><td>60.02</td><td>67.43</td><td>≈0</td><td>1.00</td></tr>
+          <tr><td>Frequency</td><td>6.26</td><td>4.99</td><td>≈0</td><td>1.00</td></tr>
+          <tr><td>Monetary(log)</td><td>10.12</td><td>0.82</td><td>≈0</td><td>1.00</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 3｜掃k找最佳值（10分鐘）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>k</th><th>inertia</th><th>Silhouette</th></tr>
+          <tr><td>2</td><td>3787.4</td><td>0.357</td></tr>
+          <tr><td>3</td><td>3022.4</td><td>0.328</td></tr>
+          <tr><td>4</td><td>2482.8</td><td>0.272</td></tr>
+          <tr><td>5</td><td>2075.7</td><td>0.329</td></tr>
+          <tr><td>6</td><td>1789.4</td><td>0.335</td></tr>
+          <tr><td>7</td><td>1602.4</td><td>0.293</td></tr>
+          <tr><td>8</td><td>1437.5</td><td>0.308</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">結論</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>法</th><th>建議k</th></tr>
+          <tr><td>Elbow</td><td>3~4 —— inertia下降幅度從765→540→407開始明顯趨緩</td></tr>
+          <tr><td>Silhouette最高</td><td>2（0.357）</td></tr>
+          <tr><td>業務取捨後最終選（注意：能管幾群？）</td><td>4 —— 業務只能管4-6個行銷動作，即使Silhouette在k=4（0.272）是全表最低點之一，仍然選擇k=4，因為分群數量落在可執行範圍內；後續經過重新評估才調整為k=5（詳見Section 7）</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 4｜群命名 + centroid（15分鐘・主交付物②）</h3>
+      <p class="task-goal">每群命名要符合主管能直接用的語言，不要Cluster_0 / Cluster_1。</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>群編號</th><th>群命名</th><th>Recency中位數</th><th>Frequency中位數</th><th>Monetary中位數</th><th>客戶數</th><th>推薦動作</th></tr>
+          <tr><td>0</td><td>VIP高頻高額</td><td>10</td><td>17</td><td>67,634</td><td>127</td><td>推D13 Top規則加價</td></tr>
+          <tr><td>1</td><td>穩定活躍</td><td>26</td><td>8</td><td>34,245</td><td>706</td><td>推熱門組合＋會員日</td></tr>
+          <tr><td>2</td><td>沉睡客戶</td><td>259</td><td>0</td><td>8,526</td><td>101</td><td>大優惠喚醒＋個人化</td></tr>
+          <tr><td>3</td><td>流失高風險</td><td>79</td><td>2</td><td>14,528</td><td>421</td><td>加碼折扣＋主動關懷</td></tr>
+          <tr><td>(4)</td><td>穩定中段</td><td>60</td><td>3</td><td>20,084</td><td>145</td><td>推次高規則＋定期Bundle</td></tr>
+        </table>
+      </div>
+      <p class="task-goal">自我檢核：☑ 每群命名是業務語言（例：VIP／穩定／流失高風險／沉睡）　　☑ 每群有「推薦動作」對應　　☑ 群之間人數差距不大於5:1（否則可能outlier拉歪）</p>
+
+      <div class="divider"></div>
+
+      <h3>Section 5｜vs D4八分群對照（10分鐘）</h3>
+      <p class="task-goal">跑cross-tab，看D4的8群在K-means 4群裡怎麼落。</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>D4群</th><th>D14群0</th><th>D14群1</th><th>D14群2</th><th>D14群3</th><th>(群4)</th></tr>
+          <tr><td>D4 G1</td><td>110</td><td>150</td><td>0</td><td>0</td><td>10</td></tr>
+          <tr><td>D4 G2</td><td>14</td><td>176</td><td>0</td><td>0</td><td>9</td></tr>
+          <tr><td>D4 G3</td><td>0</td><td>13</td><td>0</td><td>0</td><td>1</td></tr>
+          <tr><td>D4 G4</td><td>0</td><td>1</td><td>0</td><td>3</td><td>0</td></tr>
+          <tr><td>D4 G5</td><td>0</td><td>131</td><td>0</td><td>11</td><td>15</td></tr>
+          <tr><td>D4 G6</td><td>1</td><td>23</td><td>0</td><td>3</td><td>4</td></tr>
+          <tr><td>D4 G7</td><td>0</td><td>16</td><td>9</td><td>110</td><td>28</td></tr>
+          <tr><td>D4 G8</td><td>2</td><td>196</td><td>92</td><td>294</td><td>78</td></tr>
+        </table>
+      </div>
+      <p style="color: var(--jade); font-size: 13px; margin-bottom: 20px;">1句業務翻譯：D14把D4的「G7 Hibernating」+「G8 Lost」合併成同一群，因為這兩個D4類別雖然名字不同、門檻也不同，但實際購買行為模式高度相似，都是長期未回購的客戶，因此K-means自然將他們合併為同一個「流失/沉睡」大群。</p>
+
+      <div class="divider"></div>
+
+      <h3>Section 6｜recommend()函式（15分鐘・主交付物③）</h3>
+      <h3 style="font-size: 15px;">6.1 函式input / output設計</h3>
+      <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 24px; font-family: 'cwTeXKai', monospace;">def recommend(customer_id, ...):
+    return {
+        "customer_id": ...,
+        "cluster": ...,
+        "recommendations": [
+            {"sku": ..., "lift": ..., "confidence": ...},
+            ...
+        ],
+        "explain": ...
+    }</pre>
+
+      <h3 style="font-size: 15px;">6.2 案例A：VIP客</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>欄</th><th>值</th></tr>
+          <tr><td>客戶ID</td><td>C0071</td></tr>
+          <tr><td>群命名</td><td>VIP高頻高額</td></tr>
+          <tr><td>已買過</td><td>塑膠袋、寶特瓶飲料、杯麵、牙膏、豆漿、雪碧、餅乾、香蕉</td></tr>
+          <tr><td>Top1推薦</td><td>啤酒(Lift 7.32)</td></tr>
+          <tr><td>Top2推薦</td><td>尿布(Lift 7.32)</td></tr>
+          <tr><td>Top3推薦</td><td>起司(Lift 7.20)</td></tr>
+          <tr><td>Line OA文案</td><td>Hi C0071，專屬您的VIP加購優惠來囉!搭配您常買的品項，啤酒、尿布、起司現正9折，結帳輸入代碼享折扣🎁</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">6.3 案例B：沉睡客</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>欄</th><th>值</th></tr>
+          <tr><td>客戶ID</td><td>C1433</td></tr>
+          <tr><td>群命名</td><td>沉睡客戶</td></tr>
+          <tr><td>已買過</td><td>（無購買紀錄——冷啟動情境，已退回同群其他客戶的購買規則）</td></tr>
+          <tr><td>Top1推薦</td><td>啤酒(Lift 7.32)</td></tr>
+          <tr><td>Top2推薦</td><td>尿布(Lift 7.32)</td></tr>
+          <tr><td>Top3推薦</td><td>起司(Lift 7.20)</td></tr>
+          <tr><td>Line OA文案</td><td>Hi C1433，好久不見了!我們為您準備了同群客戶最愛的組合：啤酒、尿布、起司，回歸禮買一送一，限本週使用，歡迎回娘家🎉</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 7｜反直覺三問驗證（5分鐘）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>問題</th><th>驗證內容</th></tr>
+          <tr><td>不標準化＝M軸壓死？你跑未標準化版做對照沒？分群結果差距多大？</td><td>有跑對照。未標準化版分群人數為300/1/1/1198（2個極端離群值C0001、C0002各自獨占一群，其餘1198人全部擠進同一群）；標準化＋Log轉換後，5群人數變成127/706/101/421/145。</td></tr>
+          <tr><td>outlier？最大Monetary客戶值多少？處理後分到哪一群？</td><td>最大Monetary客戶是C0002，金額7,500,000元（第二高是C0001，5,500,000元）。經Log轉換＋標準化處理後，兩者都被正確歸入「VIP高頻高額」群，沒有再單獨拉出畸形群。</td></tr>
+          <tr><td>k業務取捨？Silhouette最高在k=＿＿＿但選了k=＿＿＿，因為</td><td>Silhouette最高在k=2（0.357），但選了k=5。過程分兩段：一開始選k=4（0.272，全表最低點之一），理由是業務只能管4-6群；後來重新評估發現k=5的Silhouette（0.329）明顯比k=4高，且5群仍在業務可管理範圍內，因此最終調整為k=5。</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 8｜60秒Showtime腳本（5分鐘）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>時段</th><th>內容</th></tr>
+          <tr><td>0:00-0:20</td><td>k=幾?Silhouette多少?為什麼不選技術最高的?</td></tr>
+          <tr><td>0:20-0:40</td><td>讀1群的centroid＋業務命名</td></tr>
+          <tr><td>0:40-1:00</td><td>跑案例recommend("C0123")，讀回傳＋翻成文案</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">逐字稿</h3>
+      <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 32px; font-family: 'cwTeXKai', monospace; white-space: pre-wrap;">0:00-0:20
+k選了5。Silhouette最高其實在k=2(0.357)，但一開始選k=4(0.272)是因為業務只能管4-6群；後來重新評估，發現k=5(0.329)比k=4明顯好，而且5群仍在業務可管理範圍內，所以最後調整成k=5——不是選技術最高值，是技術指標＋業務判斷雙重確認後的結果。
+
+0:20-0:40
+讀1群的centroid＋業務命名——VIP高頻高額群共127人，中位數Recency 10天、Frequency 17次、Monetary 67,634元，推薦動作是加價購＋專屬客服。這群是原本k=4版本裡542人VIP群拆分出來最精華的一小群。
+
+0:40-1:00
+跑案例recommend("C1433")，這位沉睡客完全沒有購買紀錄，函式自動退回同群購買規則，推薦啤酒、尿布、起司(Lift 7.32/7.32/7.20)，翻成文案：『Hi C1433，好久不見了!我們為您準備了同群客戶最愛的組合，回歸禮買一送一』——這就是冷啟動備援機制實際運作的樣子。</pre>
+
       <div class="back-home-wrap">
         <button class="back-prev-btn" onclick="goBack()">⬅ 回上一頁</button>
         <button class="back-home-btn" onclick="gotoPage('home')">🏠 返回首頁</button>
