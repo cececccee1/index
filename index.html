@@ -881,29 +881,29 @@ rfm["RFM_score"] = rfm["R_score"].astype(str) + rfm["F_score"].astype(str) + rfm
 
       <h3>Section 4｜分群覆蓋＋Excel名單（20 min・主交付物②）</h3>
       <h3 style="font-size: 15px;">4.1 分群統計（必含≥5群覆蓋）</h3>
-      <div class="task-table-wrap">
-        <table class="task-table">
-          <tr><th>分群</th><th>客戶數</th><th>客戶ID</th></tr>
-          <tr><td>VIP(Champions)</td><td>1</td><td>C003</td></tr>
-          <tr><td>Loyal</td><td>0</td><td>－</td></tr>
-          <tr><td>Big Spenders</td><td>1</td><td>C002</td></tr>
-          <tr><td>New／Promising</td><td>1</td><td>C001</td></tr>
-          <tr><td>Potential Loyalists</td><td>1</td><td>C005</td></tr>
-          <tr><td>At Risk</td><td>2</td><td>C007、C008</td></tr>
-          <tr><td>Hibernating</td><td>1</td><td>C004</td></tr>
-          <tr><td>Lost</td><td>1</td><td>C006</td></tr>
-        </table>
-      </div>
-      <p style="color: var(--jade); font-size: 13px; margin-bottom: 20px;">✅ 自我檢核：≥5群覆蓋（&lt;5會扣分）</p>
-      <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
-       <canvas id="chart_w1t05_segment" style="max-height: 280px;"></canvas>
-       </div>
-       <script>
-      new Chart(document.getElementById('chart_w1t05_segment'), {
-      type: 'bar',
-      data: {
-      labels: ['VIP(Champions)', 'Loyal', 'Big Spenders', 'New/Promising', 'Potential Loyalists', 'At Risk', 'Hibernating', 'Lost'],
-      datasets: [{
+     <div class="task-table-wrap">
+  <table class="task-table">
+    <tr><th>分群</th><th>客戶數</th><th>客戶ID</th></tr>
+    <tr data-label="VIP(Champions)"><td>VIP(Champions)</td><td>1</td><td>C003</td></tr>
+    <tr data-label="Loyal"><td>Loyal</td><td>0</td><td>－</td></tr>
+    <tr data-label="Big Spenders"><td>Big Spenders</td><td>1</td><td>C002</td></tr>
+    <tr data-label="New/Promising"><td>New／Promising</td><td>1</td><td>C001</td></tr>
+    <tr data-label="Potential Loyalists"><td>Potential Loyalists</td><td>1</td><td>C005</td></tr>
+    <tr data-label="At Risk"><td>At Risk</td><td>2</td><td>C007、C008</td></tr>
+    <tr data-label="Hibernating"><td>Hibernating</td><td>1</td><td>C004</td></tr>
+    <tr data-label="Lost"><td>Lost</td><td>1</td><td>C006</td></tr>
+  </table>
+</div>
+    <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
+  <canvas id="chart_w1t05_segment" style="max-height: 280px;"></canvas>
+  <p style="color: var(--muted); font-size: 12px; margin-top: 8px; margin-bottom: 0;">💡 點擊長條可高亮對應表格列</p>
+</div>
+<script>
+new Chart(document.getElementById('chart_w1t05_segment'), {
+  type: 'bar',
+  data: {
+    labels: ['VIP(Champions)', 'Loyal', 'Big Spenders', 'New/Promising', 'Potential Loyalists', 'At Risk', 'Hibernating', 'Lost'],
+    datasets: [{
       label: '客戶數',
       data: [1, 0, 1, 1, 1, 2, 1, 1],
       backgroundColor: '#c7cbec',
@@ -912,7 +912,28 @@ rfm["RFM_score"] = rfm["R_score"].astype(str) + rfm["F_score"].astype(str) + rfm
   },
   options: {
     responsive: true,
-    plugins: { legend: { display: false }, title: { display: true, text: 'RFM 八分群客戶數分布', color: '#eceefa' } },
+    onClick: function(evt, elements, chart) {
+      if (!elements.length) return;
+      var idx = elements[0].index;
+      var label = chart.data.labels[idx];
+
+      document.querySelectorAll('tr[data-label]').forEach(function(row) {
+        row.style.background = '';
+        row.style.transition = 'background 0.3s';
+      });
+      var target = document.querySelector('tr[data-label="' + label + '"]');
+      if (target) {
+        target.style.background = 'rgba(199, 203, 236, 0.25)';
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      var colors = chart.data.labels.map(function(l, i) {
+        return i === idx ? '#c7cbec' : 'rgba(199, 203, 236, 0.3)';
+      });
+      chart.data.datasets[0].backgroundColor = colors;
+      chart.update();
+    },
+    plugins: { legend: { display: false }, title: { display: true, text: 'RFM 八分群客戶數分布（點擊柱子看對應客戶）', color: '#eceefa' } },
     scales: {
       x: { ticks: { color: '#8c8ca8', font: { size: 10 } }, grid: { color: '#383850' } },
       y: { ticks: { color: '#8c8ca8', stepSize: 1 }, grid: { color: '#383850' } }
@@ -920,6 +941,8 @@ rfm["RFM_score"] = rfm["R_score"].astype(str) + rfm["F_score"].astype(str) + rfm
   }
 });
 </script>
+
+<p style="color: var(--jade); font-size: 13px; margin-bottom: 20px;">✅ 自我檢核：≥5群覆蓋（&lt;5會扣分）</p>
  
       <h3 style="font-size: 15px;">4.2 Excel客戶分層名單（主交付物②）</h3>
       <p class="task-goal">將Section 3.2的內容，寫進 客戶分層名單.xlsx，欄位設計：customer_id／name／R／F／M／RFM_score／分群／建議行動</p>
@@ -2633,12 +2656,22 @@ print(df["sentiment"].value_counts())</pre>
        <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 24px;">
   <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; flex: 1 1 260px; margin-bottom: 0;">
     <canvas id="chart_w4t14_pain" style="max-height: 220px;"></canvas>
+    <p style="color: var(--muted); font-size: 12px; margin-top: 8px; margin-bottom: 0;">💡 點擊柱子看該痛點細節</p>
   </div>
   <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; flex: 1 1 260px; margin-bottom: 0;">
     <canvas id="chart_w4t14_sentiment" style="max-height: 220px;"></canvas>
   </div>
 </div>
+<div id="pain_detail_card" style="display:none; background: var(--panel-light); border: 1px solid var(--gold); border-radius: 4px; padding: 16px; margin-top: 12px; color: var(--text); font-size: 14px;"></div>
+
 <script>
+var painDetails = {
+  '配送延遲': '80筆客訴（占比最高）。主因：客服未即時回覆導致客戶重複反映，最終演變成強烈負評與流失風險。建議優先處理。',
+  '貨損': '40筆客訴。商品在運送過程中損壞，需檢視包裝規範與搬運流程。',
+  '客服回應': '40筆客訴。客戶反映客服回覆速度慢或未主動回電，是「升級型客訴」的關鍵誘因。',
+  '包裝環保': '40筆客訴。客戶對過度包裝或塑膠用量提出意見，屬於品牌形象相關議題。'
+};
+
 new Chart(document.getElementById('chart_w4t14_pain'), {
   type: 'bar',
   data: {
@@ -2647,7 +2680,14 @@ new Chart(document.getElementById('chart_w4t14_pain'), {
   },
   options: {
     responsive: true,
-    plugins: { legend: { display: false }, title: { display: true, text: '客訴痛點分布', color: '#eceefa' } },
+    onClick: function(evt, elements, chart) {
+      if (!elements.length) return;
+      var label = chart.data.labels[elements[0].index];
+      var card = document.getElementById('pain_detail_card');
+      card.innerHTML = '<b style="color: var(--gold);">' + label + '</b><br>' + painDetails[label];
+      card.style.display = 'block';
+    },
+    plugins: { legend: { display: false }, title: { display: true, text: '客訴痛點分布（點擊柱子看細節）', color: '#eceefa' } },
     scales: {
       x: { ticks: { color: '#8c8ca8', font: { size: 10 } }, grid: { color: '#383850' } },
       y: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } }
