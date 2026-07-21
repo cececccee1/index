@@ -1759,6 +1759,32 @@ print(積壓.head(5))</pre>
           <tr><td>5</td><td>分群:At-Risk</td><td>8%</td></tr>
         </table>
       </div>
+      <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
+      <canvas id="chart_w3t10_importance" style="max-height: 260px;"></canvas>
+      </div>
+      <script>
+      new Chart(document.getElementById('chart_w3t10_importance'), {
+      type: 'bar',
+      data: {
+      labels: ['Recency', 'Frequency', 'AvgOrder', '投訴次數', '分群:At-Risk'],
+      datasets: [{
+      label: 'Importance',
+      data: [42, 21, 13, 10, 8],
+      backgroundColor: '#86c9a8',
+      borderRadius: 4
+        }]
+        },
+       options: {
+       indexAxis: 'y',
+       responsive: true,
+       plugins: { legend: { display: false }, title: { display: true, text: '決策樹特徵重要度 (%)', color: '#eceefa' } },
+       scales: {
+       x: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } },
+      y: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } }
+        }
+        }
+      });
+      </script>
 
       <h3 style="font-size: 15px;">5.3 一條決策路徑解讀（挑Top1高風險客）</h3>
       <p class="task-goal">寫成「If A and B and C → 流失機率X%」一行。</p>
@@ -1959,7 +1985,32 @@ print(積壓.head(5))</pre>
           <tr><td>MAPE ★</td><td>4.5%</td><td>14.54%</td></tr>
         </table>
       </div>
-
+      <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
+  <canvas id="chart_w3t11_metrics" style="max-height: 260px;"></canvas>
+</div>
+<script>
+new Chart(document.getElementById('chart_w3t11_metrics'), {
+  type: 'bar',
+  data: {
+    labels: ['RMSE', 'MAE', 'MAPE(%)'],
+    datasets: [
+      { label: 'Prophet', data: [120.63, 89.72, 4.5], backgroundColor: '#c7cbec', borderRadius: 4 },
+      { label: '最佳Baseline', data: [375.79, 313.83, 14.54], backgroundColor: '#7a8bb0', borderRadius: 4 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { labels: { color: '#eceefa' } },
+      title: { display: true, text: 'Prophet vs Baseline 誤差比較', color: '#eceefa' }
+    },
+    scales: {
+      x: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } },
+      y: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } }
+    }
+  }
+});
+</script>
       <h3 style="font-size: 15px;">5.2 上線決策</h3>
       <p class="task-goal">☑ Prophet MAPE顯著低（差距≥2pp）→用Prophet　　☐ Prophet MAPE接近Baseline（差距&lt;2pp）→用Baseline　　☐ Prophet MAPE高於Baseline→檢查資料/換模型</p>
       <p style="color: var(--jade); font-size: 13px; margin-bottom: 20px;">
@@ -1980,6 +2031,33 @@ print(積壓.head(5))</pre>
           <tr><td>5</td><td>SKU_006</td><td>881</td><td>800</td><td>781</td><td>819</td><td>15.7%</td><td>備貨800±19</td></tr>
         </table>
       </div>
+      <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
+  <canvas id="chart_w3t11_forecast" style="max-height: 280px;"></canvas>
+</div>
+<script>
+new Chart(document.getElementById('chart_w3t11_forecast'), {
+  type: 'bar',
+  data: {
+    labels: ['SKU_001', 'SKU_003', 'SKU_004', 'SKU_002', 'SKU_006'],
+    datasets: [
+      { label: 'yhat_lower', data: [1307, 577, 827, 839, 781], backgroundColor: '#383850', borderRadius: 4 },
+      { label: 'yhat點估', data: [1480, 620, 863, 862, 800], backgroundColor: '#c7cbec', borderRadius: 4 },
+      { label: 'yhat_upper', data: [1648, 657, 901, 886, 819], backgroundColor: '#86c9a8', borderRadius: 4 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { labels: { color: '#eceefa' } },
+      title: { display: true, text: 'Top 5 SKU 下月銷量預測區間', color: '#eceefa' }
+    },
+    scales: {
+      x: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } },
+      y: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } }
+    }
+  }
+});
+</script>
       <p style="color: var(--muted); font-size: 13px; margin-bottom: 20px;">採購建議格式建議：「備貨X個±Y（原因：Trend/Seasonality/Holiday）」</p>
 
       <div class="divider"></div>
@@ -2128,6 +2206,31 @@ print(積壓.head(5))</pre>
           <tr><td>5</td><td>醬油</td><td>米</td><td>3.97%</td><td>50.19%</td><td>5.18</td><td>☑配套 ☐跨類擺放 ☐加購點 ☐替代品</td></tr>
         </table>
       </div>
+      <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
+  <canvas id="chart_w3t12_lift" style="max-height: 260px;"></canvas>
+</div>
+<script>
+new Chart(document.getElementById('chart_w3t12_lift'), {
+  type: 'bar',
+  data: {
+    labels: ['尿布→啤酒', '啤酒→尿布', '起司→紅酒', '紅酒→起司', '醬油→米'],
+    datasets: [{
+      label: 'Lift',
+      data: [7.32, 7.32, 7.20, 7.20, 5.18],
+      backgroundColor: '#9aa0c4',
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false }, title: { display: true, text: 'Top 5 關聯規則 Lift 值', color: '#eceefa' } },
+    scales: {
+      x: { ticks: { color: '#8c8ca8', font: { size: 10 } }, grid: { color: '#383850' } },
+      y: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' }, beginAtZero: true }
+    }
+  }
+});
+</script>
       <p class="task-goal">自我檢核：☑ Top5全部Lift&gt;1.3　　☐ 4種業務動作至少3種被覆蓋　　☑ 排除「人人都買」(P(B)&gt;90%)的偽規則</p>
 
       <div class="divider"></div>
@@ -2281,7 +2384,43 @@ print(積壓.head(5))</pre>
           <tr><td>8</td><td>1437.5</td><td>0.308</td></tr>
         </table>
       </div>
-
+       <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
+  <canvas id="chart_w3t13_elbow" style="max-height: 280px;"></canvas>
+</div>
+<script>
+new Chart(document.getElementById('chart_w3t13_elbow'), {
+  type: 'line',
+  data: {
+    labels: ['2', '3', '4', '5', '6', '7', '8'],
+    datasets: [
+      {
+        label: 'Inertia',
+        data: [3787.4, 3022.4, 2482.8, 2075.7, 1789.4, 1602.4, 1437.5],
+        borderColor: '#c7cbec', backgroundColor: '#c7cbec',
+        yAxisID: 'y', tension: 0.3
+      },
+      {
+        label: 'Silhouette',
+        data: [0.357, 0.328, 0.272, 0.329, 0.335, 0.293, 0.308],
+        borderColor: '#86c9a8', backgroundColor: '#86c9a8',
+        yAxisID: 'y1', tension: 0.3
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { labels: { color: '#eceefa' } },
+      title: { display: true, text: 'K-means：Inertia (Elbow) vs Silhouette', color: '#eceefa' }
+    },
+    scales: {
+      x: { title: { display: true, text: 'k', color: '#8c8ca8' }, ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } },
+      y: { position: 'left', ticks: { color: '#8c8ca8' }, grid: { color: '#383850' }, title: { display: true, text: 'Inertia', color: '#8c8ca8' } },
+      y1: { position: 'right', ticks: { color: '#8c8ca8' }, grid: { display: false }, title: { display: true, text: 'Silhouette', color: '#8c8ca8' } }
+    }
+  }
+});
+</script>
       <h3 style="font-size: 15px;">結論</h3>
       <div class="task-table-wrap">
         <table class="task-table">
@@ -2491,7 +2630,45 @@ print(df["sentiment"].value_counts())</pre>
           <tr><td>包裝環保</td><td>40</td><td>強烈負</td><td>30</td></tr>
         </table>
       </div>
-
+       <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 24px;">
+  <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; flex: 1 1 260px; margin-bottom: 0;">
+    <canvas id="chart_w4t14_pain" style="max-height: 220px;"></canvas>
+  </div>
+  <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; flex: 1 1 260px; margin-bottom: 0;">
+    <canvas id="chart_w4t14_sentiment" style="max-height: 220px;"></canvas>
+  </div>
+</div>
+<script>
+new Chart(document.getElementById('chart_w4t14_pain'), {
+  type: 'bar',
+  data: {
+    labels: ['配送延遲', '貨損', '客服回應', '包裝環保'],
+    datasets: [{ label: '筆數', data: [80, 40, 40, 40], backgroundColor: '#c7cbec', borderRadius: 4 }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false }, title: { display: true, text: '客訴痛點分布', color: '#eceefa' } },
+    scales: {
+      x: { ticks: { color: '#8c8ca8', font: { size: 10 } }, grid: { color: '#383850' } },
+      y: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } }
+    }
+  }
+});
+new Chart(document.getElementById('chart_w4t14_sentiment'), {
+  type: 'doughnut',
+  data: {
+    labels: ['正', '中性', '負', '強烈負'],
+    datasets: [{ data: [20, 60, 90, 30], backgroundColor: ['#86c9a8', '#7a8bb0', '#9aa0c4', '#c7cbec'] }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'bottom', labels: { color: '#eceefa' } },
+      title: { display: true, text: '客訴情感分布', color: '#eceefa' }
+    }
+  }
+});
+</script>
       <h3 style="font-size: 15px;">3.2 LLM 情感分類</h3>
       <p class="task-goal">對100筆做LLM重新標註，跟人工標籤對比。</p>
       <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 16px; font-family: 'cwTeXKai', monospace;"># 步驟3：呼叫LLM（範例：實際prompt見D16_範例程式.py）
@@ -2772,7 +2949,32 @@ m.save("route_map.html")</pre>
           <tr><td>路徑邏輯</td><td>nearest-neighbor 看似直覺</td><td>跨區互換獲得最佳</td><td>對應4（metaheuristic）</td></tr>
         </table>
       </div>
-
+       <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
+  <canvas id="chart_w4t15_compare" style="max-height: 260px;"></canvas>
+</div>
+<script>
+new Chart(document.getElementById('chart_w4t15_compare'), {
+  type: 'bar',
+  data: {
+    labels: ['總成本(NT$)', '時窗違反(條)', '工時違反(台)'],
+    datasets: [
+      { label: '直覺方案(baseline)', data: [3148, 4, 2], backgroundColor: '#7a8bb0', borderRadius: 4 },
+      { label: 'OR-Tools', data: [3044, 0, 0], backgroundColor: '#86c9a8', borderRadius: 4 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { labels: { color: '#eceefa' } },
+      title: { display: true, text: 'Baseline vs OR-Tools：可行性＋成本雙觀點', color: '#eceefa' }
+    },
+    scales: {
+      x: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } },
+      y: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } }
+    }
+  }
+});
+</script>
       <h3 style="font-size: 15px;">5.2 業界比例尺（對齊講義§5.4）</h3>
       <div class="task-table-wrap">
         <table class="task-table">
