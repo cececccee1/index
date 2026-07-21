@@ -895,7 +895,32 @@ rfm["RFM_score"] = rfm["R_score"].astype(str) + rfm["F_score"].astype(str) + rfm
         </table>
       </div>
       <p style="color: var(--jade); font-size: 13px; margin-bottom: 20px;">✅ 自我檢核：≥5群覆蓋（&lt;5會扣分）</p>
-
+      <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
+       <canvas id="chart_w1t05_segment" style="max-height: 280px;"></canvas>
+       </div>
+       <script>
+      new Chart(document.getElementById('chart_w1t05_segment'), {
+      type: 'bar',
+      data: {
+      labels: ['VIP(Champions)', 'Loyal', 'Big Spenders', 'New/Promising', 'Potential Loyalists', 'At Risk', 'Hibernating', 'Lost'],
+      datasets: [{
+      label: '客戶數',
+      data: [1, 0, 1, 1, 1, 2, 1, 1],
+      backgroundColor: '#c7cbec',
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false }, title: { display: true, text: 'RFM 八分群客戶數分布', color: '#eceefa' } },
+    scales: {
+      x: { ticks: { color: '#8c8ca8', font: { size: 10 } }, grid: { color: '#383850' } },
+      y: { ticks: { color: '#8c8ca8', stepSize: 1 }, grid: { color: '#383850' } }
+    }
+  }
+});
+</script>
+ 
       <h3 style="font-size: 15px;">4.2 Excel客戶分層名單（主交付物②）</h3>
       <p class="task-goal">將Section 3.2的內容，寫進 客戶分層名單.xlsx，欄位設計：customer_id／name／R／F／M／RFM_score／分群／建議行動</p>
       <p class="task-goal">加分項（Excel進階）：✅條件格式：R/F/M用顏色梯度　✅pivot：分群×平均M　✅行動優先級標色：🔴At Risk／🟢VIP</p>
