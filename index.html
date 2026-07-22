@@ -362,13 +362,55 @@
         <div class="stat-item"><div class="num">持續中</div><div class="label">每週更新</div></div>
       </div>
 
+      <div class="divider"></div>
+
+      <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 24px; margin-bottom: 32px;">
+        <h3 style="font-size: 16px; margin-bottom: 14px; color: var(--gold);">學習歷程摘要・VMDA四角色串接</h3>
+        <p style="color: var(--text); font-size: 15px; line-height: 1.9; margin-bottom: 0;">
+          這四週的學習，其實是同一條路徑不斷往上走的過程。
+          <br><br>
+          第一週我從<b style="color: var(--vermilion);">資料（Data）</b>開始——用RFM分析看懂「誰是真正重要的客戶」，
+          把混亂的原始資料整理成主管一眼就懂的儀表板，這是往下所有決策的地基。
+          第二週我把視角拉到現場，用ABC分類重排倉儲儲位、分析OTD準時率，
+          開始理解<b style="color: var(--vermilion);">管理（Management）</b>不只是數字，
+          還牽涉到人員動線、車輛排程這些真實的營運限制與流程邏輯。
+          <br><br>
+          第三週我把資料跟管理串在一起，開始讓AI做「預測」——用決策樹預測誰會流失、
+          用K-means把1,500位客戶自動分群、用Prophet預測銷量，
+          AI開始從「看得懂」進化到「猜得準」，直接對應到客戶流失、營收這些
+          <b style="color: var(--vermilion);">商業價值（Value）</b>問題。
+          第四週是整段歷程最大的跳躍：我學會的不再只是預測，而是讓
+          <b style="color: var(--vermilion);">AI／架構（AI/Architecture）</b>
+          直接參與決策——用LLM分析客訴文本找出根因、用OR-Tools在容量與時窗限制下，
+          把配送方案的違反數從4條降到0、成本省下3.3%。
+          <br><br>
+          串起來看，這其實是一個完整的商業問題解決邏輯：先讀懂資料（D），
+          理解管理現場的限制（M），用AI預測會發生什麼（也是Value的體現），
+          最後讓AI直接告訴我該怎麼做最划算（A）。
+          四個角色不是四段獨立的作業，而是<b>同一套解決問題的能力，隨著複雜度層層堆疊上去</b>。
+        </p>
+      </div>
+
+      <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 24px; margin-bottom: 32px; text-align: center;">
+        <p style="color: var(--gold); font-size: 13px; letter-spacing: 0.1em; margin-bottom: 10px;">5分鐘看懂我的價值</p>
+        <h3 style="font-size: 18px; margin-bottom: 14px;">從資料洞察到AI決策：VMDA跨角色能力簡報</h3>
+        <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px; max-width: 560px; margin-left: auto; margin-right: auto;">
+          完整呈現我如何從資料分析、管理現場、AI預測到最終讓AI直接參與決策，
+          含K-means分群debug過程與OR-Tools雙觀點決策的完整推理。
+        </p>
+        <a href="https://docs.google.com/presentation/d/1t9up8rw5Lys_fCUwvzMjA829KcOfjhAWVp13UAQ40I0/edit?usp=sharing" target="_blank"
+           style="display: inline-block; padding: 12px 32px; background: var(--vermilion); color: var(--ink); border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 14px; letter-spacing: 0.05em;">
+          📊 查看完整簡報
+        </a>
+      </div>
+
     <div class="divider"></div>
       <h3>週次導覽</h3>
       <div class="week-list">
         <div class="week-list-item" data-goto="week1"><span class="week-num">第一週</span><span class="week-status">✅ 任務01～05</span></div>
         <div class="week-list-item" data-goto="week2"><span class="week-num">第二週</span><span class="week-status">✅ 任務06～09</span></div>
         <div class="week-list-item" data-goto="week3"><span class="week-num">第三週</span><span class="week-status">✅ 任務10～13</span></div>
-        <div class="week-list-item" data-goto="week4"><span class="week-num">第四週</span><span class="week-status">✅ 任務14～15</span></div>
+        <div class="week-list-item" data-goto="week4"><span class="week-num">第四週</span><span class="week-status">✅ 任務14～16</span></div>
         <div class="week-list-item" data-goto="week5"><span class="week-num">第五週</span><span class="week-status">內容準備中</span></div>
         <div class="week-list-item" data-goto="week6"><span class="week-num">第六週</span><span class="week-status">內容準備中</span></div>
         <div class="week-list-item" data-goto="week7"><span class="week-num">第七週</span><span class="week-status">內容準備中</span></div>
@@ -1793,17 +1835,8 @@ print(積壓.head(5))</pre>
       </div>
       <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
       <canvas id="chart_w3t10_importance" style="max-height: 260px;"></canvas>
-      <p style="color: var(--muted); font-size: 12px; margin-top: 8px; margin-bottom: 0;">💡 點擊柱子看該特徵的業務直覺</p>
       </div>
-      <div id="w3t10_detail_card" style="display:none; background: var(--panel-light); border: 1px solid var(--gold); border-radius: 4px; padding: 16px; margin-top: 12px; color: var(--text); font-size: 14px;"></div>
       <script>
-      var w3t10Details = {
-        'Recency': 'importance 42%（第1名）。最近一次下單距今幾天，數字越大越可能流失，是決策樹裡最關鍵的判斷依據。',
-        'Frequency': 'importance 21%（第2名）。60天內下單次數，次數越小越可能流失，跟Recency搭配就能組成「If Recency>30 AND Frequency<3 → 流失機率92%」這條決策路徑。',
-        'AvgOrder': 'importance 13%（第3名）。Monetary÷Frequency算出的客單價，客單價越低代表對服務的黏著度越低，越可能流失。',
-        '投訴次數': 'importance 10%（第4名）。60天內投訴筆數，投訴越多、信任越低，越可能流失。',
-        '分群:At-Risk': 'importance 8%（第5名）。承接D4的八分群類別，不同分群流失傾向不同，其中「沉睡型」風險最高。'
-      };
       new Chart(document.getElementById('chart_w3t10_importance'), {
       type: 'bar',
       data: {
@@ -1818,14 +1851,7 @@ print(積壓.head(5))</pre>
        options: {
        indexAxis: 'y',
        responsive: true,
-       onClick: function(evt, elements, chart) {
-         if (!elements.length) return;
-         var label = chart.data.labels[elements[0].index];
-         var card = document.getElementById('w3t10_detail_card');
-         card.innerHTML = '<b style="color: var(--gold);">' + label + '</b><br>' + w3t10Details[label];
-         card.style.display = 'block';
-       },
-       plugins: { legend: { display: false }, title: { display: true, text: '決策樹特徵重要度 (%)（點擊柱子看細節）', color: '#eceefa' } },
+       plugins: { legend: { display: false }, title: { display: true, text: '決策樹特徵重要度 (%)', color: '#eceefa' } },
        scales: {
        x: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } },
       y: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } }
@@ -2035,15 +2061,8 @@ print(積壓.head(5))</pre>
       </div>
       <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
   <canvas id="chart_w3t11_metrics" style="max-height: 260px;"></canvas>
-  <p style="color: var(--muted); font-size: 12px; margin-top: 8px; margin-bottom: 0;">💡 點擊柱子看該指標的意義</p>
 </div>
-<div id="w3t11_metrics_card" style="display:none; background: var(--panel-light); border: 1px solid var(--gold); border-radius: 4px; padding: 16px; margin-top: 12px; color: var(--text); font-size: 14px;"></div>
 <script>
-var w3t11MetricDetails = {
-  'RMSE': 'Prophet 120.63 vs Baseline 375.79。均方根誤差，對大誤差特別敏感，Prophet在這項上大幅低於Baseline，代表極端預測失準的情況少很多。',
-  'MAE': 'Prophet 89.72 vs Baseline 313.83。平均絕對誤差，比RMSE更直觀，代表平均每次預測大概會差多少「件」。',
-  'MAPE(%)': 'Prophet 4.5% vs Baseline 14.54%。誤差百分比，diff_pp達10.06pp、遠超2pp顯著性門檻，這是最終決定採用Prophet的關鍵指標。'
-};
 new Chart(document.getElementById('chart_w3t11_metrics'), {
   type: 'bar',
   data: {
@@ -2055,16 +2074,9 @@ new Chart(document.getElementById('chart_w3t11_metrics'), {
   },
   options: {
     responsive: true,
-    onClick: function(evt, elements, chart) {
-      if (!elements.length) return;
-      var label = chart.data.labels[elements[0].index];
-      var card = document.getElementById('w3t11_metrics_card');
-      card.innerHTML = '<b style="color: var(--gold);">' + label + '</b><br>' + w3t11MetricDetails[label];
-      card.style.display = 'block';
-    },
     plugins: {
       legend: { labels: { color: '#eceefa' } },
-      title: { display: true, text: 'Prophet vs Baseline 誤差比較（點擊柱子看細節）', color: '#eceefa' }
+      title: { display: true, text: 'Prophet vs Baseline 誤差比較', color: '#eceefa' }
     },
     scales: {
       x: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } },
@@ -2095,17 +2107,8 @@ new Chart(document.getElementById('chart_w3t11_metrics'), {
       </div>
       <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
   <canvas id="chart_w3t11_forecast" style="max-height: 280px;"></canvas>
-  <p style="color: var(--muted); font-size: 12px; margin-top: 8px; margin-bottom: 0;">💡 點擊柱子看該SKU的採購建議</p>
 </div>
-<div id="w3t11_forecast_card" style="display:none; background: var(--panel-light); border: 1px solid var(--gold); border-radius: 4px; padding: 16px; margin-top: 12px; color: var(--text); font-size: 14px;"></div>
 <script>
-var w3t11ForecastDetails = {
-  'SKU_001': '上月實績1856，預測1480（區間1307~1648），MAPE 4.5%。備貨1480±17，年度成長趨勢＋雙十一效應明顯，用Prophet區間備貨。',
-  'SKU_003': '上月實績788，預測620（區間577~657），MAPE 9.4%。備貨620±40。',
-  'SKU_004': '上月實績1118，預測863（區間827~901），MAPE 6.4%。備貨863±37，用Prophet區間備貨。',
-  'SKU_002': '上月實績1007，預測862（區間839~886），MAPE 3.7%。備貨862±24，MAPE最低、預測最穩定。',
-  'SKU_006': '上月實績881，預測800（區間781~819），MAPE 15.7%。備貨800±19，MAPE較高但絕對區間窄，沿用去年同月Baseline。'
-};
 new Chart(document.getElementById('chart_w3t11_forecast'), {
   type: 'bar',
   data: {
@@ -2118,16 +2121,9 @@ new Chart(document.getElementById('chart_w3t11_forecast'), {
   },
   options: {
     responsive: true,
-    onClick: function(evt, elements, chart) {
-      if (!elements.length) return;
-      var label = chart.data.labels[elements[0].index];
-      var card = document.getElementById('w3t11_forecast_card');
-      card.innerHTML = '<b style="color: var(--gold);">' + label + '</b><br>' + w3t11ForecastDetails[label];
-      card.style.display = 'block';
-    },
     plugins: {
       legend: { labels: { color: '#eceefa' } },
-      title: { display: true, text: 'Top 5 SKU 下月銷量預測區間（點擊柱子看採購建議）', color: '#eceefa' }
+      title: { display: true, text: 'Top 5 SKU 下月銷量預測區間', color: '#eceefa' }
     },
     scales: {
       x: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } },
@@ -2286,17 +2282,8 @@ new Chart(document.getElementById('chart_w3t11_forecast'), {
       </div>
       <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
   <canvas id="chart_w3t12_lift" style="max-height: 260px;"></canvas>
-  <p style="color: var(--muted); font-size: 12px; margin-top: 8px; margin-bottom: 0;">💡 點擊柱子看該規則的業務動作與文案</p>
 </div>
-<div id="w3t12_lift_card" style="display:none; background: var(--panel-light); border: 1px solid var(--gold); border-radius: 4px; padding: 16px; margin-top: 12px; color: var(--text); font-size: 14px;"></div>
 <script>
-var w3t12LiftDetails = {
-  '尿布→啤酒': 'Support 3.82%、Confidence 58.33%、Lift 7.32。業務動作：配套販售。文案：「週五下班順路買尿布，乾脆多拎一手啤酒犒賞自己！尿布任一件+啤酒任一件，第二件半價，7/31前出示此券結帳。」',
-  '啤酒→尿布': 'Support 3.82%、Confidence 47.91%、Lift 7.32。業務動作：配套販售。文案：「尿布快用完了？別讓爸爸多跑一趟！啤酒尿布經典組合任選2件85折，一次補齊，限量供應中。」',
-  '起司→紅酒': 'Support 2.45%、Confidence 32.27%、Lift 7.20。業務動作：配套販售。文案：「起司配紅酒，才是週末的正確打開方式。指定紅酒+起司同購滿500，現折100，即日起至月底。」',
-  '紅酒→起司': 'Support 2.45%、Confidence 54.73%、Lift 7.20。業務動作：配套販售。文案：「今晚想小酌？紅酒配起司絕配登場！任選紅酒一瓶+起司一份，出示券碼現折15%，限量20組。」',
-  '醬油→米': 'Support 3.97%、Confidence 50.19%、Lift 5.18。業務動作：配套販售。文案：「煮飯前先想想：米跟醬油夠不夠？米+醬油超值組合，任選2件9折，本月採購立即享優惠。」'
-};
 new Chart(document.getElementById('chart_w3t12_lift'), {
   type: 'bar',
   data: {
@@ -2310,14 +2297,7 @@ new Chart(document.getElementById('chart_w3t12_lift'), {
   },
   options: {
     responsive: true,
-    onClick: function(evt, elements, chart) {
-      if (!elements.length) return;
-      var label = chart.data.labels[elements[0].index];
-      var card = document.getElementById('w3t12_lift_card');
-      card.innerHTML = '<b style="color: var(--gold);">' + label + '</b><br>' + w3t12LiftDetails[label];
-      card.style.display = 'block';
-    },
-    plugins: { legend: { display: false }, title: { display: true, text: 'Top 5 關聯規則 Lift 值（點擊柱子看細節）', color: '#eceefa' } },
+    plugins: { legend: { display: false }, title: { display: true, text: 'Top 5 關聯規則 Lift 值', color: '#eceefa' } },
     scales: {
       x: { ticks: { color: '#8c8ca8', font: { size: 10 } }, grid: { color: '#383850' } },
       y: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' }, beginAtZero: true }
@@ -2480,19 +2460,8 @@ new Chart(document.getElementById('chart_w3t12_lift'), {
       </div>
        <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
   <canvas id="chart_w3t13_elbow" style="max-height: 280px;"></canvas>
-  <p style="color: var(--muted); font-size: 12px; margin-top: 8px; margin-bottom: 0;">💡 點擊資料點看該k值的業務判斷</p>
 </div>
-<div id="w3t13_elbow_card" style="display:none; background: var(--panel-light); border: 1px solid var(--gold); border-radius: 4px; padding: 16px; margin-top: 12px; color: var(--text); font-size: 14px;"></div>
 <script>
-var w3t13ElbowDetails = {
-  '2': 'Inertia 3787.4、Silhouette 0.357（全表最高）。技術上分群效果最好，但業務上只分2群無法對應到有意義的行銷動作，不會選這個k。',
-  '3': 'Inertia 3022.4、Silhouette 0.328。Elbow法認為3~4是下降幅度開始趨緩的轉折區間之一。',
-  '4': 'Inertia 2482.8、Silhouette 0.272（全表最低點之一）。一開始選了這個k，因為業務只能管4-6個行銷動作，即使Silhouette不是最高，仍在可執行範圍內。',
-  '5': 'Inertia 2075.7、Silhouette 0.329（比k=4明顯回升）。後續重新評估後最終選定，因為5群仍在業務可管理範圍內，且Silhouette表現更好——最終從k=4調整為k=5。',
-  '6': 'Inertia 1789.4、Silhouette 0.335。分群數再往上會超出業務可管理的行銷動作數量。',
-  '7': 'Inertia 1602.4、Silhouette 0.293。',
-  '8': 'Inertia 1437.5、Silhouette 0.308。inertia持續下降但邊際效益已經很小，符合Elbow法「差不多夠了」的判斷。'
-};
 new Chart(document.getElementById('chart_w3t13_elbow'), {
   type: 'line',
   data: {
@@ -2514,16 +2483,9 @@ new Chart(document.getElementById('chart_w3t13_elbow'), {
   },
   options: {
     responsive: true,
-    onClick: function(evt, elements, chart) {
-      if (!elements.length) return;
-      var kValue = chart.data.labels[elements[0].index];
-      var card = document.getElementById('w3t13_elbow_card');
-      card.innerHTML = '<b style="color: var(--gold);">k = ' + kValue + '</b><br>' + w3t13ElbowDetails[kValue];
-      card.style.display = 'block';
-    },
     plugins: {
       legend: { labels: { color: '#eceefa' } },
-      title: { display: true, text: 'K-means：Inertia (Elbow) vs Silhouette（點擊資料點看細節）', color: '#eceefa' }
+      title: { display: true, text: 'K-means：Inertia (Elbow) vs Silhouette', color: '#eceefa' }
     },
     scales: {
       x: { title: { display: true, text: 'k', color: '#8c8ca8' }, ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } },
@@ -3080,15 +3042,8 @@ m.save("route_map.html")</pre>
       </div>
        <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
   <canvas id="chart_w4t15_compare" style="max-height: 260px;"></canvas>
-  <p style="color: var(--muted); font-size: 12px; margin-top: 8px; margin-bottom: 0;">💡 點擊柱子看該觀點的學員觀察</p>
 </div>
-<div id="w4t15_compare_card" style="display:none; background: var(--panel-light); border: 1px solid var(--gold); border-radius: 4px; padding: 16px; margin-top: 12px; color: var(--text); font-size: 14px;"></div>
 <script>
-var w4t15CompareDetails = {
-  '總成本(NT$)': 'baseline NT$3,148 → OR-Tools NT$3,044，省下3.3%（教學版規模預期3-5%）。這個規模(20點)主要賣「可行性」，不是主賣「大幅降本」，成本上的差距本來就不會太誇張。',
-  '時窗違反(條)': 'baseline 4條違反 → OR-Tools 0條違反。這是OR-Tools最核心的價值：先找到一個真正可執行的方案，可行性★是雙觀點裡權重最高的一項。',
-  '工時違反(台)': 'baseline 2台超工時 → OR-Tools 0台超工時。跟時窗違反一起構成baseline「不可行」的結論，也是主管最該關心的風險。'
-};
 new Chart(document.getElementById('chart_w4t15_compare'), {
   type: 'bar',
   data: {
@@ -3100,16 +3055,9 @@ new Chart(document.getElementById('chart_w4t15_compare'), {
   },
   options: {
     responsive: true,
-    onClick: function(evt, elements, chart) {
-      if (!elements.length) return;
-      var label = chart.data.labels[elements[0].index];
-      var card = document.getElementById('w4t15_compare_card');
-      card.innerHTML = '<b style="color: var(--gold);">' + label + '</b><br>' + w4t15CompareDetails[label];
-      card.style.display = 'block';
-    },
     plugins: {
       legend: { labels: { color: '#eceefa' } },
-      title: { display: true, text: 'Baseline vs OR-Tools：可行性＋成本雙觀點（點擊柱子看細節）', color: '#eceefa' }
+      title: { display: true, text: 'Baseline vs OR-Tools：可行性＋成本雙觀點', color: '#eceefa' }
     },
     scales: {
       x: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } },
@@ -3214,6 +3162,250 @@ V3 機車為什麼只跑3站？
           <tr><td>加分題不強制：Section 5.4是給學有餘力的學員，不影響及格。</td></tr>
         </table>
       </div>
+
+      <div class="divider"></div>
+
+      <!-- 任務16 -->
+      <div class="eyebrow">TASK 16</div>
+      <h2>任務16：整合架構師</h2>
+      <p class="task-goal">
+        Integration Architect・虛擬企業D：中部生鮮宅配商，你是這家公司的BI架構師<br>
+        適用於：Week 4・Day 18／2026年6月起用　　範例資料：50客戶＋4模型結果，整合到SQLite＋Streamlit
+      </p>
+
+      <h3>Section 1｜情境設定（5分鐘）</h3>
+      <p class="task-goal" style="max-width: 100%;">
+        虛擬企業D：中部生鮮宅配商，你是這家公司的BI架構師。<br>
+        公司過去三個月用了四個AI模型（W3學員自己訓的）：<br>
+        － D11 流失預測（誰快跑了？）<br>
+        － D12 銷量預測（下月該備多少貨？）<br>
+        － D13 客戶分群（這個客戶屬於哪一群？）<br>
+        － D17 路徑最佳化（今天派車怎麼跑？）<br><br>
+        四個模型各自輸出CSV，放在share drive，沒人能一次看完。<br><br>
+        <b style="color: var(--text);">主管的痛：</b>「我每天要看四份報表才能判斷一個客戶，客服電話進來客戶問『我這個月會怎樣？』，我要在五秒鐘內回答，現在做不到。」<br><br>
+        <b style="color: var(--text);">你的任務：</b>用Streamlit＋SQLite做一個「物流控制塔v0.1」，讓老闆打開首頁就能挑一個客戶，看到四個模型的所有結論。順便在第3頁標註「四模型分別需要多即時」與「過度即時／過度延遲」判斷。
+      </p>
+
+      <div class="divider"></div>
+
+      <h3>Section 2｜觀念回顧（填空，10分鐘）</h3>
+      <h3 style="font-size: 15px;">2.1 雙必講教案速查（對齊講義§2.1＋§2.2）</h3>
+      <p class="task-goal">教案1：主資料治理 Master/Subscriber 鐵律（填空）</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>鐵律</th><th>內容</th></tr>
+          <tr><td>鐵律1</td><td>每個欄位只能有 <b style="color: var(--vermilion);">1</b> 個Master</td></tr>
+          <tr><td>鐵律2</td><td>Master變更必須 <b style="color: var(--vermilion);">主動</b> 推送給Subscriber（填：主動／被動）</td></tr>
+          <tr><td>鐵律3</td><td>Subscriber不可直接 <b style="color: var(--vermilion);">寫</b>，只能讀Master同步來的副本（填：讀／寫）</td></tr>
+        </table>
+      </div>
+
+      <p class="task-goal">教案2：介面即時性光譜（連連看）－把「即時性等級」連到「相對成本」：</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>等級</th><th>相對成本（倍數）</th></tr>
+          <tr><td>Batch</td><td>1×</td></tr>
+          <tr><td>Mini-batch</td><td>2×</td></tr>
+          <tr><td>Near-real-time</td><td>5×</td></tr>
+          <tr><td>Real-time</td><td>15×</td></tr>
+        </table>
+      </div>
+      <p style="color: var(--muted); font-size: 13px; margin-bottom: 20px;">（提示：Batch=1×為基準，光譜在講義§2.2表）</p>
+
+      <h3 style="font-size: 15px;">2.2 第3章§兩階段決策金字塔七步驟（對齊講義§2.3）</h3>
+      <p class="task-goal">七步驟由下往上填：</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>階</th><th>內容</th><th>對應任務</th></tr>
+          <tr><td>第7階</td><td>跨節點協調</td><td>W6-W7第二階段</td></tr>
+          <tr><td>第6階</td><td>最佳化求解</td><td>D17 OR-Tools</td></tr>
+          <tr><td>第5階</td><td>規則自動化</td><td>D19 Agent</td></tr>
+          <tr><td>第4階</td><td>預測建模</td><td>W3 D11-D12</td></tr>
+          <tr><td>第3階</td><td>統計描述</td><td>W1 D3-D5</td></tr>
+          <tr><td>第2階</td><td>資料整合</td><td>★今天D18在這（統計、預測、規則、最佳化、跨節點）</td></tr>
+          <tr><td>第1階</td><td>資料感知</td><td>D16＋D17</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">2.3 反直覺三點（連連看，對齊講義§2.4）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>反直覺</th><th>為什麼</th><th>連連看</th></tr>
+          <tr><td>A. 整合難在治理不是技術</td><td>即時性是對數成本曲線，99%場景日批次或分鐘級足夠</td><td>2</td></tr>
+          <tr><td>B. 越即時≠越好</td><td>iPaaS／ETL工具都成熟，真正卡關是「誰是Master」的政治問題</td><td>1</td></tr>
+          <tr><td>C. 整合介面失效是慢慢腐爛</td><td>客戶地址差一個字、SKU對映表沒更新，三個月後才被客訴炸出來</td><td>3</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 3｜SQLite 整合層實作（30分鐘・工具區）</h3>
+      <h3 style="font-size: 15px;">3.1 程式檢核點・跑gen產6 CSV</h3>
+      <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 16px; font-family: 'cwTeXKai', monospace;">cd 02_CoursePlan/範例資料與程式/W4/D18_整合架構師
+python gen_d18_csv.py</pre>
+      <p class="task-goal">預期看到：✓ 50客戶／20門市／30非門市／9極端組合／8欄位MDM — 全部合規</p>
+      <p style="color: var(--gold); font-size: 13px; margin-bottom: 20px;">如果沒看到9極端組合通過，你的環境seed可能不對（預設20260513）。</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>項目</th><th>你跑出的結果</th><th>預期</th></tr>
+          <tr><td>客戶數</td><td>50</td><td>50</td></tr>
+          <tr><td>高流失客戶（churn≥0.75）</td><td>6</td><td>6</td></tr>
+          <tr><td>高銷量客戶（sales≥800）</td><td>3</td><td>3</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">3.2 程式檢核點・跑ETL建integrated.db</h3>
+      <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 16px; font-family: 'cwTeXKai', monospace;">python etl_to_sqlite.py</pre>
+      <p class="task-goal">預期看到：[Step 3] 整合完成 — integrated.db，✓ ETL完成＋6個驗證查詢全部通過</p>
+      <p style="color: var(--jade); font-size: 13px; margin-bottom: 20px;">填：你的integrated.db大小約 45,056 byte（預期12,000-15,000，實際依環境略有差異屬正常）</p>
+
+      <h3 style="font-size: 15px;">3.3 LEFT JOIN 失效情境驗證（★教學重點）</h3>
+      <p class="task-goal">跑 python D18_範例程式.py，找出示範1客戶C040的查詢結果。</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>欄位</th><th>C040的值</th></tr>
+          <tr><td>customer_name</td><td>李醫師訂購</td></tr>
+          <tr><td>is_store</td><td>N（Y/N）</td></tr>
+          <tr><td>churn_prob</td><td>0.172</td></tr>
+          <tr><td>segment_name</td><td>主流_中等</td></tr>
+          <tr><td>vehicle_id</td><td>NULL（預期：NULL ⚠ 教學重點）</td></tr>
+        </table>
+      </div>
+      <p class="task-goal">寫一句話：為什麼C040的vehicle_id是NULL？（對齊講義§3.3＋§5.2教案內容）</p>
+      <p style="color: var(--jade); font-size: 14px; margin-bottom: 20px;">
+        因為C040是非門市散戶（is_store=N），D17路徑最佳化（OR-Tools）只規劃了C001-C020這20個門市的配送路線，C021-C050這30個非門市散戶（如診所自行訂購）是由其他管道（機車快遞／客戶自取）服務，根本不在D17的排程範圍內。用LEFT JOIN才能讓C040仍然出現在客戶360畫面上（只是路徑欄位顯示NULL）；如果改用INNER JOIN，C040這類客戶會整筆從清單消失，主管會誤以為系統裡根本沒有這個客戶。
+      </p>
+
+      <div class="divider"></div>
+
+      <h3>Section 4｜Streamlit 三頁原型機實作（30分鐘・工具區尾段）</h3>
+      <h3 style="font-size: 15px;">4.1 首頁啟動・客戶360</h3>
+      <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 16px; font-family: 'cwTeXKai', monospace;">streamlit run app.py</pre>
+      <p class="task-goal">預期瀏覽器自動開 http://localhost:8501。</p>
+      <p class="task-goal">操作：在sidebar依序選以下客戶＋截圖／觀察：</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>客戶</th><th>觀察重點</th><th>你看到的KPI</th></tr>
+          <tr><td>C002 家樂福北屯</td><td>高流失＋高銷量＝VIP風險</td><td>churn 85% / sales 1200kg / 分群 IP_高頻次</td></tr>
+          <tr><td>C010 Cama西屯</td><td>低流失＋低銷量＝健康小客戶</td><td>churn 8% / sales 80kg / 分群 便利店_低頻</td></tr>
+          <tr><td>C045 早餐車</td><td>高流失＋低銷量＝可放棄</td><td>churn 93% / sales 75kg / 分群 尾巴_低頻</td></tr>
+          <tr><td>C040 李醫師</td><td>非門市，LEFT JOIN失效</td><td>第二列是否出現警示框(Y/N)：Y</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">4.2 第2頁地圖＋銷量地圖</h3>
+      <p class="task-goal">切到「2_路徑與銷量地圖」頁。操作：filter三選一（全部50／僅20門市／僅30非門市）各切一次，觀察地圖點數變化。</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>項目</th><th>結果</th></tr>
+          <tr><td>全部50：地圖上看到</td><td>50個點／派車表筆數20（預期20）</td></tr>
+          <tr><td>銷量條圖最高的客戶ID</td><td>C008（預期C008家樂福青海店，1450kg）</td></tr>
+          <tr><td>銷量條圖最低的客戶ID</td><td>C047（預期C047巷弄柑仔店北屯，60kg）</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">4.3 第3頁即時性光譜＋MDM治理檢核</h3>
+      <p class="task-goal">切到「3_即時性光譜」頁。</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>項目</th><th>結果</th></tr>
+          <tr><td>對數成本曲線 Real-time等級</td><td>15×（預期15×）</td></tr>
+          <tr><td>四模型即時性檢測表中，判定⚠過度延遲的模型</td><td>D17配送路徑（預期D17路徑）</td></tr>
+          <tr><td>MDM治理檢核結果：8欄位都恰好1個Master</td><td>是</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 5｜整合決策說明三題（15分鐘・任務16交付#3）</h3>
+      <p class="task-goal">任務16三件交付之一：整合決策說明.md，回答下面三題，每題限200字內。</p>
+
+      <h3 style="font-size: 15px;">5.1 你的db schema為什麼這樣切？（200字內）</h3>
+      <p class="task-goal" style="max-width: 100%;">
+        我把6個來源CSV切成5張主表＋1張治理表：customers是主表（PK=customer_id），churn_predictions、sales_forecast、customer_segments、delivery_routes各自用customer_id當FK串接。這樣設計是因為四個AI模型（D11-D13、D17）的輸出頻率、欄位結構都不同，分開存才不會互相污染；而customer_id是唯一能跨表串接的鍵，因此LEFT JOIN customers時，即使某模型沒有該客戶的資料（如C040沒有delivery_routes），仍能保留客戶完整輪廓，不會整筆消失。若改用INNER JOIN，任何一個模型缺資料就會讓客戶從清單掉出，主管會誤判系統裡沒有這個客戶。
+      </p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>評分檢核點</th></tr>
+          <tr><td>有提到「PK/FK」一詞 → +2分</td></tr>
+          <tr><td>有提到「customer_id為跨表串接鍵」 → +2分</td></tr>
+          <tr><td>有提到「LEFT JOIN vs INNER JOIN 業務語意」 → +3分（8分滿分）</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">5.2 四個模型各別需要的即時性等級</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>模型</th><th>你判定的等級</th><th>理由（一句話）</th></tr>
+          <tr><td>D11 流失預測</td><td>Mini-batch（週）</td><td>戶流失是行為趨勢，週級更新就夠，不需要分鐘級</td></tr>
+          <tr><td>D12 銷量預測</td><td>Batch（月）</td><td>月級銷量預測本身週期就是月，日批次運算後留給主管看一天綽綽有餘</td></tr>
+          <tr><td>D13 客戶分群</td><td>Batch（月）</td><td>分群是客戶的長期行為屬性，不會一天內劇烈變動</td></tr>
+          <tr><td>D17 配送路徑</td><td>Mini-batch（日）⚠過度延遲</td><td>目前是日批次，但物流業常有下午才進來的急單，日批次來不及反應</td></tr>
+        </table>
+      </div>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>評分檢核點</th></tr>
+          <tr><td>四模型都有等級判斷 → +4分</td></tr>
+          <tr><td>至少1個過度即時／過度延遲判斷＋改善建議 → +3分</td></tr>
+          <tr><td>引用對數成本曲線 → +1分（8分滿分）</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">5.3 MDM規則表中，Master指派至少2-3個欄位＋理由</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>欄位</th><th>你指派的Master</th><th>理由（一句話）</th></tr>
+          <tr><td>customer_id</td><td>ERP</td><td>客戶在ERP（訂單帳務系統）開帳建立，ERP是這個ID的源頭</td></tr>
+          <tr><td>customer_address</td><td>CRM</td><td>客戶搬家會打電話給客服，CRM是唯一接觸點——不是「ERP資料量最大」就該當Master</td></tr>
+          <tr><td>任選第三個：vehicle_id</td><td>WMS</td><td>倉庫貨架的實體數量由倉管實際盤點掌握，WMS看到的是第一手現場資料</td></tr>
+        </table>
+      </div>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>評分檢核點</th></tr>
+          <tr><td>至少2個欄位有Master指派 → +4分</td></tr>
+          <tr><td>理由提到「權威來源」概念（不是「資料量大」） → +4分（8分滿分）</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 6｜反思（10分鐘・概念統整）</h3>
+      <h3 style="font-size: 15px;">6.1 反直覺概念統整三問（50字內）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>問題</th><th>我的答案</th></tr>
+          <tr><td>1. 整合難在哪（治理vs技術）</td><td>難在治理（誰是Master）不是技術。工具都很成熟，真正卡關的是「誰負責改這個欄位」的共識，沒共識再貴的iPaaS也只是把混亂搬到更快的管道</td></tr>
+          <tr><td>2. 越即時越好嗎？什麼時候才值得即時？</td><td>不是。即時性是對數成本曲線，從分鐘級跳到秒級要多2.5倍成本，秒級跳毫秒級再多3倍。99%場景日批次或分鐘級就夠，只有像AGV衝突避讓這種「物理衝突會出事」的場景才值得付10倍以上成本</td></tr>
+          <tr><td>3. LEFT JOIN vs INNER JOIN 的業務語意差異</td><td>這是業務問題不是技術問題。主管要看「全部客戶」＝LEFT JOIN；只想看「同時在5個系統都有資料」的客戶＝INNER JOIN。用錯了，30個非門市客戶會直接從主管視野裡消失</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">6.2 給總經理的一頁洞察（200字內）</h3>
+      <p class="task-goal">假設你要把今天三件交付用200字內寫成「給總經理一頁洞察」，內容要：</p>
+      <ul class="check-list">
+        <li>點出9個極端組合中最該優先處理的1-2個客戶（VIP_AT_RISK）</li>
+        <li>點出本系統最該升即時性等級的1個介面（D17配送路徑）</li>
+        <li>點出本系統至少1個MDM治理風險（任選一個欄位）</li>
+      </ul>
+      <p class="task-goal" style="max-width: 100%; margin-bottom: 32px;">
+        本次整合50位客戶的四項模型輸出後，發現3位客戶（C002家樂福北屯、C008家樂福青海店、C033福華大飯店）同時具備「高流失風險(churn≥78%)＋高月銷量(≥950kg)」的VIP_AT_RISK組合，建議業務團隊本週優先安排拜訪，避免高價值客戶流失。系統面，D17配送路徑目前是日批次更新，但下午才進來的急單無法即時反映，建議升級為「事件觸發＋增量重算」，成本增加有限但能將反應時間從24小時縮短到30分鐘。治理面，客戶地址欄位目前由CRM掌握Master權威（而非資料量最大的ERP），這個安排正確，但仍建議定期稽核CRM→WMS/TMS的同步管道，避免發生「客戶搬家半年司機仍送舊地址」的治理風險。
+      </p>
+
+      <div class="divider"></div>
+
+      <h3>給組長的提醒</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>提醒事項</th></tr>
+          <tr><td>Section 3／Section 4是工具區的檢核點，助教現場1-on-1巡場確認每位學員都跑通。</td></tr>
+          <tr><td>Section 5是任務16三件交付中「整合決策說明.md」的草稿，結束前10分鐘助教必看。</td></tr>
+          <tr><td>加分項三選一不必強迫，先確保5維度都過60分再說。</td></tr>
+          <tr><td>對學員提示：「整合決策說明.md 是任務交付，沒寫等於沒交。」</td></tr>
+        </table>
+      </div>
+
       <div class="back-home-wrap">
         <button class="back-prev-btn" onclick="goBack()">⬅ 回上一頁</button>
         <button class="back-home-btn" onclick="gotoPage('home')">🏠 返回首頁</button>
