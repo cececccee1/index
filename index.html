@@ -382,35 +382,61 @@
       <div class="divider"></div>
 
 <p class="lead">
-  想看每週詳細的分析過程？點擊上方分頁瀏覽
+  想看每週詳細的分析過程？點擊上方分頁瀏覽——<br>
+  <span style="font-size: 13px; color: var(--muted);">以下每週分頁保留完整的課堂作業紀錄：任務編號、debug過程、原始截圖，是實際操作的完整記錄，不是精簡摘要</span>
 </p>
 
       <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 24px; margin-bottom: 32px;">
-        <h3 style="font-size: 16px; margin-bottom: 14px; color: var(--gold);">學習歷程摘要・VMDA四角色串接</h3>
-        <p style="color: var(--text); font-size: 15px; line-height: 1.9; margin-bottom: 0;">
-          這四週的學習，其實是同一條路徑不斷往上走的過程。
-          <br><br>
-          第一週我從<b style="color: var(--vermilion);">資料（Data）</b>開始——用RFM分析看懂「誰是真正重要的客戶」，
-          把混亂的原始資料整理成主管一眼就懂的儀表板，這是往下所有決策的地基。
-          第二週我把視角拉到現場，用ABC分類重排倉儲儲位、分析OTD準時率，
-          開始理解<b style="color: var(--vermilion);">管理（Management）</b>不只是數字，
-          還牽涉到人員動線、車輛排程這些真實的營運限制與流程邏輯。
-          <br><br>
-          第三週我把資料跟管理串在一起，開始讓AI做「預測」——用決策樹預測誰會流失、
-          用K-means把1,500位客戶自動分群、用Prophet預測銷量，
-          AI開始從「看得懂」進化到「猜得準」，直接對應到客戶流失、營收這些
-          <b style="color: var(--vermilion);">商業價值（Value）</b>問題。
-          第四週是整段歷程最大的跳躍：我學會的不再只是預測，而是讓
-          <b style="color: var(--vermilion);">AI／架構（AI/Architecture）</b>
-          直接參與決策——用LLM分析客訴文本找出根因、用OR-Tools在容量與時窗限制下，
-          把配送方案的違反數從4條降到0、成本省下3.3%。
-          <br><br>
-          串起來看，這其實是一個完整的商業問題解決邏輯：先讀懂資料（D），
-          理解管理現場的限制（M），用AI預測會發生什麼（也是Value的體現），
-          最後讓AI直接告訴我該怎麼做最划算（A）。
-          四個角色不是四段獨立的作業，而是<b>同一套解決問題的能力，隨著複雜度層層堆疊上去</b>。
-        </p>
+        <h3 style="font-size: 16px; margin-bottom: 18px; color: var(--gold);">學習歷程時間軸・VMDA四角色串接</h3>
+
+        <div style="display: flex; align-items: center; position: relative; margin-bottom: 20px;">
+          <div style="position: absolute; top: 20px; left: 5%; right: 5%; height: 2px; background: var(--border);"></div>
+          <div id="week-stops" style="display: flex; justify-content: space-between; width: 100%; position: relative;"></div>
+        </div>
+
+        <div id="week-panel" style="background: var(--ink); border: 1px solid var(--border); border-radius: 4px; padding: 18px 20px; min-height: 92px;"></div>
       </div>
+
+      <script>
+        (function () {
+          var weeks = [
+            { w: "W1", role: "Data・資料", task: "用RFM分析看懂「誰是真正重要的客戶」，把原始資料整理成主管一眼就懂的儀表板", num: "8", label: "個消費行為分群" },
+            { w: "W2", role: "Management・現場", task: "用ABC分類重排倉儲儲位、分析OTD準時率，理解人員動線與車輛排程的真實營運限制", num: "3", label: "表整合定位瓶頸主因" },
+            { w: "W3", role: "Value・預測", task: "用決策樹預測流失、K-means自動分群、Prophet預測銷量，AI從「看得懂」進化到「猜得準」", num: "1,500", label: "位客戶被自動精準分群" },
+            { w: "W4", role: "AI/Architecture・決策", task: "用LLM分析客訴文本找出根因、用OR-Tools在容量與時窗限制下找最佳配送方案", num: "3.3%", label: "AI決策比人工直覺省下的成本" },
+          ];
+          var stopsEl = document.getElementById("week-stops");
+          var panel = document.getElementById("week-panel");
+
+          function render(i) {
+            stopsEl.innerHTML = weeks
+              .map(function (wk, idx) {
+                var active = idx === i;
+                return (
+                  '<div onclick="window.__showWeek(' + idx + ')" style="display:flex;flex-direction:column;align-items:center;cursor:pointer;">' +
+                  '<div style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;' +
+                  "background:" + (active ? "var(--vermilion)" : "var(--panel-light)") + ";" +
+                  "color:" + (active ? "var(--ink)" : "var(--muted)") + ";" +
+                  "border:1px solid " + (active ? "var(--vermilion)" : "var(--border)") + ";" +
+                  '">' + wk.w + "</div>" +
+                  '<div style="font-size:11px;color:var(--muted);margin-top:6px;">' + wk.role.split("・")[0] + "</div>" +
+                  "</div>"
+                );
+              })
+              .join("");
+            var wk = weeks[i];
+            panel.innerHTML =
+              '<div style="font-size:12px;color:var(--gold);letter-spacing:0.05em;margin-bottom:8px;">' + wk.w + " ・ " + wk.role + "</div>" +
+              '<div style="font-size:14px;color:var(--text);line-height:1.7;margin-bottom:12px;">' + wk.task + "</div>" +
+              '<div style="display:flex;align-items:baseline;gap:8px;">' +
+              '<span style="font-size:24px;font-weight:700;color:var(--vermilion);">' + wk.num + "</span>" +
+              '<span style="font-size:13px;color:var(--muted);">' + wk.label + "</span>" +
+              "</div>";
+          }
+          window.__showWeek = render;
+          render(0);
+        })();
+      </script>
       <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 24px; margin-bottom: 32px;">
         <h3 style="font-size: 16px; margin-bottom: 14px; color: var(--gold);">🎯 想接的題目方向</h3>
         <div class="task-table-wrap">
