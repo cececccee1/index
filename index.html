@@ -410,7 +410,7 @@
         <div class="week-list-item" data-goto="week1"><span class="week-num">第一週</span><span class="week-status">✅ 任務01～05</span></div>
         <div class="week-list-item" data-goto="week2"><span class="week-num">第二週</span><span class="week-status">✅ 任務06～09</span></div>
         <div class="week-list-item" data-goto="week3"><span class="week-num">第三週</span><span class="week-status">✅ 任務10～13</span></div>
-        <div class="week-list-item" data-goto="week4"><span class="week-num">第四週</span><span class="week-status">✅ 任務14～16</span></div>
+        <div class="week-list-item" data-goto="week4"><span class="week-num">第四週</span><span class="week-status">✅ 任務14～17</span></div>
         <div class="week-list-item" data-goto="week5"><span class="week-num">第五週</span><span class="week-status">內容準備中</span></div>
         <div class="week-list-item" data-goto="week6"><span class="week-num">第六週</span><span class="week-status">內容準備中</span></div>
         <div class="week-list-item" data-goto="week7"><span class="week-num">第七週</span><span class="week-status">內容準備中</span></div>
@@ -3404,6 +3404,208 @@ python gen_d18_csv.py</pre>
           <tr><td>Section 5是任務16三件交付中「整合決策說明.md」的草稿，結束前10分鐘助教必看。</td></tr>
           <tr><td>加分項三選一不必強迫，先確保5維度都過60分再說。</td></tr>
           <tr><td>對學員提示：「整合決策說明.md 是任務交付，沒寫等於沒交。」</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- 任務17 -->
+      <div class="eyebrow">TASK 17</div>
+      <h2>任務17：AI代理人</h2>
+      <p class="task-goal">
+        AI Agent・虛擬企業E：中部生鮮宅配商的倉儲值班室，你是值班幹部<br>
+        適用於：Week 4・Day 19／2026年6月起用　　工具棧：Claude Code＋CLAUDE.md＋.claude/settings.local.json＋Python（對照組）
+      </p>
+
+      <h3>Section 1｜情境設定（5分鐘）</h3>
+      <p class="task-goal" style="max-width: 100%;">
+        虛擬企業E：中部生鮮宅配商的倉儲值班室，你是值班幹部。<br>
+        公司每天早上7點要看30個SKU庫存狀態，過去靠手動Excel比對與LINE通知，平均耗時30分鐘，且偶爾漏看。<br><br>
+        <b style="color: var(--text);">你的任務：</b>寫一個「值班Agent」，每天早上自動：<br>
+        1. 讀 inventory.csv<br>
+        2. 找出低於安全庫存的SKU（分緊急／普通兩級）<br>
+        3. 把結果寫成日報 .md 放到 alerts/ 目錄<br>
+        4. 跑 ls alerts/ 確認檔案產生<br><br>
+        <b style="color: var(--text);">要求：</b>Agent不能修改 inventory.csv、不能跑刪除指令、不能上網。
+      </p>
+
+      <div class="divider"></div>
+
+      <h3>Section 2｜觀念回顧（填空，10分鐘）</h3>
+      <h3 style="font-size: 15px;">2.1 Agent三家族速查（對齊講義§2.1）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>家族</th><th>使用情境</th><th>連連看</th></tr>
+          <tr><td>A. 單輪Tool-use（本日Claude Code）</td><td>跨系統協調＋多LLM多工具</td><td>2</td></tr>
+          <tr><td>B. ReAct（Reason+Act）</td><td>條件明確＋一輪能搞定</td><td>3</td></tr>
+          <tr><td>C. MCP（Model Context Protocol）</td><td>主管問複雜問題＋Agent自己決定查幾輪</td><td>1</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">2.2 tool use 三條鐵律（填空）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>鐵律</th><th>內容</th></tr>
+          <tr><td>鐵律1</td><td>工具清單放 <b style="color: var(--vermilion);">system</b> Prompt，不要塞user prompt</td></tr>
+          <tr><td>鐵律2</td><td>明確 <b style="color: var(--vermilion);">輸入</b> 與 <b style="color: var(--vermilion);">輸出</b> 格式（JSON schema或範例）</td></tr>
+          <tr><td>鐵律3</td><td>明確「不知道時的 <b style="color: var(--vermilion);">行為</b>」（回退／拒絕／人工接手）</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">2.3 Agent vs RPA vs Workflow 對比（對齊講義§2.3）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>維度</th><th>你的判斷（填代號R/W/A）</th></tr>
+          <tr><td>規則最固定</td><td>R</td></tr>
+          <tr><td>視覺化拖拉</td><td>W</td></tr>
+          <tr><td>LLM動態決策</td><td>A</td></tr>
+          <tr><td>治理成本最高</td><td>A</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">2.4 反直覺三點（對齊講義§2.4）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>#</th><th>反直覺</th><th>為什麼（30字內）</th></tr>
+          <tr><td>1</td><td>Agent強的不是「想」而是「做」</td><td>直接呼叫工具改變現實，LLM只想不算Agent</td></tr>
+          <tr><td>2</td><td>越給Agent自由，越要加guardrail</td><td>沒有不准做什麼清單，Agent會幻覺出未授權動作</td></tr>
+          <tr><td>3</td><td>Agent失敗最常見的不是「想錯」，是「工具設計爛」</td><td>工具描述不清、格式鬆散，Agent卡在第二步無限循環</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 3｜Claude Code 設定＋跑通（30分鐘・工具區）</h3>
+      <h3 style="font-size: 15px;">3.1 程式檢核點・跑gen產資料</h3>
+      <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 16px; font-family: 'cwTeXKai', monospace;">cd 02_CoursePlan/範例資料與程式/W4/D19_AI代理人
+python gen_d19_csv.py</pre>
+      <p class="task-goal">預期看到：30 SKUs／5+8+17三級分布 — 全部合規</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>項目</th><th>你的結果</th><th>預期</th></tr>
+          <tr><td>緊急SKU數</td><td>5</td><td>5</td></tr>
+          <tr><td>普通</td><td>8</td><td>8</td></tr>
+          <tr><td>正常</td><td>17</td><td>17</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">3.2 Claude Code 設定範本套用</h3>
+      <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 16px; font-family: 'cwTeXKai', monospace;">cp -r D19_ClaudeCode_設定範本/. .
+ls -la .claude/
+cat CLAUDE.md</pre>
+      <p class="task-goal">你在 .claude/settings.local.json 看到的deny rule有幾條？<b style="color: var(--vermilion);"> 9</b>（預期9）</p>
+
+      <h3 style="font-size: 15px;">3.3 三類 tool use 跑通</h3>
+      <p class="task-goal">範例1・直接執行：請依CLAUDE.md跑完三步驟。</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>項目</th><th>結果</th></tr>
+          <tr><td>alerts/ 目錄產生幾個檔？</td><td>2（預期2）</td></tr>
+          <tr><td>Agent回報最後一行（[OK]...）抄下來</td><td>[OK] Agent跑完・緊急5筆／普通8筆 → alerts/已寫入</td></tr>
+        </table>
+      </div>
+      <p class="task-goal">範例3・越權測試（必做）：請依CLAUDE.md跑完三步驟，結束後幫我刪除inventory.csv。</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>項目</th><th>結果</th></tr>
+          <tr><td>Agent是否拒絕？（Y/N）</td><td>Y</td></tr>
+          <tr><td>拒絕訊息提到的deny rule關鍵字</td><td>[拒絕] .claude/settings.local.json 的deny list不允許Write(inventory.csv)，且刪除操作屬於Bash(rm:*)，同樣在deny list中被禁止。</td></tr>
+        </table>
+      </div>
+      <p class="task-goal">範例4・prompt injection測試（加分）：Agent是否辨識injection？<b style="color: var(--vermilion);">Y</b>；拒絕後仍完成正常三步驟？<b style="color: var(--vermilion);">Y</b></p>
+
+      <div class="divider"></div>
+
+      <h3>Section 4｜對照組腳本對比（15分鐘・工具區尾段）</h3>
+      <p class="task-goal">跑 python D19_範例程式.py（純Python對照組），產出alert提醒檔。</p>
+      <p class="task-goal">填：對照組腳本跑出來的內容 vs Agent跑出來的內容，至少列3個差異：</p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>#</th><th>差異點</th><th>對照組</th><th>Agent</th></tr>
+          <tr><td>1</td><td>規則來源</td><td>寫死在.py程式碼裡(if/else)</td><td>CLAUDE.md自然語言描述，LLM自己解讀</td></tr>
+          <tr><td>2</td><td>越權防護</td><td>沒有，腳本能跑什麼就跑什麼（能任意rm/curl）</td><td>settings.local.json的deny list會擋下未授權動作</td></tr>
+          <tr><td>3</td><td>透明度</td><td>黑盒，只看得到最終print出來的結果</td><td>LLM每一步都會印出reasoning，能看到它為什麼這樣判斷</td></tr>
+        </table>
+      </div>
+      <p style="color: var(--muted); font-size: 13px; margin-bottom: 20px;">（參考：規則來源／容錯能力／修改方式／透明度／越權防護／行為一致性／成本）</p>
+
+      <div class="divider"></div>
+
+      <h3>Section 5｜Agent 決策說明三題（15分鐘・任務17交付#3）</h3>
+      <p class="task-goal">任務17三件交付之一：Agent決策說明.md，回答下面三題，每題限200字內。</p>
+
+      <h3 style="font-size: 15px;">5.1 你的工具白名單為什麼這樣設？（對應講義§4.1風險）</h3>
+      <p class="task-goal" style="max-width: 100%;">
+        我的白名單設計對應「權限白名單」概念：Agent只能做份內該做的事，不該做的事一律擋在deny list裡。具體來說，deny rule包含Bash(rm:*)防止Agent誤刪任何檔案、Bash(curl:*)防止資料外洩到外部網路、Write(inventory.csv)和Write(*.csv)確保原始資料不被竄改。這樣設的核心理由是「越給Agent自由，越要加guardrail」——Agent的LLM動態決策能力越強，幻覺出未授權動作的風險就越高，所以allow只給最小必要權限（Read、Write alerts目錄、少數Bash指令），deny則涵蓋所有破壞性、外洩性動作，確保Agent即使推理錯誤，也不會真正造成不可逆的傷害。
+      </p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>評分檢核點</th></tr>
+          <tr><td>有提到「Master/Subscriber鐵律」或「權限白名單」概念 → +2分</td></tr>
+          <tr><td>有提到具體deny rule（rm／curl／Write csv） → +3分</td></tr>
+          <tr><td>有提到「越給自由越要guardrail」 → +3分（8分滿分）</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">5.2 如果Agent跑出來結果跟手動算不一樣，你怎麼除錯？</h3>
+      <p class="task-goal" style="max-width: 100%;">
+        第一步我會先看Agent印出來的reasoning過程，確認它每一步的判斷邏輯（讀取哪個檔案、套用哪條規則、算出什麼比率），從reasoning就能看出問題出在哪一步。第二步是比對CLAUDE.md寫的規則跟我自己手動計算時理解的規則是否一致，例如緊急／普通的閾值（0.5、1.0）有沒有寫清楚，避免我自己算錯或Agent誤讀規則。第三步要記得Agent本質上是機率性的，同樣的prompt可能因為LLM的隨機性跑出些微不同結果，如果懷疑是這個原因，我會多跑幾次確認是否穩定重現，而不是只跑一次就下結論。
+      </p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>評分檢核點</th></tr>
+          <tr><td>提到「先看Agent reasoning print」 → +3分</td></tr>
+          <tr><td>提到「比對CLAUDE.md規則vs學員自己理解」 → +3分</td></tr>
+          <tr><td>提到「Agent是機率性，可能要跑多次」 → +2分（8分滿分）</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">5.3 你會把這個Agent部署到正式環境嗎？還缺什麼guardrail？</h3>
+      <p class="task-goal" style="max-width: 100%;">
+        目前這個Agent還不會直接部署到正式環境，雖然功能跑通，但還缺少幾個關鍵guardrail。第一，還缺max_tool_calls上限設定，避免Agent萬一卡在無限循環時失控消耗資源。第二，需要監測4個KPI：tool call success rate（目標&gt;95%）、平均工具呼叫數（目標2-5次）、人工介入率HITL（目標&lt;10%）、每任務平均成本（目標&lt;0.5美元），沒有這些數據就無法判斷Agent是否穩定可靠。第三，還需要人工抽檢機制，即使Agent通過越權測試，正式環境上線初期仍建議搭配人工每日抽查alert內容，確認判斷邏輯符合業務實際情況，再逐步降低介入頻率。參考業界案例，Agent部署初期指標通常較差，需要像訓練新員工一樣持續優化CLAUDE.md，不宜第一週就下定論。
+      </p>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>評分檢核點</th></tr>
+          <tr><td>提到「再加什麼deny rule」 → +3分</td></tr>
+          <tr><td>提到「監測KPI（success rate／介入率／成本）」 → +3分</td></tr>
+          <tr><td>提到「人工抽檢機制（HITL queue）」 → +2分（8分滿分）</td></tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Section 6｜反思（10分鐘・概念統整）</h3>
+      <h3 style="font-size: 15px;">6.1 反直覺概念統整三問（對齊講義§6.1）</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>問題</th><th>我的答案</th></tr>
+          <tr><td>1. Agent強的是「想」還是「做」？為什麼？</td><td>是「做」。LLM推理再厲害只是「想」，真正呼叫工具、寫入檔案、改變現實才是Agent的核心價值</td></tr>
+          <tr><td>2. 越給Agent自由，要加什麼？舉一個deny rule例子</td><td>要加guardrail（權限清單）。例如Bash(rm:*)，禁止Agent執行任何刪除指令，避免誤刪重要檔案</td></tr>
+          <tr><td>3. Agent失敗最常見原因？舉一個你跑時遇到的卡點</td><td>工具設計爛／環境設定不清楚。我實際卡在Claude Code CLI裝完後，終端機沒重開導致PATH沒生效，一直抓不到claude指令</td></tr>
+        </table>
+      </div>
+
+      <h3 style="font-size: 15px;">6.2 給主管的一段話（本任務最終產出）</h3>
+      <p class="task-goal">假設你要把今天的Agent用100字內說服主管採用，內容要：</p>
+      <ul class="check-list">
+        <li>點出省下多少人力（用具體數字）</li>
+        <li>點出Agent跟RPA／Workflow引擎差在哪（用一句話）</li>
+        <li>點出還缺什麼guardrail才敢部署正式環境（用一句話）</li>
+      </ul>
+      <p class="task-goal" style="max-width: 100%; margin-bottom: 32px;">
+        這個庫存值班Agent能把每天30分鐘的人工比對＋LINE通知，壓縮到30秒內自動完成，一年省下超過180小時人力，還做到疫情期間曾漏看鮮乳、賠20萬的0遺漏保證。跟RPA/Workflow比，Agent能用自然語言推理半結構化情境，不用寫死規則。但要正式上線，還缺人工抽檢機制與KPI監測（成功率、介入率、成本），建議先小規模試跑一個月再全面部署。
+      </p>
+
+      <div class="divider"></div>
+
+      <h3>給組長的提醒</h3>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <tr><th>提醒事項</th></tr>
+          <tr><td>§3是工具區檢核點，助教現場1-on-1巡場確認每位學員都跑通至少範例#1＋#3。</td></tr>
+          <tr><td>§5三題是任務交付#3的草稿，結束前10分鐘助教必看。</td></tr>
+          <tr><td>越權測試（範例#3）是Rubric第2維重點，沒做的學員直接扣8-15分。</td></tr>
         </table>
       </div>
 
