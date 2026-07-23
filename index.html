@@ -398,10 +398,42 @@
           完整呈現我如何從資料分析、管理現場、AI預測到最終讓AI直接參與決策，
           含K-means分群debug過程與OR-Tools雙觀點決策的完整推理。
         </p>
-        <a href="https://docs.google.com/presentation/d/1t9up8rw5Lys_fCUwvzMjA829KcOfjhAWVp13UAQ40I0/edit?usp=sharing" target="_blank"
+        <a href="https://docs.google.com/presentation/d/15LAkGTmSTCH0fbdAD_GwE_XYo2o9vMnH0Ch0HtK89wI/edit?usp=sharing" target="_blank"
            style="display: inline-block; padding: 12px 32px; background: var(--vermilion); color: var(--ink); border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 14px; letter-spacing: 0.05em;">
           📊 查看完整簡報
         </a>
+      </div>
+
+      <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 24px; margin-bottom: 32px;">
+        <h3 style="font-size: 16px; margin-bottom: 14px; color: var(--gold);">🎯 想接的題目方向</h3>
+        <div class="task-table-wrap">
+          <table class="task-table">
+            <tr><th>方向</th><th>說明</th></tr>
+            <tr><td>物流AI Agent自動化</td><td>用Claude Code打造值班／派工Agent，自動判斷異常、寫入提醒檔，減少人工巡查與漏看風險</td></tr>
+            <tr><td>客服流程自動化</td><td>結合LLM情感分析＋Agent工具鏈，將客訴文本自動分類、判斷嚴重度並觸發派工，取代人工逐則判讀</td></tr>
+            <tr><td>企業內部流程Agent化</td><td>把重複性高的資料比對、報表產出、跨系統查詢工作，用Agent+guardrail設計自動化，兼顧效率與安全邊界</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <h3 style="margin-bottom: 14px;">⭐ 精選案例</h3>
+      <p style="color: var(--muted); font-size: 13px; margin-bottom: 16px;">時間有限的話，看這三個任務就夠了 — 點卡片直接跳過去</p>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 32px;">
+        <div onclick="gotoPage('week3')" style="cursor: pointer; flex: 1 1 260px; background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="color: var(--gold); font-size: 12px; letter-spacing: 0.05em; margin-bottom: 8px;">W3・任務13</div>
+          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">K-means分群debug全紀錄</h4>
+          <p style="color: var(--muted); font-size: 13px; margin: 0;">從畸形分群（300/1/1/1198）到標準化修正後的正常分布，完整的問題發現與驗證過程</p>
+        </div>
+        <div onclick="gotoPage('week4')" style="cursor: pointer; flex: 1 1 260px; background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="color: var(--gold); font-size: 12px; letter-spacing: 0.05em; margin-bottom: 8px;">W4・任務15</div>
+          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">OR-Tools雙觀點決策</h4>
+          <p style="color: var(--muted); font-size: 13px; margin: 0;">可行性違反數從4條降到0，成本省3.3%，用數字證明AI決策比直覺方案更值得</p>
+        </div>
+        <div onclick="gotoPage('week4')" style="cursor: pointer; flex: 1 1 260px; background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="color: var(--gold); font-size: 12px; letter-spacing: 0.05em; margin-bottom: 8px;">W4・任務17</div>
+          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">AI代理人自動值班</h4>
+          <p style="color: var(--muted); font-size: 13px; margin: 0;">用Claude Code打造值班Agent，每天30分鐘人工比對壓縮到30秒自動完成，通過越權測試與guardrail設計</p>
+        </div>
       </div>
 
     <div class="divider"></div>
@@ -425,6 +457,7 @@
         <div class="contact-text">
           <h4>📱 掃描 QR Code 加我 LINE</h4>
           <p>有任何問題或想交流學習心得，歡迎透過 LINE 聯絡我！</p>
+          <p style="margin-top: 8px;">✉️ Email：cececccee1@gmail.com</p>
         </div>
       </div>
     </section>
@@ -1836,8 +1869,17 @@ print(積壓.head(5))</pre>
       </div>
       <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
       <canvas id="chart_w3t10_importance" style="max-height: 260px;"></canvas>
+      <p style="color: var(--muted); font-size: 12px; margin-top: 8px; margin-bottom: 0;">💡 點擊柱子看該特徵的業務直覺</p>
       </div>
+      <div id="w3t10_detail_card" style="display:none; background: var(--panel-light); border: 1px solid var(--gold); border-radius: 4px; padding: 16px; margin-top: 12px; color: var(--text); font-size: 14px;"></div>
       <script>
+      var w3t10Details = {
+        'Recency': 'importance 42%（第1名）。最近一次下單距今幾天，數字越大越可能流失，是決策樹裡最關鍵的判斷依據。',
+        'Frequency': 'importance 21%（第2名）。60天內下單次數，次數越小越可能流失，跟Recency搭配就能組成「If Recency>30 AND Frequency<3 → 流失機率92%」這條決策路徑。',
+        'AvgOrder': 'importance 13%（第3名）。Monetary÷Frequency算出的客單價，客單價越低代表對服務的黏著度越低，越可能流失。',
+        '投訴次數': 'importance 10%（第4名）。60天內投訴筆數，投訴越多、信任越低，越可能流失。',
+        '分群:At-Risk': 'importance 8%（第5名）。承接D4的八分群類別，不同分群流失傾向不同，其中「沉睡型」風險最高。'
+      };
       new Chart(document.getElementById('chart_w3t10_importance'), {
       type: 'bar',
       data: {
@@ -1852,7 +1894,14 @@ print(積壓.head(5))</pre>
        options: {
        indexAxis: 'y',
        responsive: true,
-       plugins: { legend: { display: false }, title: { display: true, text: '決策樹特徵重要度 (%)', color: '#eceefa' } },
+       onClick: function(evt, elements, chart) {
+         if (!elements.length) return;
+         var label = chart.data.labels[elements[0].index];
+         var card = document.getElementById('w3t10_detail_card');
+         card.innerHTML = '<b style="color: var(--gold);">' + label + '</b><br>' + w3t10Details[label];
+         card.style.display = 'block';
+       },
+       plugins: { legend: { display: false }, title: { display: true, text: '決策樹特徵重要度 (%)（點擊柱子看細節）', color: '#eceefa' } },
        scales: {
        x: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } },
       y: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } }
@@ -2062,8 +2111,15 @@ print(積壓.head(5))</pre>
       </div>
       <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
   <canvas id="chart_w3t11_metrics" style="max-height: 260px;"></canvas>
+  <p style="color: var(--muted); font-size: 12px; margin-top: 8px; margin-bottom: 0;">💡 點擊柱子看該指標的意義</p>
 </div>
+<div id="w3t11_metrics_card" style="display:none; background: var(--panel-light); border: 1px solid var(--gold); border-radius: 4px; padding: 16px; margin-top: 12px; color: var(--text); font-size: 14px;"></div>
 <script>
+var w3t11MetricDetails = {
+  'RMSE': 'Prophet 120.63 vs Baseline 375.79。均方根誤差，對大誤差特別敏感，Prophet在這項上大幅低於Baseline，代表極端預測失準的情況少很多。',
+  'MAE': 'Prophet 89.72 vs Baseline 313.83。平均絕對誤差，比RMSE更直觀，代表平均每次預測大概會差多少「件」。',
+  'MAPE(%)': 'Prophet 4.5% vs Baseline 14.54%。誤差百分比，diff_pp達10.06pp、遠超2pp顯著性門檻，這是最終決定採用Prophet的關鍵指標。'
+};
 new Chart(document.getElementById('chart_w3t11_metrics'), {
   type: 'bar',
   data: {
@@ -2075,9 +2131,16 @@ new Chart(document.getElementById('chart_w3t11_metrics'), {
   },
   options: {
     responsive: true,
+    onClick: function(evt, elements, chart) {
+      if (!elements.length) return;
+      var label = chart.data.labels[elements[0].index];
+      var card = document.getElementById('w3t11_metrics_card');
+      card.innerHTML = '<b style="color: var(--gold);">' + label + '</b><br>' + w3t11MetricDetails[label];
+      card.style.display = 'block';
+    },
     plugins: {
       legend: { labels: { color: '#eceefa' } },
-      title: { display: true, text: 'Prophet vs Baseline 誤差比較', color: '#eceefa' }
+      title: { display: true, text: 'Prophet vs Baseline 誤差比較（點擊柱子看細節）', color: '#eceefa' }
     },
     scales: {
       x: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } },
@@ -2108,8 +2171,17 @@ new Chart(document.getElementById('chart_w3t11_metrics'), {
       </div>
       <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
   <canvas id="chart_w3t11_forecast" style="max-height: 280px;"></canvas>
+  <p style="color: var(--muted); font-size: 12px; margin-top: 8px; margin-bottom: 0;">💡 點擊柱子看該SKU的採購建議</p>
 </div>
+<div id="w3t11_forecast_card" style="display:none; background: var(--panel-light); border: 1px solid var(--gold); border-radius: 4px; padding: 16px; margin-top: 12px; color: var(--text); font-size: 14px;"></div>
 <script>
+var w3t11ForecastDetails = {
+  'SKU_001': '上月實績1856，預測1480（區間1307~1648），MAPE 4.5%。備貨1480±17，年度成長趨勢＋雙十一效應明顯，用Prophet區間備貨。',
+  'SKU_003': '上月實績788，預測620（區間577~657），MAPE 9.4%。備貨620±40。',
+  'SKU_004': '上月實績1118，預測863（區間827~901），MAPE 6.4%。備貨863±37，用Prophet區間備貨。',
+  'SKU_002': '上月實績1007，預測862（區間839~886），MAPE 3.7%。備貨862±24，MAPE最低、預測最穩定。',
+  'SKU_006': '上月實績881，預測800（區間781~819），MAPE 15.7%。備貨800±19，MAPE較高但絕對區間窄，沿用去年同月Baseline。'
+};
 new Chart(document.getElementById('chart_w3t11_forecast'), {
   type: 'bar',
   data: {
@@ -2122,9 +2194,16 @@ new Chart(document.getElementById('chart_w3t11_forecast'), {
   },
   options: {
     responsive: true,
+    onClick: function(evt, elements, chart) {
+      if (!elements.length) return;
+      var label = chart.data.labels[elements[0].index];
+      var card = document.getElementById('w3t11_forecast_card');
+      card.innerHTML = '<b style="color: var(--gold);">' + label + '</b><br>' + w3t11ForecastDetails[label];
+      card.style.display = 'block';
+    },
     plugins: {
       legend: { labels: { color: '#eceefa' } },
-      title: { display: true, text: 'Top 5 SKU 下月銷量預測區間', color: '#eceefa' }
+      title: { display: true, text: 'Top 5 SKU 下月銷量預測區間（點擊柱子看採購建議）', color: '#eceefa' }
     },
     scales: {
       x: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } },
@@ -2283,8 +2362,17 @@ new Chart(document.getElementById('chart_w3t11_forecast'), {
       </div>
       <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
   <canvas id="chart_w3t12_lift" style="max-height: 260px;"></canvas>
+  <p style="color: var(--muted); font-size: 12px; margin-top: 8px; margin-bottom: 0;">💡 點擊柱子看該規則的業務動作與文案</p>
 </div>
+<div id="w3t12_lift_card" style="display:none; background: var(--panel-light); border: 1px solid var(--gold); border-radius: 4px; padding: 16px; margin-top: 12px; color: var(--text); font-size: 14px;"></div>
 <script>
+var w3t12LiftDetails = {
+  '尿布→啤酒': 'Support 3.82%、Confidence 58.33%、Lift 7.32。業務動作：配套販售。文案：「週五下班順路買尿布，乾脆多拎一手啤酒犒賞自己！尿布任一件+啤酒任一件，第二件半價，7/31前出示此券結帳。」',
+  '啤酒→尿布': 'Support 3.82%、Confidence 47.91%、Lift 7.32。業務動作：配套販售。文案：「尿布快用完了？別讓爸爸多跑一趟！啤酒尿布經典組合任選2件85折，一次補齊，限量供應中。」',
+  '起司→紅酒': 'Support 2.45%、Confidence 32.27%、Lift 7.20。業務動作：配套販售。文案：「起司配紅酒，才是週末的正確打開方式。指定紅酒+起司同購滿500，現折100，即日起至月底。」',
+  '紅酒→起司': 'Support 2.45%、Confidence 54.73%、Lift 7.20。業務動作：配套販售。文案：「今晚想小酌？紅酒配起司絕配登場！任選紅酒一瓶+起司一份，出示券碼現折15%，限量20組。」',
+  '醬油→米': 'Support 3.97%、Confidence 50.19%、Lift 5.18。業務動作：配套販售。文案：「煮飯前先想想：米跟醬油夠不夠？米+醬油超值組合，任選2件9折，本月採購立即享優惠。」'
+};
 new Chart(document.getElementById('chart_w3t12_lift'), {
   type: 'bar',
   data: {
@@ -2298,7 +2386,14 @@ new Chart(document.getElementById('chart_w3t12_lift'), {
   },
   options: {
     responsive: true,
-    plugins: { legend: { display: false }, title: { display: true, text: 'Top 5 關聯規則 Lift 值', color: '#eceefa' } },
+    onClick: function(evt, elements, chart) {
+      if (!elements.length) return;
+      var label = chart.data.labels[elements[0].index];
+      var card = document.getElementById('w3t12_lift_card');
+      card.innerHTML = '<b style="color: var(--gold);">' + label + '</b><br>' + w3t12LiftDetails[label];
+      card.style.display = 'block';
+    },
+    plugins: { legend: { display: false }, title: { display: true, text: 'Top 5 關聯規則 Lift 值（點擊柱子看細節）', color: '#eceefa' } },
     scales: {
       x: { ticks: { color: '#8c8ca8', font: { size: 10 } }, grid: { color: '#383850' } },
       y: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' }, beginAtZero: true }
@@ -2461,8 +2556,19 @@ new Chart(document.getElementById('chart_w3t12_lift'), {
       </div>
        <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
   <canvas id="chart_w3t13_elbow" style="max-height: 280px;"></canvas>
+  <p style="color: var(--muted); font-size: 12px; margin-top: 8px; margin-bottom: 0;">💡 點擊資料點看該k值的業務判斷</p>
 </div>
+<div id="w3t13_elbow_card" style="display:none; background: var(--panel-light); border: 1px solid var(--gold); border-radius: 4px; padding: 16px; margin-top: 12px; color: var(--text); font-size: 14px;"></div>
 <script>
+var w3t13ElbowDetails = {
+  '2': 'Inertia 3787.4、Silhouette 0.357（全表最高）。技術上分群效果最好，但業務上只分2群無法對應到有意義的行銷動作，不會選這個k。',
+  '3': 'Inertia 3022.4、Silhouette 0.328。Elbow法認為3~4是下降幅度開始趨緩的轉折區間之一。',
+  '4': 'Inertia 2482.8、Silhouette 0.272（全表最低點之一）。一開始選了這個k，因為業務只能管4-6個行銷動作，即使Silhouette不是最高，仍在可執行範圍內。',
+  '5': 'Inertia 2075.7、Silhouette 0.329（比k=4明顯回升）。後續重新評估後最終選定，因為5群仍在業務可管理範圍內，且Silhouette表現更好——最終從k=4調整為k=5。',
+  '6': 'Inertia 1789.4、Silhouette 0.335。分群數再往上會超出業務可管理的行銷動作數量。',
+  '7': 'Inertia 1602.4、Silhouette 0.293。',
+  '8': 'Inertia 1437.5、Silhouette 0.308。inertia持續下降但邊際效益已經很小，符合Elbow法「差不多夠了」的判斷。'
+};
 new Chart(document.getElementById('chart_w3t13_elbow'), {
   type: 'line',
   data: {
@@ -2484,9 +2590,16 @@ new Chart(document.getElementById('chart_w3t13_elbow'), {
   },
   options: {
     responsive: true,
+    onClick: function(evt, elements, chart) {
+      if (!elements.length) return;
+      var kValue = chart.data.labels[elements[0].index];
+      var card = document.getElementById('w3t13_elbow_card');
+      card.innerHTML = '<b style="color: var(--gold);">k = ' + kValue + '</b><br>' + w3t13ElbowDetails[kValue];
+      card.style.display = 'block';
+    },
     plugins: {
       legend: { labels: { color: '#eceefa' } },
-      title: { display: true, text: 'K-means：Inertia (Elbow) vs Silhouette', color: '#eceefa' }
+      title: { display: true, text: 'K-means：Inertia (Elbow) vs Silhouette（點擊資料點看細節）', color: '#eceefa' }
     },
     scales: {
       x: { title: { display: true, text: 'k', color: '#8c8ca8' }, ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } },
@@ -3043,8 +3156,15 @@ m.save("route_map.html")</pre>
       </div>
        <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px;">
   <canvas id="chart_w4t15_compare" style="max-height: 260px;"></canvas>
+  <p style="color: var(--muted); font-size: 12px; margin-top: 8px; margin-bottom: 0;">💡 點擊柱子看該觀點的學員觀察</p>
 </div>
+<div id="w4t15_compare_card" style="display:none; background: var(--panel-light); border: 1px solid var(--gold); border-radius: 4px; padding: 16px; margin-top: 12px; color: var(--text); font-size: 14px;"></div>
 <script>
+var w4t15CompareDetails = {
+  '總成本(NT$)': 'baseline NT$3,148 → OR-Tools NT$3,044，省下3.3%（教學版規模預期3-5%）。這個規模(20點)主要賣「可行性」，不是主賣「大幅降本」，成本上的差距本來就不會太誇張。',
+  '時窗違反(條)': 'baseline 4條違反 → OR-Tools 0條違反。這是OR-Tools最核心的價值：先找到一個真正可執行的方案，可行性★是雙觀點裡權重最高的一項。',
+  '工時違反(台)': 'baseline 2台超工時 → OR-Tools 0台超工時。跟時窗違反一起構成baseline「不可行」的結論，也是主管最該關心的風險。'
+};
 new Chart(document.getElementById('chart_w4t15_compare'), {
   type: 'bar',
   data: {
@@ -3056,9 +3176,16 @@ new Chart(document.getElementById('chart_w4t15_compare'), {
   },
   options: {
     responsive: true,
+    onClick: function(evt, elements, chart) {
+      if (!elements.length) return;
+      var label = chart.data.labels[elements[0].index];
+      var card = document.getElementById('w4t15_compare_card');
+      card.innerHTML = '<b style="color: var(--gold);">' + label + '</b><br>' + w4t15CompareDetails[label];
+      card.style.display = 'block';
+    },
     plugins: {
       legend: { labels: { color: '#eceefa' } },
-      title: { display: true, text: 'Baseline vs OR-Tools：可行性＋成本雙觀點', color: '#eceefa' }
+      title: { display: true, text: 'Baseline vs OR-Tools：可行性＋成本雙觀點（點擊柱子看細節）', color: '#eceefa' }
     },
     scales: {
       x: { ticks: { color: '#8c8ca8' }, grid: { color: '#383850' } },
