@@ -309,12 +309,35 @@
       .stat-item .num { font-size: 22px; }
 
       .divider { margin: 28px 0; }
+
+      /* 精選案例卡片：手機上縮小內距與字級，避免文字擠壓 */
+      #week-stops > div, .task-table-wrap [style*="flex: 1 1 260px"] {
+        padding: 14px !important;
+      }
+      .task-table-wrap h4 { font-size: 14px !important; }
+      .task-table-wrap p { font-size: 12px !important; }
+
+      /* 互動時間軸：節點縮小、字級調整，避免橫向擠壓 */
+      #week-stops > div > div:first-child { width: 32px !important; height: 32px !important; font-size: 11px !important; }
+      #week-panel { padding: 14px 16px !important; }
+      #week-panel > div:nth-child(2) { font-size: 13px !important; }
+      #week-panel span[style*="font-size: 24px"] { font-size: 20px !important; }
+
+      /* 任務表格：手機上縮小字級，搭配已有的 overflow-x:auto 橫向捲動 */
+      table.task-table { font-size: 12px; }
+      table.task-table th, table.task-table td { padding: 8px 10px; }
+
+      /* 聯絡資訊 QR code：手機上稍微縮小 */
+      .contact-qr { width: 120px; height: 120px; }
     }
 
     @media (max-width: 380px) {
       .logo { font-size: 14px; }
       nav button { font-size: 12px; padding: 6px 8px; }
       h1 { font-size: 21px; }
+
+      #week-stops > div > div:first-child { width: 28px !important; height: 28px !important; font-size: 10px !important; }
+      .contact-qr { width: 100px; height: 100px; }
     }
   </style>
 </head>
@@ -354,7 +377,6 @@
 </p>
 
       <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 24px; margin-bottom: 32px; text-align: center;">
-        <p style="color: var(--gold); font-size: 13px; letter-spacing: 0.1em; margin-bottom: 10px;">5分鐘看懂我的價值</p>
         <h3 style="font-size: 18px; margin-bottom: 14px;">從資料洞察到AI決策：VMDA跨角色能力簡報</h3>
         <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px; max-width: 560px; margin-left: auto; margin-right: auto;">
           從RFM分析看懂客戶，到用ABC分類、OTD分析理解現場限制，
@@ -461,7 +483,7 @@
           <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">K-means分群debug全紀錄</h4>
           <p style="color: var(--muted); font-size: 13px; margin: 0;">從畸形分群（300/1/1/1198）到標準化修正後的正常分布，完整的問題發現與驗證過程</p>
         </div>
-        <div onclick="window.open('https://integration0716.streamlit.app/', '_blank')" style="cursor: pointer; flex: 1 1 260px; background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div onclick="window.open('https://cececccee1.github.io/0717/index.html', '_blank')" style="cursor: pointer; flex: 1 1 260px; background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
           <div style="color: var(--gold); font-size: 12px; letter-spacing: 0.05em; margin-bottom: 8px;">W3・BOSS III</div>
           <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">精準行銷引擎（5模組整合）</h4>
           <p style="color: var(--muted); font-size: 13px; margin: 0 0 14px;">把K-means客群、Apriori規則、Prophet預測整合成一個系統，輸入客戶ID直接跳出推薦品項與LINE OA推播文案</p>
