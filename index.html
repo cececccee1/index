@@ -449,7 +449,7 @@
       </div>
 
       <h3 style="margin-bottom: 14px;">⭐ 精選案例</h3>
-      <p style="color: var(--muted); font-size: 13px; margin-bottom: 16px;">時間有限的話，看這四個任務就夠了 — 點卡片直接跳過去</p>
+      <p style="color: var(--muted); font-size: 13px; margin-bottom: 16px;">時間有限的話，看這五個任務就夠了 — 點卡片直接跳過去</p>
       <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 32px;">
         <div onclick="gotoPage('week1')" style="cursor: pointer; flex: 1 1 260px; background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
           <div style="color: var(--gold); font-size: 12px; letter-spacing: 0.05em; margin-bottom: 8px;">W1・任務05</div>
@@ -460,6 +460,11 @@
           <div style="color: var(--gold); font-size: 12px; letter-spacing: 0.05em; margin-bottom: 8px;">W3・任務13</div>
           <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">K-means分群debug全紀錄</h4>
           <p style="color: var(--muted); font-size: 13px; margin: 0;">從畸形分群（300/1/1/1198）到標準化修正後的正常分布，完整的問題發現與驗證過程</p>
+        </div>
+        <div onclick="window.open('https://integration0716.streamlit.app/', '_blank')" style="cursor: pointer; flex: 1 1 260px; background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="color: var(--gold); font-size: 12px; letter-spacing: 0.05em; margin-bottom: 8px;">W3・BOSS III　🔗 活Demo</div>
+          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">精準行銷引擎（5模組整合）</h4>
+          <p style="color: var(--muted); font-size: 13px; margin: 0;">把K-means客群、Apriori規則、Prophet預測整合成一個系統，輸入客戶ID直接跳出推薦品項與LINE OA推播文案</p>
         </div>
         <div onclick="gotoPage('week4')" style="cursor: pointer; flex: 1 1 260px; background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
           <div style="color: var(--gold); font-size: 12px; letter-spacing: 0.05em; margin-bottom: 8px;">W4・任務15</div>
@@ -888,7 +893,7 @@
       </div>
 
       <h3 style="font-size: 15px;">4.3 啟動驗收</h3>
-      <p class="task-goal">streamlit run dashboard.py　　☑ 瀏覽器自動開 http://localhost:8501　　☑ 30秒內能看完（用碼表算）　　☑ 紅字警示醒目</p>
+      <p class="task-goal">streamlit run dashboard.py　　☑ 瀏覽器自動開　　☑ 30秒內能看完（用碼表算）　　☑ 紅字警示醒目</p>
 
       <div class="divider"></div>
 
@@ -3348,7 +3353,8 @@ V3 機車為什麼只跑3站？
         － D17 路徑最佳化（今天派車怎麼跑？）<br><br>
         四個模型各自輸出CSV，放在share drive，沒人能一次看完。<br><br>
         <b style="color: var(--text);">主管的痛：</b>「我每天要看四份報表才能判斷一個客戶，客服電話進來客戶問『我這個月會怎樣？』，我要在五秒鐘內回答，現在做不到。」<br><br>
-        <b style="color: var(--text);">你的任務：</b>用Streamlit＋SQLite做一個「物流控制塔v0.1」，讓老闆打開首頁就能挑一個客戶，看到四個模型的所有結論。順便在第3頁標註「四模型分別需要多即時」與「過度即時／過度延遲」判斷。
+        <b style="color: var(--text);">你的任務：</b>用Streamlit＋SQLite做一個「物流控制塔v0.1」，讓老闆打開首頁就能挑一個客戶，看到四個模型的所有結論。順便在第3頁標註「四模型分別需要多即時」與「過度即時／過度延遲」判斷。<br><br>
+        <span style="color: var(--gold); font-size: 13px;">＊控制塔第2頁串接的客群分類，正是任務13在1,500位客戶全量資料中跑出的K-means模型結果——這裡挑50位代表性客戶做成可互動的Demo，方便老闆即時查詢單一客戶狀態。</span>
       </p>
 
       <div class="divider"></div>
@@ -3446,7 +3452,7 @@ python gen_d18_csv.py</pre>
       <h3>Section 4｜Streamlit 三頁原型機實作（30分鐘・工具區尾段）</h3>
       <h3 style="font-size: 15px;">4.1 首頁啟動・客戶360</h3>
       <pre style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; color: var(--text); font-size: 13px; overflow-x: auto; margin-bottom: 16px; font-family: 'cwTeXKai', monospace;">streamlit run app.py</pre>
-      <p class="task-goal">預期瀏覽器自動開 http://localhost:8501。</p>
+      <p class="task-goal">預期瀏覽器自動開。</p>
       <p class="task-goal">操作：在sidebar依序選以下客戶＋截圖／觀察：</p>
       <div class="task-table-wrap">
         <table class="task-table">
