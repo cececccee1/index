@@ -374,29 +374,57 @@
   尤其是物流場域裡，關於客戶、關於預測、關於如何做出更好決策的種種思考。
 </p>
 
-      <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 24px; margin-bottom: 32px; text-align: center;">
-        <h3 style="font-size: 18px; margin-bottom: 14px;">從資料洞察到AI決策：VMDA跨角色能力簡報</h3>
-        <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px; max-width: 560px; margin-left: auto; margin-right: auto;">
-          從RFM分析看懂客戶，到用ABC分類、OTD分析理解現場限制，
-          再用決策樹、K-means、Prophet做預測，最後用LLM與OR-Tools讓AI直接參與決策——
-          把配送方案的違反數從4條降到0、成本省下3.3%。
-        </p>
-        <div style="position: relative; width: 100%; padding-top: 57.94%; margin: 0 0 20px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border);">
-          <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRth1zx5-KFABz5qo3oPFnRakNXnd-EvaWXdvur5mHJxPDKaln5M-g3kCPAdDBUyyoLvXyoB6PNNTVX/pubembed?start=false&loop=false&delayms=3000"
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-            frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" loading="lazy">
-          </iframe>
-        </div>
-        <a href="https://docs.google.com/presentation/d/e/2PACX-1vRth1zx5-KFABz5qo3oPFnRakNXnd-EvaWXdvur5mHJxPDKaln5M-g3kCPAdDBUyyoLvXyoB6PNNTVX/pubembed" target="_blank"
-           style="display: inline-block; padding: 12px 32px; background: var(--vermilion); color: var(--ink); border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 14px; letter-spacing: 0.05em;">
-          📊 在新分頁開啟完整簡報
-        </a>
-      </div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;">
+  <span style="background: var(--panel); border: 1px solid var(--border); color: var(--jade); padding: 6px 14px; border-radius: 20px; font-size: 13px;">流失預測</span>
+  <span style="background: var(--panel); border: 1px solid var(--border); color: var(--jade); padding: 6px 14px; border-radius: 20px; font-size: 13px;">銷售預測</span>
+  <span style="background: var(--panel); border: 1px solid var(--border); color: var(--jade); padding: 6px 14px; border-radius: 20px; font-size: 13px;">客戶分群</span>
+  <span style="background: var(--panel); border: 1px solid var(--border); color: var(--jade); padding: 6px 14px; border-radius: 20px; font-size: 13px;">LLM文本分析</span>
+  <span style="background: var(--panel); border: 1px solid var(--border); color: var(--jade); padding: 6px 14px; border-radius: 20px; font-size: 13px;">商業決策優化</span>
+</div>
+<div style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 28px;">
+  <div style="flex: 1; min-width: 160px; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 20px; text-align: center;">
+    <div style="font-size: 26px; font-weight: 700; color: var(--gold);">3.3%</div>
+    <div style="font-size: 13px; color: var(--muted); margin-top: 6px; line-height: 1.5;">配送方案違反數 4→0<br>物流成本下降</div>
+  </div>
+  <div style="flex: 1; min-width: 160px; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 20px; text-align: center;">
+    <div style="font-size: 26px; font-weight: 700; color: var(--gold);">7.9%</div>
+    <div style="font-size: 13px; color: var(--muted); margin-top: 6px; line-height: 1.5;">銷售預測 MAPE<br>由 11.7% 優化至此</div>
+  </div>
+  <div style="flex: 1; min-width: 160px; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 20px; text-align: center;">
+    <div style="font-size: 26px; font-weight: 700; color: var(--gold);">NT$47,899</div>
+    <div style="font-size: 13px; color: var(--muted); margin-top: 6px; line-height: 1.5;">精準辨識<br>Top10流失風險客戶資產</div>
+  </div>
+</div>
 
-      <div class="stat-row">
-        <div class="stat-item"><div class="num">8</div><div class="label">週學習週期</div></div>
-        <div class="stat-item"><div class="num">4</div><div class="label">已完成週次</div></div>
-        <div class="stat-item"><div class="num">3.3%</div><div class="label">AI決策省下的成本</div></div>
+      <h3 style="margin-bottom: 14px;">⭐ 精選案例</h3>
+      <p style="color: var(--muted); font-size: 13px; margin-bottom: 16px;">時間有限的話，看這五個任務就夠了 — 點卡片直接跳過去</p>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 32px;">
+        <div onclick="gotoPage('week1')" style="cursor: pointer; flex: 1 1 260px; background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="color: var(--gold); font-size: 12px; letter-spacing: 0.05em; margin-bottom: 8px;">W1・任務05</div>
+          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">RFM八分群客戶價值分析</h4>
+          <p style="color: var(--muted); font-size: 13px; margin: 0;">把客戶拆成8個消費行為群，看出誰是真正該投入資源的20%，這是後面所有預測與決策的地基</p>
+        </div>
+        <div onclick="gotoPage('week3')" style="cursor: pointer; flex: 1 1 260px; background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="color: var(--gold); font-size: 12px; letter-spacing: 0.05em; margin-bottom: 8px;">W3・任務13</div>
+          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">K-means分群debug全紀錄</h4>
+          <p style="color: var(--muted); font-size: 13px; margin: 0;">從畸形分群（300/1/1/1198）到標準化修正後的正常分布，完整的問題發現與驗證過程</p>
+        </div>
+        <div onclick="window.open('https://cececccee1.github.io/0717/index.html', '_blank')" style="cursor: pointer; flex: 1 1 260px; background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="color: var(--gold); font-size: 12px; letter-spacing: 0.05em; margin-bottom: 8px;">W3・BOSS III</div>
+          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">精準行銷引擎（5模組整合）</h4>
+          <p style="color: var(--muted); font-size: 13px; margin: 0 0 14px;">把K-means客群、Apriori規則、Prophet預測整合成一個系統，輸入客戶ID直接跳出推薦品項與LINE OA推播文案</p>
+          <div style="display: block; text-align: center; padding: 8px 0; background: var(--vermilion); color: var(--ink); border-radius: 4px; font-size: 13px; font-weight: 700;">🔗 開啟活Demo →</div>
+        </div>
+        <div onclick="gotoPage('week4')" style="cursor: pointer; flex: 1 1 260px; background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="color: var(--gold); font-size: 12px; letter-spacing: 0.05em; margin-bottom: 8px;">W4・任務15</div>
+          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">OR-Tools雙觀點決策</h4>
+          <p style="color: var(--muted); font-size: 13px; margin: 0;">可行性違反數從4條降到0，成本省3.3%，用數字證明AI決策比直覺方案更值得</p>
+        </div>
+        <div onclick="gotoPage('week4')" style="cursor: pointer; flex: 1 1 260px; background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="color: var(--gold); font-size: 12px; letter-spacing: 0.05em; margin-bottom: 8px;">W4・任務17</div>
+          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">AI代理人自動值班</h4>
+          <p style="color: var(--muted); font-size: 13px; margin: 0;">用Claude Code打造值班Agent，每天30分鐘人工比對壓縮到30秒自動完成，通過越權測試與guardrail設計</p>
+        </div>
       </div>
 
       <div class="divider"></div>
@@ -468,35 +496,101 @@
         </div>
       </div>
 
-      <h3 style="margin-bottom: 14px;">⭐ 精選案例</h3>
-      <p style="color: var(--muted); font-size: 13px; margin-bottom: 16px;">時間有限的話，看這五個任務就夠了 — 點卡片直接跳過去</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 32px;">
-        <div onclick="gotoPage('week1')" style="cursor: pointer; flex: 1 1 260px; background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
-          <div style="color: var(--gold); font-size: 12px; letter-spacing: 0.05em; margin-bottom: 8px;">W1・任務05</div>
-          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">RFM八分群客戶價值分析</h4>
-          <p style="color: var(--muted); font-size: 13px; margin: 0;">把客戶拆成8個消費行為群，看出誰是真正該投入資源的20%，這是後面所有預測與決策的地基</p>
+      <div class="task-table-wrap" style="background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 24px; margin-bottom: 32px; text-align: center;">
+        <div style="color: var(--gold); font-size: 12px; letter-spacing: 0.15em; margin-bottom: 8px;">🎯 案例代表作</div>
+        <h3 style="font-size: 18px; margin-bottom: 14px;">從資料洞察到AI決策：VMDA跨角色能力簡報</h3>
+        <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px; max-width: 560px; margin-left: auto; margin-right: auto;">
+          從RFM分析看懂客戶，到用ABC分類、OTD分析理解現場限制，
+          再用決策樹、K-means、Prophet做預測，最後用LLM與OR-Tools讓AI直接參與決策——
+          把配送方案的違反數從4條降到0、成本省下3.3%。
+        </p>
+        <div style="color: var(--muted); font-size: 13px; text-align: center; margin-bottom: 8px;">
+          📊 任務13實際跑出的 1,500 位客戶 K-means 分群結果（滑鼠懸停看客戶細節）
         </div>
-        <div onclick="gotoPage('week3')" style="cursor: pointer; flex: 1 1 260px; background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
-          <div style="color: var(--gold); font-size: 12px; letter-spacing: 0.05em; margin-bottom: 8px;">W3・任務13</div>
-          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">K-means分群debug全紀錄</h4>
-          <p style="color: var(--muted); font-size: 13px; margin: 0;">從畸形分群（300/1/1/1198）到標準化修正後的正常分布，完整的問題發現與驗證過程</p>
+        <div style="background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 20px;">
+          <canvas id="homeClusterChart" style="max-height: 380px;"></canvas>
         </div>
-        <div onclick="window.open('https://cececccee1.github.io/0717/index.html', '_blank')" style="cursor: pointer; flex: 1 1 260px; background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
-          <div style="color: var(--gold); font-size: 12px; letter-spacing: 0.05em; margin-bottom: 8px;">W3・BOSS III</div>
-          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">精準行銷引擎（5模組整合）</h4>
-          <p style="color: var(--muted); font-size: 13px; margin: 0 0 14px;">把K-means客群、Apriori規則、Prophet預測整合成一個系統，輸入客戶ID直接跳出推薦品項與LINE OA推播文案</p>
-          <div style="display: block; text-align: center; padding: 8px 0; background: var(--vermilion); color: var(--ink); border-radius: 4px; font-size: 13px; font-weight: 700;">🔗 開啟活Demo →</div>
+        <script>
+        (function() {
+          const ctx = document.getElementById('homeClusterChart');
+          if (!ctx || ctx.dataset.rendered) return;
+          ctx.dataset.rendered = '1';
+          new Chart(ctx, {
+            type: 'scatter',
+            data: {
+              datasets: [
+          {
+            label: 'VIP 高頻高額',
+            data: [{"x": 8, "y": 48295}, {"x": 18, "y": 79711}, {"x": 0, "y": 62758}, {"x": 23, "y": 102841}, {"x": 6, "y": 67513}, {"x": 32, "y": 37123}, {"x": 14, "y": 52530}, {"x": 23, "y": 24930}, {"x": 11, "y": 191053}, {"x": 15, "y": 42709}, {"x": 23, "y": 29470}, {"x": 45, "y": 62222}, {"x": 9, "y": 22537}, {"x": 29, "y": 20764}, {"x": 17, "y": 42560}, {"x": 16, "y": 20699}, {"x": 48, "y": 60652}, {"x": 30, "y": 40144}, {"x": 17, "y": 61104}, {"x": 17, "y": 41276}, {"x": 41, "y": 41088}, {"x": 4, "y": 68491}, {"x": 39, "y": 61150}, {"x": 9, "y": 63313}, {"x": 8, "y": 30367}, {"x": 28, "y": 41033}, {"x": 18, "y": 59899}, {"x": 17, "y": 63067}, {"x": 36, "y": 36715}, {"x": 13, "y": 33001}, {"x": 23, "y": 68002}, {"x": 16, "y": 140820}, {"x": 37, "y": 28926}, {"x": 17, "y": 62820}, {"x": 19, "y": 33536}, {"x": 11, "y": 55140}, {"x": 24, "y": 125482}, {"x": 11, "y": 14182}, {"x": 18, "y": 46061}, {"x": 8, "y": 41706}, {"x": 28, "y": 37421}, {"x": 16, "y": 43190}, {"x": 29, "y": 18385}, {"x": 30, "y": 70859}, {"x": 34, "y": 39302}, {"x": 41, "y": 46484}, {"x": 35, "y": 33819}, {"x": 34, "y": 31620}, {"x": 41, "y": 43192}, {"x": 10, "y": 101438}, {"x": 21, "y": 133056}, {"x": 15, "y": 148647}, {"x": 40, "y": 63240}, {"x": 18, "y": 24107}, {"x": 37, "y": 44555}, {"x": 35, "y": 22603}, {"x": 20, "y": 16998}, {"x": 25, "y": 85465}, {"x": 16, "y": 90274}, {"x": 37, "y": 63276}, {"x": 3, "y": 39297}, {"x": 35, "y": 59855}, {"x": 21, "y": 35407}, {"x": 19, "y": 33341}, {"x": 17, "y": 28778}, {"x": 8, "y": 166971}, {"x": 41, "y": 62318}, {"x": 44, "y": 42947}, {"x": 19, "y": 42295}, {"x": 5, "y": 49622}, {"x": 33, "y": 38831}, {"x": 48, "y": 31581}, {"x": 11, "y": 31701}, {"x": 26, "y": 19125}, {"x": 36, "y": 34159}, {"x": 23, "y": 98975}, {"x": 18, "y": 85555}, {"x": 27, "y": 101111}, {"x": 13, "y": 27062}, {"x": 35, "y": 48269}, {"x": 16, "y": 26888}, {"x": 33, "y": 90161}, {"x": 38, "y": 26843}, {"x": 46, "y": 40038}, {"x": 39, "y": 63291}, {"x": 22, "y": 79103}, {"x": 23, "y": 32613}, {"x": 20, "y": 36163}, {"x": 0, "y": 41657}, {"x": 28, "y": 59732}, {"x": 31, "y": 69950}, {"x": 14, "y": 43387}, {"x": 30, "y": 102130}, {"x": 30, "y": 31989}, {"x": 17, "y": 80498}, {"x": 38, "y": 67651}, {"x": 6, "y": 87504}, {"x": 19, "y": 93771}, {"x": 6, "y": 27241}, {"x": 10, "y": 79532}, {"x": 52, "y": 28993}, {"x": 28, "y": 40886}, {"x": 11, "y": 40323}, {"x": 30, "y": 47032}, {"x": 27, "y": 37344}, {"x": 45, "y": 67511}, {"x": 51, "y": 34675}, {"x": 17, "y": 43653}, {"x": 38, "y": 22587}, {"x": 42, "y": 36720}, {"x": 6, "y": 86733}, {"x": 5, "y": 59559}, {"x": 27, "y": 42015}, {"x": 15, "y": 49206}, {"x": 15, "y": 74062}, {"x": 5, "y": 73416}, {"x": 7, "y": 54112}, {"x": 13, "y": 34057}, {"x": 18, "y": 47437}, {"x": 46, "y": 33075}, {"x": 35, "y": 44271}, {"x": 15, "y": 31692}, {"x": 35, "y": 26644}, {"x": 22, "y": 40554}, {"x": 21, "y": 45639}, {"x": 22, "y": 41402}, {"x": 2, "y": 5500000}, {"x": 13, "y": 21547}, {"x": 33, "y": 59089}, {"x": 17, "y": 54312}, {"x": 4, "y": 36861}, {"x": 35, "y": 41081}, {"x": 12, "y": 60941}, {"x": 33, "y": 51811}, {"x": 13, "y": 44500}, {"x": 47, "y": 89915}, {"x": 42, "y": 48760}, {"x": 37, "y": 29527}, {"x": 24, "y": 65883}, {"x": 0, "y": 57287}, {"x": 43, "y": 34513}, {"x": 20, "y": 28609}, {"x": 18, "y": 57117}, {"x": 36, "y": 19822}, {"x": 38, "y": 31678}, {"x": 22, "y": 102544}, {"x": 29, "y": 45252}, {"x": 10, "y": 57605}, {"x": 18, "y": 107259}, {"x": 51, "y": 57705}, {"x": 28, "y": 25783}, {"x": 0, "y": 75752}, {"x": 13, "y": 67737}, {"x": 35, "y": 50607}, {"x": 41, "y": 133249}, {"x": 4, "y": 155067}, {"x": 5, "y": 38801}, {"x": 10, "y": 27500}, {"x": 14, "y": 46275}, {"x": 11, "y": 44670}, {"x": 20, "y": 102884}, {"x": 9, "y": 39697}, {"x": 27, "y": 81471}, {"x": 7, "y": 31015}, {"x": 21, "y": 28471}, {"x": 20, "y": 69880}, {"x": 36, "y": 45356}, {"x": 39, "y": 68041}, {"x": 21, "y": 55898}, {"x": 29, "y": 71869}, {"x": 11, "y": 81278}, {"x": 31, "y": 36587}, {"x": 35, "y": 67453}, {"x": 17, "y": 25748}, {"x": 5, "y": 94575}, {"x": 14, "y": 104800}, {"x": 8, "y": 33411}, {"x": 24, "y": 30414}, {"x": 12, "y": 62885}, {"x": 8, "y": 40795}, {"x": 45, "y": 20176}],
+            backgroundColor: '#c7cbec99',
+            borderColor: '#c7cbec',
+            pointRadius: 3,
+            pointHoverRadius: 5,
+          },
+          {
+            label: '穩定中段',
+            data: [{"x": 87, "y": 6351}, {"x": 10, "y": 10433}, {"x": 80, "y": 25421}, {"x": 100, "y": 11336}, {"x": 44, "y": 9514}, {"x": 24, "y": 15906}, {"x": 38, "y": 29042}, {"x": 26, "y": 27115}, {"x": 15, "y": 42509}, {"x": 108, "y": 11593}, {"x": 73, "y": 27350}, {"x": 36, "y": 18143}, {"x": 121, "y": 9942}, {"x": 41, "y": 65962}, {"x": 51, "y": 10479}, {"x": 28, "y": 10938}, {"x": 51, "y": 11260}, {"x": 117, "y": 62702}, {"x": 55, "y": 20777}, {"x": 15, "y": 20532}, {"x": 82, "y": 37764}, {"x": 40, "y": 83972}, {"x": 17, "y": 35040}, {"x": 20, "y": 18165}, {"x": 96, "y": 30070}, {"x": 37, "y": 32297}, {"x": 34, "y": 13903}, {"x": 1, "y": 12914}, {"x": 40, "y": 24161}, {"x": 100, "y": 12590}, {"x": 66, "y": 21514}, {"x": 47, "y": 16976}, {"x": 13, "y": 44822}, {"x": 44, "y": 23650}, {"x": 26, "y": 20567}, {"x": 85, "y": 10700}, {"x": 31, "y": 40724}, {"x": 34, "y": 17204}, {"x": 85, "y": 19966}, {"x": 43, "y": 13241}, {"x": 108, "y": 23004}, {"x": 46, "y": 30086}, {"x": 52, "y": 16732}, {"x": 112, "y": 15442}, {"x": 53, "y": 6056}, {"x": 38, "y": 18758}, {"x": 21, "y": 18383}, {"x": 41, "y": 16953}, {"x": 23, "y": 8757}, {"x": 47, "y": 27920}, {"x": 44, "y": 15307}, {"x": 29, "y": 30451}, {"x": 67, "y": 11881}, {"x": 70, "y": 7302}, {"x": 3, "y": 32501}, {"x": 84, "y": 38160}, {"x": 20, "y": 26652}, {"x": 75, "y": 45044}, {"x": 96, "y": 5712}, {"x": 13, "y": 24086}, {"x": 14, "y": 22302}, {"x": 125, "y": 9154}, {"x": 17, "y": 17732}, {"x": 113, "y": 22363}, {"x": 62, "y": 26460}, {"x": 46, "y": 62506}, {"x": 85, "y": 18731}, {"x": 11, "y": 15916}, {"x": 105, "y": 10764}, {"x": 16, "y": 16100}, {"x": 77, "y": 19497}, {"x": 10, "y": 29449}, {"x": 91, "y": 37662}, {"x": 26, "y": 8566}, {"x": 43, "y": 23000}, {"x": 12, "y": 16060}, {"x": 110, "y": 6693}, {"x": 76, "y": 25813}, {"x": 24, "y": 14594}, {"x": 23, "y": 38948}, {"x": 42, "y": 8420}, {"x": 79, "y": 35144}, {"x": 61, "y": 19614}, {"x": 102, "y": 11885}, {"x": 7, "y": 23421}, {"x": 4, "y": 17352}, {"x": 71, "y": 7075}, {"x": 83, "y": 15537}, {"x": 35, "y": 34335}, {"x": 40, "y": 25677}, {"x": 126, "y": 28999}, {"x": 43, "y": 22648}, {"x": 16, "y": 9684}, {"x": 22, "y": 47489}, {"x": 34, "y": 42783}, {"x": 109, "y": 24166}, {"x": 69, "y": 12419}, {"x": 97, "y": 30986}, {"x": 35, "y": 29797}, {"x": 114, "y": 27313}, {"x": 29, "y": 35360}, {"x": 112, "y": 8643}, {"x": 43, "y": 12056}, {"x": 44, "y": 21979}, {"x": 35, "y": 17410}, {"x": 34, "y": 18402}, {"x": 82, "y": 41612}, {"x": 26, "y": 48222}, {"x": 20, "y": 37721}, {"x": 72, "y": 16306}, {"x": 123, "y": 38183}, {"x": 99, "y": 35427}, {"x": 61, "y": 11647}, {"x": 50, "y": 25717}, {"x": 32, "y": 18538}, {"x": 107, "y": 11968}, {"x": 5, "y": 35758}, {"x": 119, "y": 26989}, {"x": 61, "y": 8284}, {"x": 29, "y": 15370}, {"x": 22, "y": 18962}, {"x": 27, "y": 14085}, {"x": 16, "y": 19578}, {"x": 109, "y": 10352}, {"x": 105, "y": 13285}, {"x": 80, "y": 18424}, {"x": 0, "y": 29063}, {"x": 0, "y": 8563}, {"x": 43, "y": 12098}, {"x": 83, "y": 14681}, {"x": 24, "y": 14722}, {"x": 108, "y": 36305}, {"x": 97, "y": 12985}, {"x": 73, "y": 57918}, {"x": 51, "y": 21768}, {"x": 22, "y": 8893}, {"x": 89, "y": 17995}, {"x": 66, "y": 25014}, {"x": 93, "y": 24425}, {"x": 44, "y": 39073}, {"x": 25, "y": 13305}, {"x": 97, "y": 33228}, {"x": 108, "y": 8929}, {"x": 75, "y": 3595}, {"x": 101, "y": 9579}, {"x": 61, "y": 9861}, {"x": 19, "y": 28776}, {"x": 48, "y": 13757}],
+            backgroundColor: '#86c9a899',
+            borderColor: '#86c9a8',
+            pointRadius: 3,
+            pointHoverRadius: 5,
+          },
+          {
+            label: '流失高風險',
+            data: [{"x": 75, "y": 39095}, {"x": 18, "y": 28841}, {"x": 45, "y": 13100}, {"x": 72, "y": 11794}, {"x": 53, "y": 14691}, {"x": 47, "y": 35127}, {"x": 60, "y": 18021}, {"x": 22, "y": 18409}, {"x": 34, "y": 18589}, {"x": 45, "y": 62973}, {"x": 60, "y": 8158}, {"x": 101, "y": 8198}, {"x": 126, "y": 7307}, {"x": 75, "y": 68011}, {"x": 80, "y": 9067}, {"x": 79, "y": 8966}, {"x": 98, "y": 17711}, {"x": 56, "y": 70596}, {"x": 70, "y": 23599}, {"x": 101, "y": 14528}, {"x": 105, "y": 4311}, {"x": 53, "y": 49384}, {"x": 92, "y": 55938}, {"x": 108, "y": 12006}, {"x": 89, "y": 28034}, {"x": 31, "y": 5769}, {"x": 101, "y": 13364}, {"x": 31, "y": 27893}, {"x": 84, "y": 24384}, {"x": 16, "y": 28140}, {"x": 0, "y": 21597}, {"x": 75, "y": 9916}, {"x": 83, "y": 10156}, {"x": 11, "y": 33628}, {"x": 57, "y": 45129}, {"x": 24, "y": 7951}, {"x": 34, "y": 16502}, {"x": 118, "y": 20041}, {"x": 103, "y": 9678}, {"x": 17, "y": 17283}, {"x": 77, "y": 23249}, {"x": 84, "y": 31889}, {"x": 105, "y": 7732}, {"x": 6, "y": 20039}, {"x": 12, "y": 23615}, {"x": 112, "y": 4875}, {"x": 28, "y": 28988}, {"x": 61, "y": 21109}, {"x": 100, "y": 9064}, {"x": 105, "y": 35784}, {"x": 44, "y": 21193}, {"x": 83, "y": 15518}, {"x": 48, "y": 11374}, {"x": 88, "y": 16533}, {"x": 57, "y": 36910}, {"x": 106, "y": 6809}, {"x": 97, "y": 10998}, {"x": 48, "y": 39958}, {"x": 26, "y": 18302}, {"x": 61, "y": 20567}, {"x": 49, "y": 24744}, {"x": 73, "y": 25602}, {"x": 83, "y": 12045}, {"x": 56, "y": 15855}, {"x": 67, "y": 16580}, {"x": 16, "y": 17805}, {"x": 103, "y": 9709}, {"x": 11, "y": 32845}, {"x": 26, "y": 37374}, {"x": 44, "y": 16654}, {"x": 66, "y": 10251}, {"x": 106, "y": 26538}, {"x": 74, "y": 14836}, {"x": 110, "y": 26323}, {"x": 94, "y": 5995}, {"x": 108, "y": 21277}, {"x": 20, "y": 7673}, {"x": 86, "y": 16651}, {"x": 77, "y": 7169}, {"x": 114, "y": 19317}, {"x": 17, "y": 36429}, {"x": 119, "y": 9070}, {"x": 28, "y": 22446}, {"x": 123, "y": 12054}, {"x": 37, "y": 8105}, {"x": 20, "y": 9123}, {"x": 88, "y": 16296}, {"x": 2, "y": 14117}, {"x": 54, "y": 48052}, {"x": 111, "y": 14895}, {"x": 87, "y": 4486}, {"x": 14, "y": 40655}, {"x": 96, "y": 14717}, {"x": 117, "y": 39160}, {"x": 48, "y": 12858}, {"x": 46, "y": 12645}, {"x": 107, "y": 8306}, {"x": 66, "y": 14401}, {"x": 48, "y": 14469}, {"x": 47, "y": 8344}, {"x": 20, "y": 36380}, {"x": 60, "y": 12091}, {"x": 33, "y": 9027}, {"x": 95, "y": 5372}, {"x": 32, "y": 7143}, {"x": 159, "y": 12337}, {"x": 96, "y": 7644}, {"x": 53, "y": 14937}, {"x": 106, "y": 5530}, {"x": 72, "y": 23599}, {"x": 36, "y": 18353}, {"x": 76, "y": 8817}, {"x": 108, "y": 8450}, {"x": 66, "y": 9284}, {"x": 52, "y": 3828}, {"x": 37, "y": 20611}, {"x": 59, "y": 33509}, {"x": 57, "y": 22529}, {"x": 56, "y": 6863}, {"x": 65, "y": 17368}, {"x": 12, "y": 25226}, {"x": 39, "y": 39956}, {"x": 93, "y": 11588}, {"x": 99, "y": 16402}, {"x": 32, "y": 15997}, {"x": 79, "y": 12519}, {"x": 78, "y": 33143}, {"x": 33, "y": 17090}, {"x": 107, "y": 42818}, {"x": 38, "y": 20248}, {"x": 79, "y": 31452}, {"x": 39, "y": 21626}],
+            backgroundColor: '#9aa0c499',
+            borderColor: '#9aa0c4',
+            pointRadius: 3,
+            pointHoverRadius: 5,
+          },
+          {
+            label: '沉睡客戶',
+            data: [{"x": 242, "y": 5056}, {"x": 250, "y": 25263}, {"x": 166, "y": 16812}, {"x": 137, "y": 2845}, {"x": 205, "y": 5781}, {"x": 188, "y": 9969}, {"x": 232, "y": 8999}, {"x": 184, "y": 15751}, {"x": 221, "y": 12518}, {"x": 245, "y": 13480}, {"x": 319, "y": 4618}, {"x": 340, "y": 4657}, {"x": 354, "y": 8046}, {"x": 360, "y": 8726}, {"x": 364, "y": 12295}, {"x": 219, "y": 12665}, {"x": 292, "y": 3399}, {"x": 283, "y": 23319}, {"x": 258, "y": 20867}, {"x": 336, "y": 4171}, {"x": 156, "y": 7043}, {"x": 207, "y": 9127}, {"x": 360, "y": 10808}, {"x": 247, "y": 7821}, {"x": 205, "y": 7404}, {"x": 217, "y": 8429}, {"x": 341, "y": 9009}, {"x": 293, "y": 7812}, {"x": 281, "y": 10241}, {"x": 321, "y": 2818}, {"x": 168, "y": 4872}, {"x": 259, "y": 53626}, {"x": 292, "y": 5223}, {"x": 309, "y": 4320}, {"x": 298, "y": 13148}, {"x": 316, "y": 6914}, {"x": 246, "y": 5630}, {"x": 289, "y": 13308}, {"x": 282, "y": 4370}],
+            backgroundColor: '#7a8bb099',
+            borderColor: '#7a8bb0',
+            pointRadius: 3,
+            pointHoverRadius: 5,
+          }
+              ]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                x: {
+                  title: { display: true, text: '最近購買天數（越小越活躍）', color: '#8c8ca8' },
+                  ticks: { color: '#8c8ca8' },
+                  grid: { color: '#383850' }
+                },
+                y: {
+                  title: { display: true, text: '消費金額 (NT$)', color: '#8c8ca8' },
+                  ticks: { color: '#8c8ca8' },
+                  grid: { color: '#383850' }
+                }
+              },
+              plugins: {
+                legend: { position: 'top', labels: { color: '#eceefa', font: { size: 12 } } }
+              }
+            }
+          });
+        })();
+        </script>
+        <div style="position: relative; width: 100%; padding-top: 57.94%; margin: 0 0 20px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border);">
+          <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRth1zx5-KFABz5qo3oPFnRakNXnd-EvaWXdvur5mHJxPDKaln5M-g3kCPAdDBUyyoLvXyoB6PNNTVX/pubembed?start=false&loop=false&delayms=3000"
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+            frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" loading="lazy">
+          </iframe>
         </div>
-        <div onclick="gotoPage('week4')" style="cursor: pointer; flex: 1 1 260px; background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
-          <div style="color: var(--gold); font-size: 12px; letter-spacing: 0.05em; margin-bottom: 8px;">W4・任務15</div>
-          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">OR-Tools雙觀點決策</h4>
-          <p style="color: var(--muted); font-size: 13px; margin: 0;">可行性違反數從4條降到0，成本省3.3%，用數字證明AI決策比直覺方案更值得</p>
-        </div>
-        <div onclick="gotoPage('week4')" style="cursor: pointer; flex: 1 1 260px; background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
-          <div style="color: var(--gold); font-size: 12px; letter-spacing: 0.05em; margin-bottom: 8px;">W4・任務17</div>
-          <h4 style="font-size: 15px; color: var(--text); margin-bottom: 8px;">AI代理人自動值班</h4>
-          <p style="color: var(--muted); font-size: 13px; margin: 0;">用Claude Code打造值班Agent，每天30分鐘人工比對壓縮到30秒自動完成，通過越權測試與guardrail設計</p>
-        </div>
+        <a href="https://docs.google.com/presentation/d/e/2PACX-1vRth1zx5-KFABz5qo3oPFnRakNXnd-EvaWXdvur5mHJxPDKaln5M-g3kCPAdDBUyyoLvXyoB6PNNTVX/pubembed" target="_blank"
+           style="display: inline-block; padding: 12px 32px; background: var(--vermilion); color: var(--ink); border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 14px; letter-spacing: 0.05em;">
+          📊 在新分頁開啟完整簡報
+        </a>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-item"><div class="num">8</div><div class="label">週學習週期</div></div>
+        <div class="stat-item"><div class="num">4</div><div class="label">已完成週次</div></div>
+        <div class="stat-item"><div class="num">3.3%</div><div class="label">AI決策省下的成本</div></div>
       </div>
 
     <div class="divider"></div>
